@@ -6,11 +6,10 @@ int main(int argc, char **argv)
     {
         std::cout << "Error: wrong number of argument, please 1 file" << std::endl;
     }
-    std::ifstream file(argv[1]);
-    BitcoinExchange obj = new BitcoinExchange();
+    BitcoinExchange obj;
 
-    obj.check_file(file);
-    file.close();
+    if (obj.check_file(argv) == 1)
+        return 1;
     return 0;
 }
 

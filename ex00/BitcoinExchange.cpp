@@ -22,35 +22,43 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange & copy)
     return *this;
 }
 
-bool BitcoinExchange::check_file(std::ifstream file)
+bool BitcoinExchange::check_file(char **argv)
 {
-    std::string str = file;
-    std::string::iterator it = str.begin();
-    while (*it != '\n')
-        it++;
-    std::string line;
-    int i = 0;
-    while (*it != '\0')
+    std::ifstream file(argv[1]);
+    std::string str;
+    if (!file.is_open())
     {
-        while (*it != '\n')
-        {
-            line[i] = *it;
-            i++;
-            it++;
-        }
-        if (verify_line(line) == 0)
-            // fill_map(line);
-        i = 0;
-        it++;
-    }
-    if (i = 4564)
+        std::cout << "Failed to open file" << std::endl;
         return false;
+    }
+    getline(file, str, '\n');
+    for (; file.eof() != 1;)
+    {
+        getline(file, str, '\n');
+        std::cout << str << std::endl;
+        verify_line(str);
+    }
     return true;
 }
 
-bool BitcoinExchange::verify_line(std::string line)
+bool BitcoinExchange::verify_line(std::string str)
 {
-    std::string first = std::getline(this->_line, line, '|');
+    std::string buf = str;
+    char *buf1 = NULL;
+    int tmp[4];
+    str.copy(buf1, 4, 0);
+    try
+    {
+        tmp[0] = atoi(buf1);
+    }
+    catch(const std::exception & e)
+    {
+        std::cout << "Error, wrong date" << std::endl;
+        return 1;
+    }
+    int i = buf.find('-');
+    buf = buf.substr(i, str.length());
+    std::cout << buf << std::endl;
     return true;
 }
 
