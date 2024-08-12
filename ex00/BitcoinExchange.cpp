@@ -34,6 +34,7 @@ bool BitcoinExchange::check_file(char **argv)
     getline(file, str, '\n');
     for (; file.eof() != 1;)
     {
+        std::cout << "=== NOUVELLE BOUCLE ===" << std::endl;
         getline(file, str, '\n');
         std::cout << str << std::endl;
         verify_line(str);
@@ -44,18 +45,21 @@ bool BitcoinExchange::check_file(char **argv)
 bool BitcoinExchange::verify_line(std::string str)
 {
     std::string buf = str;
-    char *buf1 = NULL;
+    char buf1[4];
     int tmp[4];
     str.copy(buf1, 4, 0);
     try
     {
         tmp[0] = atoi(buf1);
+        std::cout << "voici ma date " << tmp[0] << std::endl;
     }
     catch(const std::exception & e)
     {
         std::cout << "Error, wrong date" << std::endl;
         return 1;
     }
+    str.copy(buf1, 2, 5);
+    std::cout << buf1 << std::endl;
     int i = buf.find('-');
     buf = buf.substr(i, str.length());
     std::cout << buf << std::endl;
