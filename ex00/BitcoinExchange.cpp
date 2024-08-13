@@ -122,7 +122,15 @@ bool BitcoinExchange::verify_line(std::string str)
 
 void BitcoinExchange::fill_container(std::string str)
 {
-    (void)str;
+    std::string tmp;
+    tmp = str.substr(0, 10);
+    int len = str.length() - tmp.length() - 3;
+    // double nb;
+    std::string buf = str.substr(13, len);
+    std::cout << buf << std::endl;
+    nb = buf;
+    this->_ma[tmp] = ;
 }
+
 // fill le container avec les en string, les date puis en valeur double
 // 2011-01-03 => 3 = 0.9
