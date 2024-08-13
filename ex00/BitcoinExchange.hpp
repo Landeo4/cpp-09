@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <string.h>
 
 class BitcoinExchange
 {
@@ -18,10 +19,11 @@ class BitcoinExchange
     // BitcoinExchange(char **argv);
     bool check_file(char **argv);
     bool verify_line(std::string line);
+    void fill_container(std::string str);
 
     private:
     // std::ifstream _file;
-    std::map<int, int> _ma;
+    std::map<std::string, double> _ma;
 
 }   ;
 

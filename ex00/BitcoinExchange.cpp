@@ -28,78 +28,101 @@ bool BitcoinExchange::check_file(char **argv)
     std::string str;
     if (!file.is_open())
     {
-        std::cout << "Failed to open file" << std::endl;
+        std::cout << "Error: could not open the file" << std::endl;
         return false;
     }
     getline(file, str, '\n');
     for (; file.eof() != 1;)
     {
-        std::cout << "=== NOUVELLE BOUCLE ===" << std::endl;
         getline(file, str, '\n');
-        std::cout << str << std::endl;
-        verify_line(str);
+        if (verify_line(str) == 0)
+        {
+            fill_container(str);
+        }
     }
     return true;
 }
 
 bool BitcoinExchange::verify_line(std::string str)
 {
-    std::string buf = str;
     char buf1[4];
-    int tmp[4];
+    double tmp[4];
     str.copy(buf1, 4, 0);
     try
     {
         tmp[0] = atoi(buf1);
-        std::cout << "voici ma date " << tmp[0] << std::endl;
     }
     catch(const std::exception & e)
     {
-        std::cout << "Error, wrong date" << std::endl;
-        return 1;
+        std::cout << "Error: bad input => " << tmp[0] << std::endl;
+        return true;
     }
+    for (int i = 0; buf1[i]; i++)
+        buf1[i] = 0;
     str.copy(buf1, 2, 5);
-    std::cout << buf1 << std::endl;
-    int i = buf.find('-');
-    buf = buf.substr(i, str.length());
-    std::cout << buf << std::endl;
-    return true;
+    for (int i = 0; i < 2; i++)
+    {
+        try
+        {
+            tmp[i] = atoi(buf1);
+            if (tmp[i] > 31 && i == 0)
+            {
+                std::cout << "Error: bad input => " << tmp[i] << std::endl;
+                return true;
+            }
+            else if (tmp[i] < 0 && i == 0)
+            {
+                std::cout << "Error: not a positive number => " << tmp[i] << std::endl;
+                return true;
+            }
+            else if (tmp[i] < 0 && i == 1)
+            {
+                std::cout << "Error: not a positive number => " << tmp[i] << std::endl;
+                return true;
+            }
+            else if (tmp[i] > 12 && i == 1)
+            {
+                std::cout << "Error: bad input => " << tmp[i] << std::endl;
+                return true;
+            }
+        }
+        catch(const std::exception & e)
+        {
+            std::cout << "Error, wrong date" << std::endl;
+            return true;
+        }
+        for (int i = 0; buf1[i]; i++)
+            buf1[i] = 0;
+        str.copy(buf1, 2, 8);
+    }
+    for (int i = 0; buf1[i]; i++)
+        buf1[i] = 0;
+    str.copy(buf1, 11, 13);
+    try
+    {
+        tmp[3] = atof(buf1);
+        if (tmp[3] > 1000)
+        {
+            std::cout << "Error: too large number => " << tmp[3] << std::endl;
+            return true;
+        }
+        else if (tmp[3] < 0)
+        {
+            std::cout << "Error: not a positive number => " << tmp[3] << std::endl;
+            return true;
+        }
+    }
+    catch(const std::exception & e)
+    {
+        std::cout << "Error, wrong value" << std::endl;
+        return true;
+    }
+    return false;
 }
 
-// bool BitcoinExchange::check_file()
-// {
-//     std::string::iterator i = _file.begin();
-//     unsigned int tmp;
-//     char *nb;
-//     while (*i != '\n')
-//         i++;
-//     i++;
-//     while (*i != '\0')
-//     {
-//         while (*i != '\n')
-//         {
-//             verify_line(i);
-//             for (int in = 0; in < 3; in++)
-//                 nb[in] = *i;
-//             atoi(nb);
-//             i++;
-//         }
-//         i++;
-//     }
-//     return true;
-// }
-
-// bool BitcointExchange::verify_line(std::string::iterator i)
-// {
-//     for (int in = 0; in < 3; in++)
-//     {
-//         if (atoi(*i) == 0)
-//         {
-//             std::cout << "a wrong date has been write" << std::endl;
-//             return false;
-//         }
-//         i++;
-//     }
-
-//     return true;
-// }
+void BitcoinExchange::fill_container(std::string str)
+{
+    (void)str;
+}
+// fill le container avec les en string, les date puis en valeur double
+// 2011-01-03 => 3 = 0.9
