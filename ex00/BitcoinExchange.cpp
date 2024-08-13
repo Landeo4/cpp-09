@@ -26,6 +26,8 @@ bool BitcoinExchange::check_file(char **argv)
 {
     std::ifstream file(argv[1]);
     std::string str;
+    if (fill_container() == 1)
+        return 1;
     if (!file.is_open())
     {
         std::cout << "Error: could not open the file" << std::endl;
@@ -37,10 +39,37 @@ bool BitcoinExchange::check_file(char **argv)
         getline(file, str, '\n');
         if (verify_line(str) == 0)
         {
-            fill_container(str);
+            // fill_container(str);
         }
     }
     return true;
+}
+
+bool BitcoinExchange::fill_container()
+{
+    std::string data;
+    std::string tmp;
+    std::ifstream file("data.csv");
+    if (!file.is_open())
+    {
+        std::cout << "Error: could not open the data.csv" << std::endl;
+        return false;
+    }
+    getline(file, data, '\n');
+    for(;file.eof() != 1;)
+    {
+        getline(file, data, '\n');
+        tmp = data.substr(0, 10);
+        int len = data.length() - tmp.length();
+        double nb;
+        // je passe a la valeur
+        std::string buf = data.substr(11, len);
+        nb = std::atof(buf.c_str());
+        std::cout << "voici mon buf " << buf << " et nb " << nb <<  std::endl;
+        this->_ma[tmp] = nb;
+        std::cout << tmp << " => " << this->_ma[tmp] << std::endl;
+    }
+    return false;
 }
 
 bool BitcoinExchange::verify_line(std::string str)
@@ -120,17 +149,21 @@ bool BitcoinExchange::verify_line(std::string str)
     return false;
 }
 
-void BitcoinExchange::fill_container(std::string str)
-{
-    std::string tmp;
-    tmp = str.substr(0, 10);
-    int len = str.length() - tmp.length() - 3;
-    // double nb;
-    std::string buf = str.substr(13, len);
-    std::cout << buf << std::endl;
-    nb = buf;
-    this->_ma[tmp] = ;
-}
+// lower bond
 
 // fill le container avec les en string, les date puis en valeur double
 // 2011-01-03 => 3 = 0.9
+
+// void BitcoinExchange::fill_container(std::string str)
+// {
+//     // std::cout << "string de base " << str << std::endl;
+//     std::string tmp;
+//     tmp = str.substr(0, 10);
+//     int len = str.length() - tmp.length() - 3;
+//     double nb;
+//     // je passe a la valeur
+//     std::string buf = str.substr(13, len);
+//     nb = std::atof(buf.c_str());
+//     this->_ma[tmp] = nb;
+//     std::cout << tmp << " => " << this->_ma[tmp] << std::endl;
+// }

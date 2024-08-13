@@ -19,7 +19,7 @@ class BitcoinExchange
     // BitcoinExchange(char **argv);
     bool check_file(char **argv);
     bool verify_line(std::string line);
-    void fill_container(std::string str);
+    bool fill_container();
 
     private:
     // std::ifstream _file;
