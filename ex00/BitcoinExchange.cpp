@@ -37,10 +37,7 @@ bool BitcoinExchange::check_file(char **argv)
     for (; file.eof() != 1;)
     {
         getline(file, str, '\n');
-        if (verify_line(str) == 0)
-        {
-            // fill_container(str);
-        }
+        verify_line(str);
     }
     return true;
 }
@@ -59,15 +56,15 @@ bool BitcoinExchange::fill_container()
     for(;file.eof() != 1;)
     {
         getline(file, data, '\n');
+        if (data.length() == 0)
+            break;
         tmp = data.substr(0, 10);
         int len = data.length() - tmp.length();
-        double nb;
-        // je passe a la valeur
+        float nb;
         std::string buf = data.substr(11, len);
         nb = std::atof(buf.c_str());
-        std::cout << "voici mon buf " << buf << " et nb " << nb <<  std::endl;
         this->_ma[tmp] = nb;
-        std::cout << tmp << " => " << this->_ma[tmp] << std::endl;
+        // std::cout << tmp << " => " << this->_ma[tmp] << std::endl;
     }
     return false;
 }
@@ -146,7 +143,35 @@ bool BitcoinExchange::verify_line(std::string str)
         std::cout << "Error, wrong value" << std::endl;
         return true;
     }
+    execute_line(buf1, tmp, str);
     return false;
+}
+
+void BitcoinExchange::execute_line(char *buf, double *tmp, std::string str)
+{
+    (void)buf;
+    (void)tmp;
+    // std::cout << "voici ma string " << str << std::endl;
+    std::string wait(str.substr(0, 10));
+    // std::cout << wait << std::endl;
+    if (_ma.find(wait) != _ma.end())
+    {
+        std::map<std::string, float>::iterator it = _ma.find(wait);
+        std::string af = str.substr(0, 10);
+        float nb = it->second;
+        // std::cout << "(voici mon nb: " << nb << ")" << std::endl;
+        std::cout << af << " => " << tmp[3] << " = " << nb << std::endl;
+    }
+    else
+    {
+        std::map<std::string, float>::iterator it = _ma.begin();
+        it = std::lower_bound(_ma.begin(), _ma.end(), wait);
+        // std::map<std::string, float>::iterator it = _ma.find(wait);
+        std::string af = str.substr(0, 10);
+        float nb = it->second;
+        // std::cout << "(voici mon nb: " << nb << ")" << std::endl;
+        std::cout << af << " => " << tmp[3] << " = " << nb << std::endl;
+    }
 }
 
 // lower bond

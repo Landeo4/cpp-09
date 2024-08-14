@@ -20,10 +20,12 @@ class BitcoinExchange
     bool check_file(char **argv);
     bool verify_line(std::string line);
     bool fill_container();
+    void execute_line(char *buf, double *tmp, std::string str);
+
 
     private:
     // std::ifstream _file;
-    std::map<std::string, double> _ma;
+    std::map<std::string, float>    _ma;
 
 }   ;
 
