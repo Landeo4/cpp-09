@@ -64,7 +64,6 @@ bool BitcoinExchange::fill_container()
         std::string buf = data.substr(11, len);
         nb = std::atof(buf.c_str());
         this->_ma[tmp] = nb;
-        // std::cout << tmp << " => " << this->_ma[tmp] << std::endl;
     }
     return false;
 }
@@ -151,31 +150,25 @@ void BitcoinExchange::execute_line(char *buf, double *tmp, std::string str)
 {
     (void)buf;
     (void)tmp;
-    // std::cout << "voici ma string " << str << std::endl;
     std::string wait(str.substr(0, 10));
-    // std::cout << wait << std::endl;
     if (_ma.find(wait) != _ma.end())
     {
         std::map<std::string, float>::iterator it = _ma.find(wait);
         std::string af = str.substr(0, 10);
         float nb = it->second;
-        // std::cout << "(voici mon nb: " << nb << ")" << std::endl;
         std::cout << af << " => " << tmp[3] << " = " << nb << std::endl;
     }
     else
     {
         std::map<std::string, float>::iterator it;
         it = _ma.lower_bound(wait);
-        // std::map<std::string, float>::iterator it = _ma.find(wait);
+        it--;
         std::string af = str.substr(0, 10);
         int len = str.length() - 12;
         std::string cpy(str.substr(12, len));
         float nb = it->second;
         float nb2 = std::atof(cpy.c_str());
-        // std::cout << "voici cpy " << cpy << std::endl;
-        // std::cout << "voici le calcul " << nb << " * " << nb2 << std::endl;
         float result = nb * nb2;
-        // std::cout << "(voici mon nb: " << nb << ")" << std::endl;
         std::cout << af << " => " << tmp[3] << " = " << result << std::endl;
     }
 }
