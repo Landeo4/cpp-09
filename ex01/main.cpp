@@ -1,4 +1,15 @@
-// le nom du programme est RPN
+#include "RPN.hpp"
+
+int main(int argc, char **argv)
+{
+    if (argc > 3)
+    {
+        std::cout << "too many arguments" << std::endl;
+        return 1;
+    }
+    RPN obj;
+    obj.
+}
 
 // votre programme doit prendre une expression mathematique polonaise inversee en argument
 
