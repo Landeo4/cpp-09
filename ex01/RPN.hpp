@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stack>
+#include <algorithm>
 
 class RPN
 {
@@ -12,8 +13,9 @@ class RPN
     RPN&operator=(const RPN & cpy);
     RPN(const RPN & cpy);
 
-    void check_args(char **argv);
-    void fill_struct();
+    bool check_args(char **argv);
+    void fill_struct(char **argv);
+    bool check_char(std::string::iterator it);
 
     private:
     std::stack<int>   _st;

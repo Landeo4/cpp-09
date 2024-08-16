@@ -22,21 +22,45 @@ RPN::RPN(const RPN & cpy)
     *this = cpy;
 }
 
-void RPN::check_args(char **argv)
+bool RPN::check_args(char **argv)
 {
     std::string str = argv[1];
-    // if (str.length() > 9)
-    // {
-    //     std::cout << "too much "
-    // }
     std::string::iterator it = str.begin();
-    while (it < str.begin())
+    while (it < str.end())
     {
-        
+        if (check_char(it) == 1)
+        {
+            std::cout << "Error, bad character in the list: " << *it << std::endl;
+            return true;
+        }
+        std::cout << *it;
+        it++;
     }
+    std::cout << std::endl;
+    return false;
 }
 
-void RPN::fill_struct()
+bool RPN::check_char(std::string::iterator it)
 {
+    if (*it >= 48 && *it <= 57)
+        return false;
+    else if (*it == '*' || *it == '+'
+            || *it == '/' || *it == '-'
+            || *it == ' ')
+        return false;
+    return true;
+}
 
+void RPN::fill_struct(char **argv)
+{
+    std::string str = argv[1];
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        std::cout << str[i];
+        std::string tmp = str[i];
+        atoi(str[i]);
+        // int nb = atoi(str[i]);
+        // std::cout << "voici mon nb " << nb << std::endl;
+        // this->_st.push(nb);
+    }
 }
