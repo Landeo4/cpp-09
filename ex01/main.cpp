@@ -2,13 +2,14 @@
 
 int main(int argc, char **argv)
 {
-    if (argc > 3)
+    if (argc > 2)
     {
         std::cout << "too many arguments" << std::endl;
         return 1;
     }
+    std::cout << "voici le nb d'argument " << argc << std::endl;
     RPN obj;
-    obj.
+    obj.check_args(argv);
 }
 
 // votre programme doit prendre une expression mathematique polonaise inversee en argument
