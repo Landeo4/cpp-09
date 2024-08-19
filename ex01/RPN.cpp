@@ -53,14 +53,30 @@ bool RPN::check_char(std::string::iterator it)
 
 void RPN::fill_struct(char **argv)
 {
-    std::string str = argv[1];
-    for (size_t i = 0; i < str.length(); i++)
+    char    *str = argv[1];
+    int len, i = 0;
+    while (str[i])
+        i++;
+    len = i;
+    i = 0;
+    while (i < len)
     {
+        if (i == len)
+            break;
         std::cout << str[i];
-        std::string tmp = str[i];
-        atoi(str[i]);
-        // int nb = atoi(str[i]);
-        // std::cout << "voici mon nb " << nb << std::endl;
-        // this->_st.push(nb);
+        char buf[2];
+        buf[0] = str[i];
+        buf[1] = str[i + 1];
+        // std::cout << " et voici mon buf " << buf[1] << std::endl;
+        if (buf[0] >= 48 && buf[0] <= 57)
+        {
+            int nb = atoi(buf);
+            std::cout << " voici mon nb " << nb << std::endl;
+            this->_st.push(nb);
+        }
+        i += 2;
     }
 }
+
+// idee pour le projet, mettre dans la structure le premier nombre
+// prendre l'operateur, faire le calcul, stocker le nouveau nombre etc
