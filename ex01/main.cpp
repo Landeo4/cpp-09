@@ -12,11 +12,9 @@ int main(int argc, char **argv)
         std::cout << "please put 2 arguments" << std::endl;
         return 1;
     }
-    std::cout << "voici le nb d'argument " << argc << std::endl;
     RPN obj;
     if (obj.check_args(argv) == 1)
         return 1;
-    obj.fill_struct(argv);
 }
 
 // votre programme doit prendre une expression mathematique polonaise inversee en argument

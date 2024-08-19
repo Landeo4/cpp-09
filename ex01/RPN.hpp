@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stack>
+#include <list>
 #include <algorithm>
 
 class RPN
@@ -15,10 +16,12 @@ class RPN
 
     bool check_args(char **argv);
     void fill_struct(char **argv);
-    bool check_char(std::string::iterator it);
+    int check_char(std::string::iterator it);
 
     private:
-    std::stack<int>   _st;
+    std::stack<double, std::list<double> >   _st;
+    int _i;
+    const char *_c;
 
 };
 
