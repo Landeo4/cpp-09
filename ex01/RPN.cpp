@@ -56,7 +56,14 @@ bool RPN::check_args(char **argv)
                 else if (*it == '-')
                     nb2 = nb2 - nb1;
                 else if (*it == '/')
-                      nb2 = nb2 / nb1;
+                {
+                    if (nb2 == 0)
+                        nb2 = nb1;
+                    else if (nb1 == 0)
+                        nb2 = nb2 + 0;
+                    else
+                        nb2 = nb2 / nb1;
+                }
                 else if (*it == '*')
                     nb2 = nb2 * nb1;
                 _st.push(nb2);
