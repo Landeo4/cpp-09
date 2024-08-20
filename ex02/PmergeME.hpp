@@ -4,6 +4,7 @@
 #include <iostream>
 #include <deque>
 #include <vector>
+#include <algorithm>
 
 template <typename T>
 class Algo
@@ -14,12 +15,12 @@ class Algo
     Algo&operator=(const Algo & copy);
     Algo(const Algo & copy);
 
-    bool check_duplicate(char **argv, int argc);
-    void Algo<T>::Swap();
+    bool check_element_vector(char **argv, int argc);
+    // void Algo<T>::Swap();
 
     private:
-    std::vector<double> vec;
-    std::deque<double> deq;
+    std::vector<double> _vec;
+    std::deque<double> _deq;
 
 }   ;
 
