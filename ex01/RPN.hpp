@@ -15,7 +15,6 @@ class RPN
     RPN(const RPN & cpy);
 
     bool check_args(char **argv);
-    void fill_struct(char **argv);
     int check_char(std::string::iterator it);
 
     private:

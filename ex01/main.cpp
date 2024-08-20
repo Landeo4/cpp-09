@@ -28,3 +28,5 @@ int main(int argc, char **argv)
 // renvoye dans la sorite standard
 
 // votre programme doit gerer les operation avec ses operateur: "+ - / *"
+
+//si 3 nombre mais plus d'operation, mettre une erreur
