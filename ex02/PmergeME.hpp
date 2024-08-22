@@ -16,9 +16,10 @@ class Algo
     Algo(const Algo & copy);
 
     bool check_element_vector(char **argv, int argc);
-    void print_first_line();
-    void start_algo();
-    void swap(double even);
+    void print_container();
+    void start_algo(size_t pair);
+    void swap(size_t pair_buf, T vec);
+    // void swap(double even);
     // void Algo<T>::Swap();
 
     private:
@@ -98,60 +99,108 @@ bool Algo<T>::check_element_vector(char **argv, int argc)
 }
 
 template<typename T>
-void Algo<T>::print_first_line()
+void Algo<T>::print_container()
 {
-    std::cout << "Before:  ";
-    for(int i = 0; _vec[i]; i++)
+    std::cout << "hello voici back " << _vec.back() << std::endl;
+    size_t i = 0;
+    while (i < _vec.back())
     {
         if (_vec[i] == _vec.back())
             break;
         std::cout << _vec[i] << " ";
+        i++;
     }
-    std::cout << std::endl;
+    std::cout << _vec[i] << std::endl;
 }
 
 template<typename T>
-void Algo<T>::start_algo()
+void Algo<T>::start_algo(size_t pair)
 {
-    size_t i = 0;
-    // int i = 0;
-    while (i < _vec.size())
-        i++;
-    std::cout << i << std::endl;
-    size_t j = 1;
-    double even = 0;
-    double odd = 1;
-    while (j < _vec.size())
+    // size_t tab[pair];
+    size_t pair_buf = pair;
+    while (pair_buf * 2 < _vec.size())
     {
-        if (_vec[odd] < _vec[even])
-            swap(even);
-        odd += 2;
-        even += 2;
-        j++;
+
+        if (_vec[pair_buf] > _vec[pair_buf * 2])
+            swap(pair_buf, _vec);
+        pair_buf *= 2;
     }
 
-}// pour le systheme de pair, je pourrai utiliser % == 0 pour pair
+    if (pair * 2 < _vec.size())
+        start_algo(pair * 2);
+    else
+        return ;
+}
+// donc je dois prendre la taille de ma pair
 
-//faire une fonction swap
 template<typename T>
-void Algo<T>::swap(double even)
+void Algo<T>::swap(size_t pair_buf, T vec)
 {
-    std::vector<double> tmp;
+    T tmp;
     size_t i = 0;
-    int j = 0;
-    while (i < _vec.size())
+    size_t j = 0;
+    while (i < vec.size())
     {
-        if (j == even)
+        if (j == pair_buf)
         {
-            tmp.push_back(_vec[j]);
+            tmp.push_back(vec[j + 1]);
             j++;
-            tmp.push_back(_vec[j]);
+            i++;
+            tmp.push_back(vec[j - 1]);
         }
         else
-            tmp.push_back(_vec[j]);
+            tmp.push_back(vec[j]);
         i++;
         j++;
     }
+    vec.swap(tmp);
+    print_container();
 }
+
+// template<typename T>
+// void Algo<T>::start_algo()
+// {
+//     size_t i = 0;
+//     while (i < _vec.size())
+//         i++;
+//     std::cout << i << std::endl;
+//     size_t j = 1;
+//     double even = 0;
+//     double odd = 1;
+//     while (j < _vec.size())
+//     {
+//         if (_vec[odd] < _vec[even])
+//             swap(even);
+//         odd += 2;
+//         even += 2;
+//         j += 2;
+//     }
+
+// }// pour le systheme de pair, je pourrai utiliser % == 0 pour pair
+
+// //faire une fonction swap
+// template<typename T>
+// void Algo<T>::swap(double even)
+// {
+//     std::vector<double> tmp;
+//     size_t i = 0;
+//     int j = 0;
+//     while (i < _vec.size())
+//     {
+//         if (j == even)
+//         {
+//             tmp.push_back(_vec[j + 1]);
+//             j++;
+//             i++;
+//             tmp.push_back(_vec[j - 1]);
+//         }
+//         else
+//             tmp.push_back(_vec[j]);
+//         i++;
+//         j++;
+//     }
+//     _vec.swap(tmp);
+//     print_container();
+// }
 
 #endif

@@ -73,9 +73,9 @@
 
 //insertion binarie 
 //insertion dycotomique
-// 4 1 2 3
-// 41 23 -> faire des paires
-// 14 23 -> mettre le plus grand a droite
+// 4 1 2 3 FAIT
+// 41 23 -> faire des paires FAIT
+// 14 23 -> mettre le plus grand a droite FAIT
 // Recursion => 4 3 -> prendre les plus grands
 // (2)3 (1)4 -> prendre les petits pour les deplacer a droite
 // 1 2 3 4
