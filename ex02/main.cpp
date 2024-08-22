@@ -10,4 +10,6 @@ int main(int argc, char **argv)
     Algo<int> obj;
     if (obj.check_element_vector(argv, argc) == 1)
         return 1;
+    obj.print_first_line();
+    obj.start_algo();
 }
