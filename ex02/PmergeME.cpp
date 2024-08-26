@@ -1,74 +1,169 @@
 #include "PmergeME.hpp"
 
-// template <typename T>
-// Algo<T>::Algo()
+Algo::Algo()
+{
+
+}
+
+Algo::~Algo()
+{
+
+}
+
+Algo &Algo::operator=(const Algo & copy)
+{
+    if (this != &copy)
+        *this = copy;
+    return *this;
+}
+
+Algo::Algo(const Algo & copy)
+{
+    *this = copy;
+}
+
+bool Algo::check_element_vector(char **argv, int argc)
+{
+    int cpt = 0;
+    int i = cpt;
+    while (cpt < argc - 1)
+    {
+        cpt++;
+        i = cpt;
+        double nb = atof(argv[i]);
+        i++;
+        while (argv[i])
+        {
+            if (nb == atof(argv[i]))
+            {
+                std::cout << "Error: two numbers are equal " << nb << " " << atof(argv[i]) << std::endl;
+                return true;
+            }
+            else if (argv[i][0] == '-')
+            {
+                std::cout << "Error" << std::endl;
+                return true;
+            }
+            else if (atof(argv[i]) > 2147483647)
+            {
+                std::cout << "Error: numbers are bigger than INT_MAX" << std::endl;
+                return true;
+            }
+            i++;
+        }
+        _vec.push_back(nb);
+    }
+    print_container(_vec);
+    return false;
+}
+
+void Algo::start_algo(size_t pair)
+{
+    // size_t tab[pair];
+    size_t pair_buf = pair;
+    std::cout << _vec.size() << std::endl;
+    std::cout  << "voici mes donnees " << pair << " " << pair_buf << std::endl;
+    while (pair_buf * 2 < _vec.size())
+    {
+        std::cout << "debut boucle: valeur pair buf et double " << _vec[pair_buf] << " " << _vec[pair_buf * 2] << " valeur de pauir_buf " << pair_buf << std::endl;
+        if ((pair_buf == 0 && _vec[0] > _vec[1])
+        ||  (_vec[pair_buf] > _vec[pair_buf * 2]))
+        {
+            std::swap(_vec[pair_buf], _vec[pair]);
+            std::cout << "nouveau tab: ";
+            print_container(_vec);
+        }
+        else if (pair == 0 && _vec[pair_buf] > _vec[pair_buf + 1])
+        {
+            std::swap(_vec[pair_buf], _vec[pair_buf + 1]);
+            std::cout << "nouveau tab: ";
+            print_container(_vec);
+        }
+        // std::cout << "voici mon pair " << pair_buf<< std::endl;
+        // std::cout << "voici le nombre " << pair << " " <<  _vec[pair_buf] << " " << _vec[pair_buf * 2] << std::endl;
+        if (pair_buf == 0)
+            pair_buf = 2;
+        else
+            pair_buf *= 2;
+    }
+    std::cout << "============" << std::endl;
+    if (pair * 2 == 0)
+        start_algo(pair + 2);
+    else if (pair * 2 < _vec.size())
+        start_algo(pair * 2);
+    else
+    {
+        std::cout << "je sors" << std::endl;
+        print_container(_vec);
+        return ;
+    }
+}
+// donc je dois prendre la taille de ma pair
+// donc ici je dois faire une recursive pour trier la premiere partis de l'algo
+// donc je prend mes pairs (2 au debut) je compare les deux nb, je met le plus grand a gauche
+// par la suite je double grace a ma recursive ma range (donc 4), je compare les deux plus grands
+// des nouvelles pairs (donc les 4 premiers puis les 4 suivants). Ainsi de suite jusqu'a
+// que mon double de pairs sois superieur a mon max
+
+template<typename T>
+void print_container(T vec)
+{
+    size_t i = 0;
+    while (i < vec.back())
+    {
+        if (vec[i] == vec.back())
+            break;
+        std::cout << vec[i] << " ";
+        i++;
+    }
+    std::cout << vec[i] << std::endl;
+}
+
+// template<typename T>
+// void Algo::start_algo()
 // {
-
-// }
-
-// template <typename T>
-// Algo<T>::~Algo()
-// {
-
-// }
-
-// template <typename T>
-// Algo<T> &Algo<T>::operator=(const Algo<T> & copy)
-// {
-//     if (this != &copy)
-//         *this = copy;
-//     return *this;
-// }
-
-// template <typename T>
-// Algo<T>::Algo(const Algo & copy)
-// {
-//     *this = copy;
-// }
-
-// template <typename T>
-// bool Algo<T>::check_element_vector(char **argv, int argc)
-// {
-//     int cpt = 1;
-//     while (cpt < argc)
+//     size_t i = 0;
+//     while (i < _vec.size())
+//         i++;
+//     std::cout << i << std::endl;
+//     size_t j = 1;
+//     double even = 0;
+//     double odd = 1;
+//     while (j < _vec.size())
 //     {
-//         int i = 1;
-//         int nb = atoi(argv[1]);
-//         while (argv[i])
+//         if (_vec[odd] < _vec[even])
+//             swap(even);
+//         odd += 2;
+//         even += 2;
+//         j += 2;
+//     }
+
+// }// pour le systheme de pair, je pourrai utiliser % == 0 pour pair
+
+// //faire une fonction swap
+// template<typename T>
+// void Algo::swap(double even)
+// {
+//     std::vector<double> tmp;
+//     size_t i = 0;
+//     int j = 0;
+//     while (i < _vec.size())
+//     {
+//         if (j == even)
 //         {
-//             if (nb == atoi(argv[i]))
-//             {
-//                 std::cout << "Error: two numbers are equal" << std::endl;
-//                 return true;
-//             }
-//             else if (argv[i][0] == '-')
-//             {
-//                 std::cout << "Error" << std::endl;
-//                 return true;
-//             }
-//             else if (atof(argv[i]) > 2147483647)
-//             {
-//                 std::cout << "Error: numbers are bigger than INT_MAX" << std::endl;
-//                 return true;
-//             }
+//             tmp.push_back(_vec[j + 1]);
+//             j++;
 //             i++;
+//             tmp.push_back(_vec[j - 1]);
 //         }
-//         _vec.push_back(nb);
-//         cpt++;
+//         else
+//             tmp.push_back(_vec[j]);
+//         i++;
+//         j++;
 //     }
-//     std::cout << "voici les elements dans mon vector " << std::endl;
-//     for (int i = 0; _vec[i]; i++)
-//     {
-//         std::cout << _vec[i] << std::endl;
-//     }
-//     return false;
+//     _vec.swap(tmp);
+//     print_container();
 // }
-
-// // template <typename T>
-// // void Algo<T>::Swap()
-// // {
-// //     T.swap()
-// // }// en gros faire une fonction swap qui fonctionne avec les deux containers
 
 
 //insertion binarie 
