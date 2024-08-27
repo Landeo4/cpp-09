@@ -8,6 +8,10 @@ int main(int argc, char **argv)
         return 1;
     }
     Algo obj;
+    std::cout << "liste de base: ";
+    for(int i = 1; argv[i]; i++)
+        std::cout << argv[i] << " ";
+    std::cout << std::endl << std::endl; 
     if (obj.check_element_vector(argv, argc) == 1)
         return 1;
     int pair = 0;

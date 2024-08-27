@@ -24,33 +24,33 @@ Algo::Algo(const Algo & copy)
 
 bool Algo::check_element_vector(char **argv, int argc)
 {
-    int cpt = 0;
-    int i = cpt;
-    while (cpt < argc - 1)
+    int i = 1;
+    int j = 2;
+    while (i < argc)
     {
-        cpt++;
-        i = cpt;
+        j = 1 + i;
         double nb = atof(argv[i]);
-        i++;
-        while (argv[i])
+        while (argv[j])
         {
-            if (nb == atof(argv[i]))
+            if (nb == atof(argv[j]))
             {
-                std::cout << "Error: two numbers are equal " << nb << " " << atof(argv[i]) << std::endl;
+                std::cout << "Error: two numbers are equal " << nb << " " << atof(argv[j]) << std::endl;
                 return true;
             }
-            else if (argv[i][0] == '-')
+            else if (argv[j][0] == '-')
             {
                 std::cout << "Error" << std::endl;
                 return true;
             }
-            else if (atof(argv[i]) > 2147483647)
+            else if (atof(argv[j]) > 2147483647)
             {
                 std::cout << "Error: numbers are bigger than INT_MAX" << std::endl;
                 return true;
             }
-            i++;
+            // std::cout << argv[j] << std::endl;
+            j++;
         }
+        i++;
         _vec.push_back(nb);
     }
     print_container(_vec);
@@ -66,16 +66,16 @@ void Algo::start_algo(size_t pair)
     while (pair_buf * 2 < _vec.size())
     {
         std::cout << "debut boucle: valeur pair buf et double " << _vec[pair_buf] << " " << _vec[pair_buf * 2] << " valeur de pauir_buf " << pair_buf << std::endl;
-        if ((pair_buf == 0 && _vec[0] > _vec[1])
-        ||  (_vec[pair_buf] > _vec[pair_buf * 2]))
+        if (pair == 0 && _vec[pair_buf] > _vec[pair_buf + 1])
         {
-            std::swap(_vec[pair_buf], _vec[pair]);
+            std::swap(_vec[pair_buf], _vec[pair_buf + 1]);
             std::cout << "nouveau tab: ";
             print_container(_vec);
         }
-        else if (pair == 0 && _vec[pair_buf] > _vec[pair_buf + 1])
+        else if ((pair_buf == 0 && _vec[0] > _vec[1])
+        ||  (_vec[pair_buf] > _vec[pair_buf * 2]))
         {
-            std::swap(_vec[pair_buf], _vec[pair_buf + 1]);
+            std::swap(_vec[pair_buf], _vec[pair]);
             std::cout << "nouveau tab: ";
             print_container(_vec);
         }
@@ -109,7 +109,9 @@ template<typename T>
 void print_container(T vec)
 {
     size_t i = 0;
-    while (i < vec.back())
+
+    std::cout << "voici print cointainer: ";
+    while (vec[i] != vec.back())
     {
         if (vec[i] == vec.back())
             break;
