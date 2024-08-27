@@ -62,28 +62,29 @@ void Algo::start_algo(size_t pair_ratio)
     size_t actual_pair = pair_ratio;
     std::cout << _vec.size() << std::endl;
     std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
-    while (actual_pair + 1 < _vec.size())
+    while (actual_pair < _vec.size())
     {
-        if (_vec[actual_pair] > _vec[actual_pair + 1])
+        std::cout << "voici mon actual pair moins 1 et mon actual pair " << _vec[actual_pair - 1] << " " << _vec[actual_pair] << std::endl;
+        if (_vec[actual_pair] < _vec[actual_pair - 1])
         {
-            std::swap(_vec[actual_pair], _vec[actual_pair + 1]);
+            for(size_t i = 0; i <= pair_ratio; i++)
+                std::swap(_vec[actual_pair + i], _vec[actual_pair - 1 + i]);
             std::cout << "nouveau tab: ";
             print_container(_vec);
         }
-        actual_pair += pair_ratio;
+        actual_pair += pair_ratio * 2;
     }
     std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
-    if (pair_ratio * 2 == 0)
-        start_algo(pair_ratio + 2);
-    else if (pair_ratio * 2 < _vec.size())
+    print_container(_vec);
+    if (pair_ratio * 2 < _vec.size())
         start_algo(pair_ratio * 2);
     else
     {
-        std::cout << "je sors de ma recursion" << std::endl;
         print_container(_vec);
         return ;
     }
 }
+// probleme actuel, mon swap swap uniquement une valeur a la fois
 
 // donc je dois prendre la taille de ma pair
 // donc ici je dois faire une recursive pour trier la premiere partis de l'algo
@@ -195,6 +196,35 @@ void print_container(T vec)
 //         return ;
 //     }
 // }
+
+/*
+void Algo::start_algo(size_t pair_ratio)
+{
+    size_t actual_pair = pair_ratio;
+    std::cout << _vec.size() << std::endl;
+    std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
+    while (actual_pair + pair_ratio < _vec.size())
+    {
+        std::cout << "voici mon actual pair " << _vec[actual_pair] << " " << _vec[actual_pair * 2] << std::endl;
+        if (_vec[actual_pair] < _vec[actual_pair + pair_ratio])
+        {
+            std::swap(_vec[actual_pair], _vec[actual_pair * 2]);
+            std::cout << "nouveau tab: ";
+            print_container(_vec);
+        }
+        actual_pair += pair_ratio;
+    }
+    std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
+    if (pair_ratio * 2 < _vec.size())
+        start_algo(pair_ratio * 2);
+    else
+    {
+        std::cout << "je sors de ma recursion" << std::endl;
+        print_container(_vec);
+        return ;
+    }
+}
+*/
 
 //insertion binarie 
 //insertion dycotomique
