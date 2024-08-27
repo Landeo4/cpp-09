@@ -14,6 +14,6 @@ int main(int argc, char **argv)
     std::cout << std::endl << std::endl; 
     if (obj.check_element_vector(argv, argc) == 1)
         return 1;
-    int pair = 0;
+    int pair = 2;
     obj.start_algo(pair);
 }

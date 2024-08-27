@@ -57,47 +57,34 @@ bool Algo::check_element_vector(char **argv, int argc)
     return false;
 }
 
-void Algo::start_algo(size_t pair)
+void Algo::start_algo(size_t pair_ratio)
 {
-    // size_t tab[pair];
-    size_t pair_buf = pair;
+    size_t actual_pair = pair_ratio;
     std::cout << _vec.size() << std::endl;
-    std::cout  << "voici mes donnees " << pair << " " << pair_buf << std::endl;
-    while (pair_buf * 2 < _vec.size())
+    std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
+    while (actual_pair + 1 < _vec.size())
     {
-        std::cout << "debut boucle: valeur pair buf et double " << _vec[pair_buf] << " " << _vec[pair_buf * 2] << " valeur de pauir_buf " << pair_buf << std::endl;
-        if (pair == 0 && _vec[pair_buf] > _vec[pair_buf + 1])
+        if (_vec[actual_pair] > _vec[actual_pair + 1])
         {
-            std::swap(_vec[pair_buf], _vec[pair_buf + 1]);
+            std::swap(_vec[actual_pair], _vec[actual_pair + 1]);
             std::cout << "nouveau tab: ";
             print_container(_vec);
         }
-        else if ((pair_buf == 0 && _vec[0] > _vec[1])
-        ||  (_vec[pair_buf] > _vec[pair_buf * 2]))
-        {
-            std::swap(_vec[pair_buf], _vec[pair]);
-            std::cout << "nouveau tab: ";
-            print_container(_vec);
-        }
-        // std::cout << "voici mon pair " << pair_buf<< std::endl;
-        // std::cout << "voici le nombre " << pair << " " <<  _vec[pair_buf] << " " << _vec[pair_buf * 2] << std::endl;
-        if (pair_buf == 0)
-            pair_buf = 2;
-        else
-            pair_buf *= 2;
+        actual_pair += pair_ratio;
     }
-    std::cout << "============" << std::endl;
-    if (pair * 2 == 0)
-        start_algo(pair + 2);
-    else if (pair * 2 < _vec.size())
-        start_algo(pair * 2);
+    std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
+    if (pair_ratio * 2 == 0)
+        start_algo(pair_ratio + 2);
+    else if (pair_ratio * 2 < _vec.size())
+        start_algo(pair_ratio * 2);
     else
     {
-        std::cout << "je sors" << std::endl;
+        std::cout << "je sors de ma recursion" << std::endl;
         print_container(_vec);
         return ;
     }
 }
+
 // donc je dois prendre la taille de ma pair
 // donc ici je dois faire une recursive pour trier la premiere partis de l'algo
 // donc je prend mes pairs (2 au debut) je compare les deux nb, je met le plus grand a gauche
@@ -167,6 +154,47 @@ void print_container(T vec)
 //     print_container();
 // }
 
+// void Algo::start_algo(size_t pair)
+// {
+//     // size_t tab[pair];
+//     size_t pair_buf = pair;
+//     std::cout << _vec.size() << std::endl;
+//     std::cout  << "voici mes donnees " << pair << " " << pair_buf << std::endl;
+//     while (pair_buf * 2 < _vec.size())
+//     {
+//         std::cout << "debut boucle: valeur pair buf et double " << _vec[pair_buf] << " " << _vec[pair_buf * 2] << " valeur de pauir_buf " << pair_buf << std::endl;
+//         if (pair == 0 && _vec[pair_buf] > _vec[pair_buf + 1])
+//         {
+//             std::swap(_vec[pair_buf], _vec[pair_buf + 1]);
+//             std::cout << "nouveau tab: ";
+//             print_container(_vec);
+//         }
+//         else if ((pair_buf == 0 && _vec[0] > _vec[1])
+//         ||  (_vec[pair_buf] > _vec[pair_buf * 2]))
+//         {
+//             std::swap(_vec[pair_buf], _vec[pair]);
+//             std::cout << "nouveau tab: ";
+//             print_container(_vec);
+//         }
+//         // std::cout << "voici mon pair " << pair_buf<< std::endl;
+//         // std::cout << "voici le nombre " << pair << " " <<  _vec[pair_buf] << " " << _vec[pair_buf * 2] << std::endl;
+//         if (pair_buf == 0)
+//             pair_buf = 2;
+//         else
+//             pair_buf *= 2;
+//     }
+//     std::cout << "============" << std::endl;
+//     if (pair * 2 == 0)
+//         start_algo(pair + 2);
+//     else if (pair * 2 < _vec.size())
+//         start_algo(pair * 2);
+//     else
+//     {
+//         std::cout << "je sors" << std::endl;
+//         print_container(_vec);
+//         return ;
+//     }
+// }
 
 //insertion binarie 
 //insertion dycotomique
