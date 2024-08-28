@@ -61,10 +61,10 @@ void Algo::start_algo(size_t pair_ratio)
 {
     size_t actual_pair = pair_ratio - 1;
     std::cout << _vec.size() << std::endl;
-    std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
+    // std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
     while (actual_pair + pair_ratio < _vec.size())
     {
-        std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
+        // std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
         // std::cout << _vec[actual_pair] << " " << _vec[actual_pair + pair_ratio]<< std::endl;
         // std::cout << "voici mon actual pair moins 1 et mon actual pair " << _vec[actual_pair - 1] << " " << _vec[actual_pair] << std::endl;
         if (_vec[actual_pair] > _vec[actual_pair + pair_ratio])
@@ -74,21 +74,41 @@ void Algo::start_algo(size_t pair_ratio)
                 // std::cout << " |voici mes switch " << _vec[actual_pair - i] << " " << _vec[actual_pair + pair_ratio - i] << "| ";
                 std::swap(_vec[actual_pair - i], _vec[actual_pair + pair_ratio - i]);
             }
-            std::cout << "nouveau tab: ";
-            print_container(_vec);
+            // std::cout << "nouveau tab: ";
+            // print_container(_vec);
         }
         actual_pair += pair_ratio * 2;
     }
-    std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
+    // std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
     print_container(_vec);
     if (pair_ratio * 2 < _vec.size())
         start_algo(pair_ratio * 2);
     else
-    {
-        print_container(_vec);
         return ;
-    }
+    tri_dicoto(pair_ratio);
 }
+
+void Algo::tri_dicoto(size_t pair_ratio)
+{
+    size_t len = _vec.size();
+    size_t top = _vec.front();
+    size_t bot = _vec.back();
+    std::cout << "size = " << len;
+    std::cout << " voici ce que je dois comparer " << _vec[pair_ratio] <<" " << _vec[len] << std::endl;
+    while ()
+    while (_vec[pos] < _vec[top] && _vec[pos] > _vec[bot])
+    {
+
+    }
+    // if (_vec[len / 2] > _vec[pair_ratio])
+    // {
+
+    // }
+}
+
+//a chaque recursion faire un tri dichotomique ->
+// prendre au milieu et regarder si inf ou sup, faire ca jusqu'a plus possible
+
 // probleme actuel, mon swap swap uniquement une valeur a la fois
 
 // donc je dois prendre la taille de ma pair

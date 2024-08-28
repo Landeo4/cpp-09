@@ -16,6 +16,7 @@ class Algo
 
     bool check_element_vector(char **argv, int argc);
     void start_algo(size_t pair);
+    void tri_dicoto(size_t pair_ratio);
     // void swap(double even);
     // void Algo<T>::Swap();
 
