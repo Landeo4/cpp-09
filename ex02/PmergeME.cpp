@@ -71,8 +71,8 @@ void Algo::start_algo(size_t pair_ratio)
         {
             for(size_t i = 0; i < pair_ratio; i++)
             {
-                std::cout << " |voici mes switch " << _vec[actual_pair + i - 1] << " " << _vec[actual_pair - i] << "| ";
-                std::swap(_vec[actual_pair + i - 1], _vec[actual_pair - i]);
+                std::cout << " |voici mes switch " << _vec[actual_pair - i] << " " << _vec[actual_pair + pair_ratio - i] << "| ";
+                std::swap(_vec[actual_pair - i], _vec[actual_pair + pair_ratio - i]);
             }
             std::cout << "nouveau tab: ";
             print_container(_vec);
