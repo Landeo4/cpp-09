@@ -59,16 +59,21 @@ bool Algo::check_element_vector(char **argv, int argc)
 
 void Algo::start_algo(size_t pair_ratio)
 {
-    size_t actual_pair = pair_ratio;
+    size_t actual_pair = pair_ratio - 1;
     std::cout << _vec.size() << std::endl;
     std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
     while (actual_pair < _vec.size())
     {
-        std::cout << "voici mon actual pair moins 1 et mon actual pair " << _vec[actual_pair - 1] << " " << _vec[actual_pair] << std::endl;
-        if (_vec[actual_pair] < _vec[actual_pair - 1])
+        std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
+        std::cout << _vec[actual_pair] << " " << _vec[actual_pair + pair_ratio]<< std::endl;
+        // std::cout << "voici mon actual pair moins 1 et mon actual pair " << _vec[actual_pair - 1] << " " << _vec[actual_pair] << std::endl;
+        if (_vec[actual_pair] > _vec[actual_pair + pair_ratio])
         {
-            for(size_t i = 0; i <= pair_ratio; i++)
-                std::swap(_vec[actual_pair + i], _vec[actual_pair - 1 + i]);
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                std::cout << " |voici mes switch " << _vec[actual_pair + i - 1] << " " << _vec[actual_pair - i] << "| ";
+                std::swap(_vec[actual_pair + i - 1], _vec[actual_pair - i]);
+            }
             std::cout << "nouveau tab: ";
             print_container(_vec);
         }
