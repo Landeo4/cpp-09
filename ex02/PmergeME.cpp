@@ -91,19 +91,42 @@ void Algo::start_algo(size_t pair_ratio)
 void Algo::tri_dicoto(size_t pair_ratio)
 {
     size_t len = _vec.size();
-    size_t top = _vec.front();
-    size_t bot = _vec.back();
+    len /= 2 ;
+    size_t bot = _vec[len];
+    size_t top = 0;
+    if (len % 2 == 0)
+        top = _vec[len + pair_ratio / 2];
+    else
+        top = _vec[len + pair_ratio / 2];
+    size_t ac_pair = _vec[len + pair_ratio];
+    std::cout << "======= VOICI TRI_DICOTO =======" << std::endl;
+    print_container(_vec);
     std::cout << "size = " << len;
-    std::cout << " voici ce que je dois comparer " << _vec[pair_ratio] <<" " << _vec[len] << std::endl;
-    while ()
-    while (_vec[pos] < _vec[top] && _vec[pos] > _vec[bot])
+    std::cout << " voici mon bot top " << bot << " " << top << std::endl;
+    std::cout << "ac_pair " << ac_pair << std::endl;
+    // std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
+    // std::cout << "ac_pair :" << ac_pair << " bot " << bot << " grand " << top << std::endl;
+    while (ac_pair < bot || ac_pair > top)
     {
-
+        if (ac_pair > bot && ac_pair < top)
+            break;
+        if (ac_pair > bot)
+        {
+            bot = top;
+            top = _vec[top + pair_ratio];
+        }
+        else if (ac_pair < top)
+        {
+            top = bot;
+            bot = _vec[bot - pair_ratio];
+        }
+        std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
+        std::cout << "pair_ratio " << pair_ratio << std::endl;
+        std::cout << "ac_pair: " << ac_pair << " bot " << _vec[bot] << " grand " << _vec[top] << std::endl;
     }
-    // if (_vec[len / 2] > _vec[pair_ratio])
-    // {
+    // faire le swap ici
 
-    // }
+    std::cout << "======= FIN TRI_DICOTO =======" << std::endl;
 }
 
 //a chaque recursion faire un tri dichotomique ->
