@@ -5,6 +5,7 @@
 #include <deque>
 #include <vector>
 #include <algorithm>
+#include <unistd.h>
 
 class Algo
 {

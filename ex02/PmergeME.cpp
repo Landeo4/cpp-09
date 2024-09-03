@@ -104,50 +104,53 @@ void Algo::tri_dicoto(size_t pair_ratio)
     size_t ac_pair = _vec[len + pair_ratio];
     std::cout << "======= VOICI TRI_DICOTO =======" << std::endl;
     print_container(_vec);
-    std::cout << "size = " << len;
+    std::cout << "len = " << len << " et voici pair_ratio " << pair_ratio;
     std::cout << " voici mon bot top " << bot << " " << top << std::endl;
     std::cout << "ac_pair " << ac_pair << std::endl;
     // std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
     // std::cout << "ac_pair :" << ac_pair << " bot " << bot << " grand " << top << std::endl;
-    if (pair_ratio == 4)
+    // if (pair_ratio == 4)
+    // {
+    while (ac_pair < bot || ac_pair > top)
     {
-        while (ac_pair < bot || ac_pair > top)
+        if (ac_pair > bot && ac_pair < top)
+            break;
+        if (ac_pair > bot)
         {
-            if (ac_pair > bot && ac_pair < top)
-                break;
-            if (ac_pair > bot)
-            {
-                bot = top;
-                top = _vec[top + pair_ratio];
-            }
-            else if (ac_pair < top)
-            {
-                top = bot;
-                bot = _vec[bot - pair_ratio];
-            }
-            std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
-            std::cout << "pair_ratio " << pair_ratio << std::endl;
-            std::cout << "ac_pair: " << ac_pair << " bot " << _vec[bot] << " grand " << _vec[top] << std::endl;
+            bot = top;
+            top = _vec[top + pair_ratio];
         }
-        len = len * 2;
-        while (pos < len - ac_pair)
-            pos += ac_pair;
-        while (_vec[pos_top] != top)
-            pos_top++;
-        std::cout << "voici mon pos_top et bot " << pos_top << " " << bot << std::endl;
-        // trouver une methode pour swap ma pair a droite, a sa dest
-        // pour ca je dois avoir comme donnees:
-        // ma position de pair a switch
-        // Sa destination
-        // les iterations por toutes la pairs
-        for(size_t i = 0; i < pair_ratio / 2; i++)
+        else if (ac_pair < top)
         {
-            std::cout << " pos_top " << pos_top << std::endl;
-            std::cout << " |voici mes switch " << _vec[pos - i] << " " << _vec[pos_top - i] << "| " << std::endl;
-            std::swap(_vec[pos - i], _vec[pos_top - i]);
+            top = bot;
+            bot = _vec[bot - pair_ratio];
         }
-        std::cout << "fin de la boucle while " << std::endl;
+        usleep(100000);
+        std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
+        std::cout << "pair_ratio " << pair_ratio << std::endl;
+        std::cout << "ac_pair: " << ac_pair << " bot " << _vec[bot] << " grand " << _vec[top] << std::endl;
     }
+    len = len * 2;
+    while (pos < len - ac_pair)
+        pos += ac_pair;
+    while (_vec[pos_top] != top)
+        pos_top++;
+    std::cout << "voici mon pos_top et bot " << pos_top << " " << bot << std::endl;
+    // trouver une methode pour swap ma pair a droite, a sa dest
+    // pour ca je dois avoir comme donnees:
+    // ma position de pair a switch
+    // Sa destination
+    // les iterations por toutes la pairs
+    // trouver une autre methode pour savoir quel pairs n'ont pas ete comparer
+    // -> surement un rapport avec la suite de Jacob Sthall 1,3,5 etc
+    for(size_t i = 0; i < pair_ratio / 2; i++)
+    {
+        std::cout << " pos_top " << pos_top << std::endl;
+        std::cout << " |voici mes switch " << _vec[pos - i] << " " << _vec[pos_top - i] << "| " << std::endl;
+        std::swap(_vec[pos - i], _vec[pos_top - i]);
+    }
+    std::cout << "fin de la boucle while " << std::endl;
+    // }
     // faire le swap ici
 
     std::cout << "======= FIN TRI_DICOTO =======" << std::endl;
