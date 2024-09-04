@@ -11,9 +11,16 @@ int main(int argc, char **argv)
     std::cout << "liste de base: ";
     for(int i = 1; argv[i]; i++)
         std::cout << argv[i] << " ";
-    std::cout << std::endl << std::endl; 
-    if (obj.check_element_vector(argv, argc) == 1)
+    std::cout << std::endl << std::endl;
+    std::vector<double> vec;
+    if (obj.check_element_vector(argv, argc, vec) == 1)
         return 1;
+    for (int i = 1; i < argc; i++)
+    {
+        double nb = atof(argv[i]);
+        std::cout << "voici push " << nb << std::endl;
+        vec.push_back(nb);
+    }
     int pair = 1;
-    obj.start_algo(pair);
+    obj.start_algo(pair, vec);
 }

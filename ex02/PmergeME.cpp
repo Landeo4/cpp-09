@@ -22,7 +22,7 @@ Algo::Algo(const Algo & copy)
     *this = copy;
 }
 
-bool Algo::check_element_vector(char **argv, int argc)
+bool Algo::check_element_vector(char **argv, int argc, std::vector<double> vec)
 {
     int i = 1;
     int j = 2;
@@ -51,59 +51,86 @@ bool Algo::check_element_vector(char **argv, int argc)
             j++;
         }
         i++;
-        _vec.push_back(nb);
+        vec.push_back(nb);
     }
-    print_container(_vec);
+    print_container(vec);
     return false;
 }
 
-void Algo::start_algo(size_t pair_ratio)
+void Algo::start_algo(size_t pair_ratio, std::vector<double> vec)
 {
     size_t actual_pair = pair_ratio - 1;
-    std::cout << _vec.size() << std::endl;
+    std::cout << vec.size() << std::endl;
     // std::cout  << "voici mes donnees " << pair_ratio << " " << actual_pair << std::endl;
-    while (actual_pair + pair_ratio < _vec.size())
+    while (actual_pair + pair_ratio < vec.size())
     {
         // std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
-        // std::cout << _vec[actual_pair] << " " << _vec[actual_pair + pair_ratio]<< std::endl;
-        // std::cout << "voici mon actual pair moins 1 et mon actual pair " << _vec[actual_pair - 1] << " " << _vec[actual_pair] << std::endl;
-        if (_vec[actual_pair] > _vec[actual_pair + pair_ratio])
+        // std::cout << vec[actual_pair] << " " << vec[actual_pair + pair_ratio]<< std::endl;
+        // std::cout << "voici mon actual pair moins 1 et mon actual pair " << vec[actual_pair - 1] << " " << vec[actual_pair] << std::endl;
+        if (vec[actual_pair] > vec[actual_pair + pair_ratio])
         {
             for(size_t i = 0; i < pair_ratio; i++)
             {
-                // std::cout << " |voici mes switch " << _vec[actual_pair - i] << " " << _vec[actual_pair + pair_ratio - i] << "| ";
-                std::swap(_vec[actual_pair - i], _vec[actual_pair + pair_ratio - i]);
+                // std::cout << " |voici mes switch " << vec[actual_pair - i] << " " << vec[actual_pair + pair_ratio - i] << "| ";
+                std::swap(vec[actual_pair - i], vec[actual_pair + pair_ratio - i]);
             }
             // std::cout << "nouveau tab: ";
-            // print_container(_vec);
+            // print_container(vec);
         }
         actual_pair += pair_ratio * 2;
     }
     // std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
-    print_container(_vec);
-    if (pair_ratio * 2 < _vec.size())
-        start_algo(pair_ratio * 2);
+    print_container(vec);
+    if (pair_ratio * 2 < vec.size())
+        start_algo(pair_ratio * 2, vec);
     else
         return ;
-    tri_dicoto(pair_ratio);
+    tri_dicoto(pair_ratio, vec);
 }
 
-void Algo::tri_dicoto(size_t pair_ratio)
+void Algo::tri_dicoto(size_t pair_ratio, std::vector<double> &vec)
 {
-    size_t len = _vec.size();
-    len /= 2 ;
-    size_t bot = _vec[len];
+    std::vector<double> vec_buf;
+    std::vector<double>::iterator vec_it = vec.begin();
+    std::vector<double, double>::iterator buf_it;
+    int pl_check = 2;
+    int index = 0;
+
+    while (vec_it < vec.begin())
+    {
+        if (index == pl_check)
+        {
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                vec_buf.push_back(*vec_it);
+                vec_it++;
+            }
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                // std::cout << " |voici mes switch " << vec[actual_pair - i] << " " << vec[actual_pair + pair_ratio - i] << "| ";
+                std::swap(vec[actual_pair - i], vec[actual_pair + pair_ratio - i]);
+                vec_it.pop();
+                vec_it++;
+
+            }
+            pl_check += 2;
+        }
+        vec_it += pair_ratio;
+    }
+
+    size_t len = vec.size();
+    size_t bot = vec[len];
     size_t top = 0;
     size_t pos, pos_top;
     pos = 0;
     pos_top = 0;
     if (len % 2 == 0)
-        top = _vec[len + pair_ratio / 2];
+        top = vec[len + pair_ratio / 2];
     else
-        top = _vec[len + pair_ratio / 2];
-    size_t ac_pair = _vec[len + pair_ratio];
+        top = vec[len + pair_ratio / 2];
+    size_t ac_pair = vec[len + pair_ratio];
     std::cout << "======= VOICI TRI_DICOTO =======" << std::endl;
-    print_container(_vec);
+    print_container(vec);
     std::cout << "len = " << len << " et voici pair_ratio " << pair_ratio;
     std::cout << " voici mon bot top " << bot << " " << top << std::endl;
     std::cout << "ac_pair " << ac_pair << std::endl;
@@ -118,22 +145,22 @@ void Algo::tri_dicoto(size_t pair_ratio)
         if (ac_pair > bot)
         {
             bot = top;
-            top = _vec[top + pair_ratio];
+            top = vec[top + pair_ratio];
         }
         else if (ac_pair < top)
         {
             top = bot;
-            bot = _vec[bot - pair_ratio];
+            bot = vec[bot - pair_ratio];
         }
         usleep(100000);
         std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
         std::cout << "pair_ratio " << pair_ratio << std::endl;
-        std::cout << "ac_pair: " << ac_pair << " bot " << _vec[bot] << " grand " << _vec[top] << std::endl;
+        std::cout << "ac_pair: " << ac_pair << " bot " << vec[bot] << " grand " << vec[top] << std::endl;
     }
     len = len * 2;
     while (pos < len - ac_pair)
         pos += ac_pair;
-    while (_vec[pos_top] != top)
+    while (vec[pos_top] != top)
         pos_top++;
     std::cout << "voici mon pos_top et bot " << pos_top << " " << bot << std::endl;
     // trouver une methode pour swap ma pair a droite, a sa dest
@@ -143,11 +170,13 @@ void Algo::tri_dicoto(size_t pair_ratio)
     // les iterations por toutes la pairs
     // trouver une autre methode pour savoir quel pairs n'ont pas ete comparer
     // -> surement un rapport avec la suite de Jacob Sthall 1,3,5 etc
+    // ajouter un systeme pour que toutes les trois paires je place ma pair dans un nouveau
+    // tableau qui contiendra les pairs non triers
     for(size_t i = 0; i < pair_ratio / 2; i++)
     {
         std::cout << " pos_top " << pos_top << std::endl;
-        std::cout << " |voici mes switch " << _vec[pos - i] << " " << _vec[pos_top - i] << "| " << std::endl;
-        std::swap(_vec[pos - i], _vec[pos_top - i]);
+        std::cout << " |voici mes switch " << vec[pos - i] << " " << vec[pos_top - i] << "| " << std::endl;
+        std::swap(vec[pos - i], vec[pos_top - i]);
     }
     std::cout << "fin de la boucle while " << std::endl;
     // }
@@ -298,6 +327,79 @@ void Algo::start_algo(size_t pair_ratio)
         print_container(_vec);
         return ;
     }
+}
+*/
+
+//tri dicoto
+/*
+void Algo::tri_dicoto(size_t pair_ratio, std::vector<double> &vec)
+{
+    size_t len = vec.size();
+    len /= 2 ;
+    size_t bot = vec[len];
+    size_t top = 0;
+    size_t pos, pos_top;
+    pos = 0;
+    pos_top = 0;
+    if (len % 2 == 0)
+        top = vec[len + pair_ratio / 2];
+    else
+        top = vec[len + pair_ratio / 2];
+    size_t ac_pair = vec[len + pair_ratio];
+    std::cout << "======= VOICI TRI_DICOTO =======" << std::endl;
+    print_container(vec);
+    std::cout << "len = " << len << " et voici pair_ratio " << pair_ratio;
+    std::cout << " voici mon bot top " << bot << " " << top << std::endl;
+    std::cout << "ac_pair " << ac_pair << std::endl;
+    // std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
+    // std::cout << "ac_pair :" << ac_pair << " bot " << bot << " grand " << top << std::endl;
+    // if (pair_ratio == 4)
+    // {
+    while (ac_pair < bot || ac_pair > top)
+    {
+        if (ac_pair > bot && ac_pair < top)
+            break;
+        if (ac_pair > bot)
+        {
+            bot = top;
+            top = vec[top + pair_ratio];
+        }
+        else if (ac_pair < top)
+        {
+            top = bot;
+            bot = vec[bot - pair_ratio];
+        }
+        usleep(100000);
+        std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
+        std::cout << "pair_ratio " << pair_ratio << std::endl;
+        std::cout << "ac_pair: " << ac_pair << " bot " << vec[bot] << " grand " << vec[top] << std::endl;
+    }
+    len = len * 2;
+    while (pos < len - ac_pair)
+        pos += ac_pair;
+    while (vec[pos_top] != top)
+        pos_top++;
+    std::cout << "voici mon pos_top et bot " << pos_top << " " << bot << std::endl;
+    // trouver une methode pour swap ma pair a droite, a sa dest
+    // pour ca je dois avoir comme donnees:
+    // ma position de pair a switch
+    // Sa destination
+    // les iterations por toutes la pairs
+    // trouver une autre methode pour savoir quel pairs n'ont pas ete comparer
+    // -> surement un rapport avec la suite de Jacob Sthall 1,3,5 etc
+    // ajouter un systeme pour que toutes les trois paires je place ma pair dans un nouveau
+    // tableau qui contiendra les pairs non triers
+    for(size_t i = 0; i < pair_ratio / 2; i++)
+    {
+        std::cout << " pos_top " << pos_top << std::endl;
+        std::cout << " |voici mes switch " << vec[pos - i] << " " << vec[pos_top - i] << "| " << std::endl;
+        std::swap(vec[pos - i], vec[pos_top - i]);
+    }
+    std::cout << "fin de la boucle while " << std::endl;
+    // }
+    // faire le swap ici
+
+    std::cout << "======= FIN TRI_DICOTO =======" << std::endl;
 }
 */
 
