@@ -84,7 +84,12 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> vec)
     if (pair_ratio * 2 < vec.size())
         start_algo(pair_ratio * 2, vec);
     else
+    {
+        std::cout << "=====TRI FINALE=====" << std::endl;
+        print_container(vec);
+        std::cout << "=====TRI FINALE FINIS=====" << std::endl;
         return ;
+    }
     tri_dicoto(pair_ratio, actual_pair, vec);
 }
 
@@ -95,29 +100,37 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     std::vector<double>::iterator buf_it;
     int pl_check = 2;
     int index = 0;
+    (void)actual_pair;
 
     while (vec_it < vec.end())
     {
+
         if (index == pl_check)
         {
-            for(size_t i = 0; i < pair_ratio; i++)
+            for(size_t i = 0; i < pair_ratio / 2; i++)
             {
+                std::cout << *vec_it << " et voici le pair_ratio " << pair_ratio / 2 << std::endl;
                 vec_buf.push_back(*vec_it);
+                std::cout << "val de vecteur " << *vec_it << std::endl;
                 vec_it++;
             }
-            for(size_t i = 0; i < pair_ratio; i++)
+            for(size_t i = 0; i < pair_ratio / 2; i++)
             {
-                std::cout << " |voici mes switch " << vec[actual_pair - i] << " " << vec[actual_pair + pair_ratio - i] << "| ";
-                std::swap(vec[actual_pair - i], vec[actual_pair + pair_ratio - i]);
+                // std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
                 vec_it = vec.erase(vec.begin() + i);
-                vec_it++;
+                // vec_it++;
 
             }
             pl_check += 2;
         }
         vec_it += pair_ratio;
+        index++;
     } // ici je repere et je stock ou sont les nb a replacer
+    buf_it = vec_buf.begin();
+    std::cout << "je sors de tri_dicoto" << std::endl;
     print_container(vec);
+    std::cout << "voici mon autre tab" << std::endl;
+    print_container(vec_buf);
     // size_t len = vec.size();
     // size_t bot = vec[len];
     // size_t top = 0;
