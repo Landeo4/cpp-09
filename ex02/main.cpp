@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     for (int i = 1; i < argc; i++)
     {
         double nb = atof(argv[i]);
-        std::cout << "voici push " << nb << std::endl;
+        // std::cout << "voici push " << nb << std::endl;
         vec.push_back(nb);
     }
     int pair = 1;
