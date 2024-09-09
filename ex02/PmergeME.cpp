@@ -80,7 +80,6 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> vec)
         actual_pair += pair_ratio * 2;
     }
     // std::cout << "============ voici donc mon prochain ratio " << pair_ratio * 2 << "============" << std::endl;
-    print_container(vec);
     if (pair_ratio * 2 < vec.size())
         start_algo(pair_ratio * 2, vec);
     else
@@ -102,35 +101,73 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     int index = 0;
     (void)actual_pair;
 
+    std::cout << "=== debut de tri_dicoto ===" << std::endl; 
+    std::cout << "container au debut de tri_dicoto" << std::endl;
+    print_container(vec);
+    std::cout << " et voici le pair_ratio " << pair_ratio << std::endl;
     while (vec_it < vec.end())
     {
-
         if (index == pl_check)
         {
+            std::cout << "ENTREE DU IF " << std::endl;
+            print_container(vec);
             for(size_t i = 0; i < pair_ratio / 2; i++)
             {
-                std::cout << *vec_it << " et voici le pair_ratio " << pair_ratio / 2 << std::endl;
+                std::cout << "valeur de vecteur " << *vec_it << std::endl;
                 vec_buf.push_back(*vec_it);
-                std::cout << "val de vecteur " << *vec_it << std::endl;
-                vec_it++;
+                vec_it = vec.erase(vec_it);
             }
             for(size_t i = 0; i < pair_ratio / 2; i++)
             {
                 // std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
-                vec_it = vec.erase(vec.begin() + i);
                 // vec_it++;
 
             }
             pl_check += 2;
+            std::cout << "SORTIS DU IF " << std::endl;
         }
         vec_it += pair_ratio;
         index++;
     } // ici je repere et je stock ou sont les nb a replacer
     buf_it = vec_buf.begin();
-    std::cout << "je sors de tri_dicoto" << std::endl;
+    std::cout << "je sors de tri_dicoto vecteur de base" << std::endl;
     print_container(vec);
-    std::cout << "voici mon autre tab" << std::endl;
+    std::cout << "avant l'insertion voici vec_buf " << std::endl;
     print_container(vec_buf);
+    // std::cout << "voici mon autre tab" << std::endl;
+
+    // je dois maintenant trouver leurs pos et inserer avec insertion binaire
+    // -> prendre milieu
+    // -> comparer avec notre nb a inserer
+    // -> prendre resultat pour nouveau minimum ou maximum
+    int mid = vec.size();
+    int bot = 0;
+    int top = 0;
+    while (buf_it < vec_buf.end())
+    {
+        std::cout << *buf_it << std::endl;
+        while (*buf_it > bot && *buf_it < top)
+        {
+            if (*buf_it > bot && *buf_it < top)
+            {
+                // push dans la stack de base avec une boucle for
+            }
+            if (*buf_it > bot)
+            {
+                bot = top;
+                top = vec[top + pair_ratio];
+            }
+            else if (*buf_it < top)
+            {
+                top = bot;
+                bot = vec[bot - pair_ratio];
+            }
+            for (int i = 0; i < mid; i++)
+                vec_it++;
+        }
+        buf_it++;
+    }
+
     // size_t len = vec.size();
     // size_t bot = vec[len];
     // size_t top = 0;
