@@ -135,12 +135,6 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     print_container(vec);
     std::cout << "avant l'insertion voici vec_buf " << std::endl;
     print_container(vec_buf);
-    // std::cout << "voici mon autre tab" << std::endl;
-
-    // je dois maintenant trouver leurs pos et inserer avec insertion binaire
-    // -> prendre milieu
-    // -> comparer avec notre nb a inserer
-    // -> prendre resultat pour nouveau minimum ou maximum
     size_t bot = 0;
     size_t top = vec.size();
     std::cout << "voici mon actual_pair " << actual_pair;
@@ -149,9 +143,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     size_t nb = vec[mid];
     size_t cpt = 0;
     size_t tmp = 0;
+    int size_buffer = vec_buf.size();
     // avancer de len en len pour la milieu -> pour ca je dois:
     // savoir combien de pair il y a puis diviser par deux
-    while (buf_it < vec_buf.end())
+    while (size_buffer > 0)
     {
         std::cout << *buf_it << std::endl;
         while (((bot + pair_ratio) == top))
@@ -196,8 +191,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             std::cout << "valeur de vecteur " << *vec_it << std::endl;
             vec.push_back(*buf_it);
             buf_it = vec.erase(buf_it);
+            // vec_buf.push_back(*vec_it);
+            // vec_it = vec.erase(vec_it);
         }
-        buf_it += pair_ratio;
+        size_buffer -= size_buffer;
     }
     print_container(vec);
     while (*buf_it)
