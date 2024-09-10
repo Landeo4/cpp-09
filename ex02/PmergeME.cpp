@@ -140,31 +140,29 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     // -> prendre milieu
     // -> comparer avec notre nb a inserer
     // -> prendre resultat pour nouveau minimum ou maximum
-    int mid = vec.size();
     int bot = 0;
-    int top = 0;
+    int mid = vec.size() / 2;
+    int top = vec.size();
+    int len = vec.size() / 2;
+    int nb = vec[len];
     while (buf_it < vec_buf.end())
     {
         std::cout << *buf_it << std::endl;
-        while (*buf_it > bot && *buf_it < top)
+        while (*buf_it != nb)
         {
-            if (*buf_it > bot && *buf_it < top)
+            if (*buf_it > nb)
             {
-                // push dans la stack de base avec une boucle for
+                bot = nb;
             }
-            if (*buf_it > bot)
+            else if (*buf_it < nb)
             {
-                bot = top;
-                top = vec[top + pair_ratio];
+                top = nb;
             }
-            else if (*buf_it < top)
-            {
-                top = bot;
-                bot = vec[bot - pair_ratio];
-            }
-            for (int i = 0; i < mid; i++)
+            mid = top - bot;
+            for (int i = bot; i < mid; i++)
                 vec_it++;
         }
+        // push dans le vecteur de base avec une boucle for
         buf_it++;
     }
 
