@@ -99,6 +99,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     std::vector<double>::iterator buf_it;
     int pl_check = 2;
     int index = 0;
+    int old_len = vec.size();
+    int new_len;
     (void)actual_pair;
 
     std::cout << "=== debut de tri_dicoto ===" << std::endl; 
@@ -109,7 +111,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     {
         if (index == pl_check)
         {
-            std::cout << "ENTREE DU IF " << std::endl;
+            // std::cout << "ENTREE DU IF " << std::endl;
             print_container(vec);
             for(size_t i = 0; i < pair_ratio / 2; i++)
             {
@@ -124,12 +126,13 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 
             }
             pl_check += 2;
-            std::cout << "SORTIS DU IF " << std::endl;
+            // std::cout << "SORTIS DU IF " << std::endl;
         }
         vec_it += pair_ratio;
         index++;
     } // ici je repere et je stock ou sont les nb a replacer
     buf_it = vec_buf.begin();
+    buf_it += pair_ratio;
     std::cout << "je sors de tri_dicoto vecteur de base" << std::endl;
     print_container(vec);
     std::cout << "avant l'insertion voici vec_buf " << std::endl;
@@ -140,97 +143,67 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     // -> prendre milieu
     // -> comparer avec notre nb a inserer
     // -> prendre resultat pour nouveau minimum ou maximum
-    int bot = 0;
-    int mid = vec.size() / 2;
-    int top = vec.size();
-    int len = vec.size() / 2;
-    int nb = vec[len];
-    while (buf_it < vec_buf.end())
+    size_t bot = 0;
+    size_t top = vec.size();
+    std::cout << "voici mon actual_pair " << actual_pair;
+    size_t mid = actual_pair / 2;
+    std::cout << " voici mon test " << mid << std::endl;
+    size_t nb = vec[mid];
+    size_t cpt = 0;
+    size_t tmp = 0;
+    // avancer de len en len pour la milieu -> pour ca je dois:
+    // savoir combien de pair il y a puis diviser par deux
+    while (*buf_it)
     {
         std::cout << *buf_it << std::endl;
-        while (*buf_it != nb)
+        while (((bot + pair_ratio) == top))
         {
+            std::cout << "JE DOIS DONC COMPARER buf: " << *buf_it << " nb " << nb << std::endl;  
             if (*buf_it > nb)
             {
-                bot = nb;
+                bot = mid;
+                tmp = bot;
+                std::cout << "voici mon bot de base " << bot << std::endl;
+                while (tmp < top)
+                {
+                    std::cout << "voici bot " << tmp << " voici top " << top << std::endl;
+                    cpt++;
+                    tmp += pair_ratio;
+                }
             }
             else if (*buf_it < nb)
             {
-                top = nb;
+                // trouver comment faire la version inferieur
+                tmp = top;
+                std::cout << "voici mon top de base " << top << std::endl;
+                while (tmp < bot)
+                {
+                    std::cout << "voici tmp " << tmp << " voici bot " << bot << std::endl;
+                    cpt++;
+                    tmp -= pair_ratio;
+                }
             }
-            mid = top - bot;
-            for (int i = bot; i < mid; i++)
-                vec_it++;
+            // pour le milieu finale il faut prendre son nombre pour augmenter par pair_ratio!!!
+            cpt = cpt / 2;
+            bot = bot + (cpt * pair_ratio);
+            nb = vec[bot];
+            std::cout << "voici mon milieu final " << nb << std::endl;
+            std::cout << "ma valeur a comparer " << *buf_it << " et ma liste" << std::endl;
+            print_container(vec);
         }
+        std::cout << "======= ATTENTION INSERTION D'UNE PAIR =======" << std::endl;
         // push dans le vecteur de base avec une boucle for
-        buf_it++;
+        for(size_t i = 0; i < pair_ratio / 2; i++)
+        {
+            std::cout << "valeur de vecteur " << *vec_it << std::endl;
+            vec.push_back(*buf_it);
+            buf_it = vec.erase(buf_it);
+        }
+        new_len = vec.size();
+        if (old_len == new_len)
+            break;
     }
-
-    // size_t len = vec.size();
-    // size_t bot = vec[len];
-    // size_t top = 0;
-    // size_t pos, pos_top;
-    // pos = 0;
-    // pos_top = 0;
-    // if (len % 2 == 0)
-    //     top = vec[len + pair_ratio / 2];
-    // else
-    //     top = vec[len + pair_ratio / 2];
-    // size_t ac_pair = vec[len + pair_ratio];
-    // std::cout << "======= VOICI TRI_DICOTO =======" << std::endl;
-    // print_container(vec);
-    // std::cout << "len = " << len << " et voici pair_ratio " << pair_ratio;
-    // std::cout << " voici mon bot top " << bot << " " << top << std::endl;
-    // std::cout << "ac_pair " << ac_pair << std::endl;
-    // // std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
-    // // std::cout << "ac_pair :" << ac_pair << " bot " << bot << " grand " << top << std::endl;
-    // // if (pair_ratio == 4)
-    // // {
-    // while (ac_pair < bot || ac_pair > top)
-    // {
-    //     if (ac_pair > bot && ac_pair < top)
-    //         break;
-    //     if (ac_pair > bot)
-    //     {
-    //         bot = top;
-    //         top = vec[top + pair_ratio];
-    //     }
-    //     else if (ac_pair < top)
-    //     {
-    //         top = bot;
-    //         bot = vec[bot - pair_ratio];
-    //     }
-    //     usleep(100000);
-    //     std::cout << "===voici les comparaison dans le tri dicotomique ===" << std::endl;
-    //     std::cout << "pair_ratio " << pair_ratio << std::endl;
-    //     std::cout << "ac_pair: " << ac_pair << " bot " << vec[bot] << " grand " << vec[top] << std::endl;
-    // }
-    // len = len * 2;
-    // while (pos < len - ac_pair)
-    //     pos += ac_pair;
-    // while (vec[pos_top] != top)
-    //     pos_top++;
-    // std::cout << "voici mon pos_top et bot " << pos_top << " " << bot << std::endl;
-    // // trouver une methode pour swap ma pair a droite, a sa dest
-    // // pour ca je dois avoir comme donnees:
-    // // ma position de pair a switch
-    // // Sa destination
-    // // les iterations por toutes la pairs
-    // // trouver une autre methode pour savoir quel pairs n'ont pas ete comparer
-    // // -> surement un rapport avec la suite de Jacob Sthall 1,3,5 etc
-    // // ajouter un systeme pour que toutes les trois paires je place ma pair dans un nouveau
-    // // tableau qui contiendra les pairs non triers
-    // for(size_t i = 0; i < pair_ratio / 2; i++)
-    // {
-    //     std::cout << " pos_top " << pos_top << std::endl;
-    //     std::cout << " |voici mes switch " << vec[pos - i] << " " << vec[pos_top - i] << "| " << std::endl;
-    //     std::swap(vec[pos - i], vec[pos_top - i]);
-    // }
-    // std::cout << "fin de la boucle while " << std::endl;
-    // // }
-    // // faire le swap ici
-
-    // std::cout << "======= FIN TRI_DICOTO =======" << std::endl;
+    print_container(vec);
 }
 
 //a chaque recursion faire un tri dichotomique ->
