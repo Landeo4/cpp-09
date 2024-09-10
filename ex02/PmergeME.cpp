@@ -99,8 +99,6 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     std::vector<double>::iterator buf_it;
     int pl_check = 2;
     int index = 0;
-    int old_len = vec.size();
-    int new_len;
     (void)actual_pair;
 
     std::cout << "=== debut de tri_dicoto ===" << std::endl; 
@@ -153,7 +151,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     size_t tmp = 0;
     // avancer de len en len pour la milieu -> pour ca je dois:
     // savoir combien de pair il y a puis diviser par deux
-    while (*buf_it)
+    while (buf_it < vec_buf.end())
     {
         std::cout << *buf_it << std::endl;
         while (((bot + pair_ratio) == top))
@@ -199,11 +197,11 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             vec.push_back(*buf_it);
             buf_it = vec.erase(buf_it);
         }
-        new_len = vec.size();
-        if (old_len == new_len)
-            break;
+        buf_it += pair_ratio;
     }
     print_container(vec);
+    while (*buf_it)
+        buf_it = vec.erase(buf_it);
 }
 
 //a chaque recursion faire un tri dichotomique ->
