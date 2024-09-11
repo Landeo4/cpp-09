@@ -129,8 +129,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         vec_it += pair_ratio;
         index++;
     } // ici je repere et je stock ou sont les nb a replacer
+	if (vec_buf.size() < 1)
+		return ;
     buf_it = vec_buf.begin();
-    buf_it += pair_ratio;
+    buf_it += (pair_ratio / 2) - 1;
     std::cout << "je sors de tri_dicoto vecteur de base" << std::endl;
     print_container(vec);
     std::cout << "avant l'insertion voici vec_buf " << std::endl;
@@ -144,12 +146,14 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     size_t cpt = 0;
     size_t tmp = 0;
     int size_buffer = vec_buf.size();
+	std::cout << "voici size_buf " << size_buffer << std::endl;
     // avancer de len en len pour la milieu -> pour ca je dois:
     // savoir combien de pair il y a puis diviser par deux
     while (size_buffer > 0)
     {
         std::cout << *buf_it << std::endl;
-        while (((bot + pair_ratio) == top))
+		std::cout << "voici les parametre a remplir: " << (bot + pair_ratio) << " = " << top << std::endl;
+        while (((bot + pair_ratio) != top))
         {
             std::cout << "JE DOIS DONC COMPARER buf: " << *buf_it << " nb " << nb << std::endl;  
             if (*buf_it > nb)
@@ -188,13 +192,15 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         // push dans le vecteur de base avec une boucle for
         for(size_t i = 0; i < pair_ratio / 2; i++)
         {
-            std::cout << "valeur de vecteur " << *vec_it << std::endl;
-            vec.push_back(*buf_it);
-            buf_it = vec.erase(buf_it);
+            std::cout << "valeur de vecteur " << *buf_it << std::endl;
+			vec.insert(buf_it + i, 1, *buf_it + i);
+            // vec.push_back(*buf_it);
+            buf_it = vec_buf.erase(buf_it);
             // vec_buf.push_back(*vec_it);
             // vec_it = vec.erase(vec_it);
         }
-        size_buffer -= size_buffer;
+		std::cout << "prochaine pair" << std::endl;
+        size_buffer -= pair_ratio;
     }
     print_container(vec);
     while (*buf_it)
