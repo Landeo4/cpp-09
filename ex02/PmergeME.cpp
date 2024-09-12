@@ -111,28 +111,33 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         {
             // std::cout << "ENTREE DU IF " << std::endl;
             print_container(vec);
-            for(size_t i = 0; i < pair_ratio / 2; i++)
-            {
-                std::cout << "valeur de vecteur " << *vec_it << std::endl;
-                vec_buf.push_back(*vec_it);
-                vec_it = vec.erase(vec_it);
-            }
-            for(size_t i = 0; i < pair_ratio / 2; i++)
-            {
-                // std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
-                // vec_it++;
-
-            }
-            pl_check += 2;
+			if (vec_it + pair_ratio < vec.end())
+			{
+				for(size_t i = 0; i < pair_ratio; i++)
+				{
+					std::cout << "valeur de vecteur " << *vec_it << std::endl;
+					vec_buf.push_back(*vec_it);
+					vec_it = vec.erase(vec_it);
+				}
+				// for(size_t i = 0; i < pair_ratio; i++)
+				// {
+				// 	// std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
+				// 	// vec_it++;
+				// }
+				pl_check += 2;
+			}
             // std::cout << "SORTIS DU IF " << std::endl;
         }
         vec_it += pair_ratio;
         index++;
     } // ici je repere et je stock ou sont les nb a replacer
 	if (vec_buf.size() < 1)
+	{
+		std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
 		return ;
-    buf_it = vec_buf.begin();
-    buf_it += (pair_ratio / 2) - 1;
+	}
+	buf_it = vec_buf.begin();
+    buf_it += (pair_ratio) - 1;
     std::cout << "je sors de tri_dicoto vecteur de base" << std::endl;
     print_container(vec);
     std::cout << "avant l'insertion voici vec_buf " << std::endl;
@@ -195,7 +200,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 			vec_it++;
 		vec_it++;
         // push dans le vecteur de base avec une boucle for
-        for(size_t i = 0; i < pair_ratio / 2; i++, buf_it--)
+        for(size_t i = 0; i < pair_ratio; i++, buf_it--)
         {
             std::cout << "valeur de vecteur " << *buf_it << std::endl;
 			std::cout << "voici i " << i << " pair_ratio " << pair_ratio << std::endl;
