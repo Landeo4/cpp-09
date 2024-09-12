@@ -149,6 +149,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 	std::cout << "voici size_buf " << size_buffer << std::endl;
     // avancer de len en len pour la milieu -> pour ca je dois:
     // savoir combien de pair il y a puis diviser par deux
+	usleep(2000000);
     while (size_buffer > 0)
     {
         std::cout << *buf_it << std::endl;
@@ -189,22 +190,25 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             print_container(vec);
         }
         std::cout << "======= ATTENTION INSERTION D'UNE PAIR =======" << std::endl;
+		vec_it = vec.begin();
+		while (*vec_it != nb)
+			vec_it++;
+		vec_it++;
         // push dans le vecteur de base avec une boucle for
-        for(size_t i = 0; i < pair_ratio / 2; i++)
+        for(size_t i = 0; i < pair_ratio / 2; i++, buf_it--)
         {
             std::cout << "valeur de vecteur " << *buf_it << std::endl;
-			vec.insert(buf_it + i, 1, *buf_it + i);
+			std::cout << "voici i " << i << " pair_ratio " << pair_ratio << std::endl;
             // vec.push_back(*buf_it);
+			vec.insert(vec_it, 1, *buf_it);
+			// std::swap(vec[bot + pair_ratio / 2], vec[len]);
             buf_it = vec_buf.erase(buf_it);
-            // vec_buf.push_back(*vec_it);
-            // vec_it = vec.erase(vec_it);
         }
 		std::cout << "prochaine pair" << std::endl;
         size_buffer -= pair_ratio;
     }
+	std::cout << "voici mon vecteur a la fin de ma fonction: " << std::endl;
     print_container(vec);
-    while (*buf_it)
-        buf_it = vec.erase(buf_it);
 }
 
 //a chaque recursion faire un tri dichotomique ->
