@@ -16,7 +16,7 @@ class Algo
     Algo(const Algo & copy);
 
     bool check_element_vector(char **argv, int argc, std::vector<double> vec);
-    void start_algo(size_t pair, std::vector<double> vec);
+    void start_algo(size_t pair, std::vector<double> &vec);
     void tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec);
     // void swap(double even);
     // void Algo<T>::Swap();
