@@ -91,6 +91,8 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
     tri_dicoto(pair_ratio, actual_pair, vec);
 }
 
+// code du 17 septembre
+/*
 void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
 {
     std::vector<double> vec_buf;
@@ -137,7 +139,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 	}
 	buf_it = vec_buf.begin();
     buf_it += (pair_ratio) - 1;
-    std::cout << "III je sors de tri_dicoto vecteur de base" << std::endl << std::endl;
+	std::cout << std::endl << std::endl;
+    std::cout << "!!!debut de recherche du milieu: !!!" << std::endl << std::endl;
     print_container(vec);
     std::cout << "avant l'insertion voici vec_buf " << std::endl;
     print_container(vec_buf);
@@ -147,60 +150,81 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 		size_t cpt = 0, tmp = 0, bot = 0, ratio = 0, mid = 0;
     	top = vec.size();
 		while (ratio < actual_pair)
+		{
 			ratio += pair_ratio;
-		mid = ratio / 2;
+			tmp++;
+		}
+		mid = (tmp / 2);
 		nb = vec[mid];
-        std::cout << *buf_it << std::endl;
+		std::cout << " AVANT DEBUT DE RECHERCHE VOICI DES INFOS IMPORTANTE: nb " << nb << " mid " << mid << std::endl; 
+        std::cout << "voici ma size " << vec.size() << std::endl;
+		std::cout << "voici mon ratio " << ratio << " et / 2 " << ratio / 2 << std::endl;
+		std::cout << *buf_it << std::endl;
 		std::cout << "voici les parametre a remplir: " << (bot + pair_ratio) << " = " << top << std::endl;
-        while (((bot + pair_ratio) != top))
+        std::cout << std::endl;
+		std::cout << "=== voici la recherche de milieu" << std::endl;
+		while (((bot + pair_ratio) != top))
         {
-            std::cout << "JE DOIS DONC COMPARER buf: " << *buf_it << " nb " << nb << std::endl;
+			std::cout << "[[[ Debut recherche milieu:" << std::endl << std::endl;
+            std::cout << "--- JE DOIS DONC COMPARER buf: " << *buf_it << " nb " << nb << std::endl;
 			std::cout << "voici d'ailleur bot + pair_ratio et top " << std::endl;
+			std::cout << "voici aussi mon mid " << mid << std::endl;
 			std::cout << bot << " " << pair_ratio << " " << top << std::endl;
             if (*buf_it > nb)
             {
+				std::cout << "mid en entrant dans if = " << mid << std::endl;
                 bot = mid;
                 tmp = bot;
                 std::cout << "voici mon bot de base " << bot << std::endl;
                 while (tmp < top)
                 {
-                    std::cout << "voici bot " << tmp << " voici top " << top << std::endl;
+                    std::cout << "voici temporaire " << tmp << " voici top " << top << std::endl;
                     cpt++;
                     tmp += pair_ratio;
                 }
 				cpt = cpt / 2;
-				bot = bot + (cpt * pair_ratio);
-				nb = vec[bot];
+				mid = bot + (cpt * pair_ratio);
+				std::cout << "voici mid dans le if " << bot << std::endl;
+				std::cout << "voic bot " << bot << std::endl;
+				nb = vec[mid];
             }
             else if (*buf_it < nb)
             {
-                // trouver comment faire la version inferieur
+				std::cout << "mid en entrant dans if = " << mid << std::endl;
 				top = mid;
                 tmp = top;
                 std::cout << "voici mon top de base " << top << std::endl;
                 while (tmp > bot)
                 {
-                    std::cout << "voici tmp " << tmp << " voici bot " << bot << std::endl;
+                    std::cout << "voici temporaire " << tmp << " voici bot " << bot << std::endl;
                     cpt++;
                     tmp -= pair_ratio;
 					if (bot == 0)
 						bot++;
                 }
 				cpt = cpt / 2;
-				top = top - (cpt * pair_ratio);
-				nb = vec[top];
+				mid = top - (cpt * pair_ratio);
+				std::cout << "voici mid dans le if " << bot << std::endl;
+				std::cout << "voic top " << top << std::endl;
+				nb = vec[mid];
             }
             // pour le milieu finale il faut prendre son nombre pour augmenter par pair_ratio!!!
             // cpt = cpt / 2;
             // bot = bot + (cpt * pair_ratio);
             // nb = vec[bot];
-            std::cout << "voici mon milieu final " << nb << std::endl;
+			std::cout << "=== fin de ma recherche de milieu" << std::endl;
+            std::cout << "--- voici mon milieu final " << nb << std::endl;
             std::cout << "ma valeur a comparer " << *buf_it << " et ma liste" << std::endl;
             print_container(vec);
+			std::cout << "voici mes conditions de sortie de mon while " << bot + pair_ratio;
+			std::cout << " top " << top << std::endl;
 			usleep(1000000);
+			std::cout << "fin recherche milieu]]]" << std::endl << std::endl;
         }
+		std::cout << std::endl;
         std::cout << "======= ATTENTION INSERTION D'UNE PAIR =======" << std::endl;
 		vec_it = vec.begin();
+		std::cout << "VOICI LE NB TROUVER PAR MA COMPARAISON " << nb << std::endl;
 		while (*vec_it != nb)
 			vec_it++;
 		vec_it ++;
@@ -212,16 +236,152 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 			std::cout << "voici i " << i;
 			std::cout << " pair_ratio " << pair_ratio << std::endl;
             // vec.push_back(*buf_it); // regler le problemne avec i et tout au dessus
-			vec.insert(vec_it, 1, *buf_it);
+			vec.insert(vec_it + i, 1, *buf_it);
 			// std::swap(vec[bot + pair_ratio / 2], vec[len]);
             buf_it = vec_buf.erase(buf_it);
         }
 		std::cout << "prochaine pair" << std::endl;
 		print_container(vec);
 		print_container(vec_buf);
-		buf_it = vec_buf.begin();
+		buf_it = vec_buf.begin() + pair_ratio;
         size_buffer -= pair_ratio;
     }
+	std::cout << "voici mon vecteur a la fin de ma fonction: " << std::endl;
+    print_container(vec);
+}
+*/
+
+void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
+{
+    std::vector<double> vec_buf;
+    std::vector<double>::iterator vec_it = vec.begin();
+    std::vector<double>::iterator buf_it;
+    int pl_check = 2;
+    int index = 0;
+	int size_buffer;
+    (void)actual_pair;
+
+    std::cout << "I === debut de tri_dicoto ===" << std::endl; 
+    std::cout << "container au debut de tri_dicoto" << std::endl;
+    print_container(vec);
+    std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
+    while (vec_it < vec.end())
+    {
+        if (index == pl_check)
+        {
+			if (vec_it + pair_ratio < vec.end())
+			{
+				for(size_t i = 0; i < pair_ratio; i++)
+				{
+					std::cout << "valeur de vecteur " << *vec_it << std::endl;
+					vec_buf.push_back(*vec_it);
+					vec_it = vec.erase(vec_it);
+				}
+				// for(size_t i = 0; i < pair_ratio; i++)
+				// {
+				// 	// std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
+				// 	// vec_it++;
+				// }
+				pl_check += 1;
+			}
+        }
+        vec_it += pair_ratio;
+        index++;
+    } // ici je repere et je stock ou sont les nb a replacer
+	if (vec_buf.size() < 1)
+	{
+		std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
+		return ;
+	}
+	size_t top = vec.size();
+	size_t cpt = 0;
+	size_t tmp = 0;
+	while (tmp < top)
+	{
+		cpt++;
+		tmp += pair_ratio;
+	}
+	size_buffer = cpt;
+	size_t bot;
+	size_t mid;
+	size_t nb;
+	std::cout << std::endl << "DEBUT DE MON INSERTION" << std::endl;
+	print_container(vec);
+	while (size_buffer > 0)
+	{
+		top = vec.size();
+		if (cpt % 2 == 0)
+			mid = cpt - 1;
+		else
+			mid = cpt;
+		bot = 0;
+		// attention pour le mid, il faut que ca sois en pair_ratio
+		nb = vec[mid];
+		while ((bot + pair_ratio) < top)
+		{
+			std::cout << "ma condition est egale a " << (bot + pair_ratio) << std::endl;
+			std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
+			std::cout << "Maintenant avec le contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
+			tmp = 0;
+			cpt = 0;
+			if (nb > bot)
+			{
+				// objectif -> faire nouveau bot, trouver nouveau mid
+				bot = mid;
+				tmp = bot;
+				while (tmp < top)
+				{
+					cpt++;
+					tmp += pair_ratio;
+				}
+				std::cout << "tmp = " << tmp << std::endl;
+				cpt /= 2;
+				if (cpt % 2 == 0)
+					mid = bot + cpt - 1;
+				else
+					mid = bot + cpt;
+				mid = cpt * pair_ratio;
+				nb = vec[mid];
+			} // probleme a ce niveau la
+			else if (nb < top)
+			{
+				top = mid;
+				tmp = top;
+				while (tmp > top)
+				{
+					cpt++;
+					tmp -= pair_ratio;
+				}
+				cpt /= 2;
+				if (cpt % 2 == 0)
+					mid = bot + cpt - 1;
+				else
+					mid = bot + cpt;
+				mid = cpt * pair_ratio;
+				nb = vec[mid];
+			}
+			usleep(1000000);
+		}
+		std::cout << "!!! debut insertion des pairs" << std::endl << std::endl;
+		buf_it = vec_buf.begin();
+		vec_it = vec.begin();
+		print_container(vec_buf);
+		while (*vec_it < vec[mid])
+			vec_it++;
+		for(size_t i = 0; i < pair_ratio; i++)
+        {
+            std::cout << "valeur de vecteur " << *buf_it << std::endl;
+			std::cout << "voici les differentes composante de l'insertion:" << std::endl;
+			std::cout << *vec_it << " 1 " << *buf_it << std::endl;
+            // vec.push_back(*buf_it); // regler le problemne avec i et tout au dessus
+			vec.insert(vec_it + i, 1, *buf_it);
+			// std::swap(vec[bot + pair_ratio / 2], vec[len]);
+            buf_it = vec_buf.erase(buf_it);
+        }
+		std::cout << "insertion finis ";
+		print_container(vec_buf);
+		size_buffer -= size_buffer;
+	}
 	std::cout << "voici mon vecteur a la fin de ma fonction: " << std::endl;
     print_container(vec);
 }
