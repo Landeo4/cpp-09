@@ -328,6 +328,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 		// attention pour le mid, il faut que ca sois en pair_ratio
 		while ((bot + pair_ratio) < top)
 		{
+            // if (vec_buf.size() > 0)
+		        // print_container(vec_buf);
+            // print_container(vec);
 			std::cout << "[ DEBUT DE BOUCLE: ma condition est egale a " << (bot + pair_ratio) << std::endl;
 			std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
 			std::cout << " et mon nb " << vec_buf[nb_pos] << std::endl;
@@ -353,7 +356,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 				if (cpt % 2 == 0)
 					mid = bot + cpt;
 				else
-					mid = bot + cpt - 1;
+					mid = bot + cpt;
                 // std::cout << "Pour resumer ici position " << nb_pos << " valeur " << vec_buf[nb_pos] << " est superieur a " << vec[mid] << std::endl;
 				// std::cout << "voici tmp " << tmp << " mid " << mid << std::endl;
 			} // probleme a ce niveau la -> probleme avec le mid
@@ -370,23 +373,25 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 				if (cpt % 2 == 0)
 					mid = bot + cpt;
 				else
-					mid = bot + cpt - 1;
+					mid = bot + cpt;
                 // trouver comment mettre le mid a 7 et non a 5
 				// std::cout << "Pour resumer ici position " << nb_pos << " position " << vec_buf[nb_pos] << " est inferieur a " << vec[mid] << std::endl;
 			}
 			std::cout << "fin de boucle ]" << std::endl;
-			usleep(1000000);
+			usleep(100000);
 		}
 		std::cout << std::endl << "!!! debut insertion des pairs" << std::endl << std::endl;
 		std::cout << "FIN DE BOUCLE: ma condition est egale a " << (bot + pair_ratio) << std::endl;
 		std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
 		std::cout << "Maintenant avec le contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
-		buf_it = vec_buf.begin();
 		vec_it = vec.begin();
 		print_container(vec_buf);
 		while (*vec_it < vec[bot])
 			vec_it++;
-        vec_it++;
+        if (vec_buf[pair_ratio] > vec[bot])
+            vec_it++;
+        std::cout << "voici bot " << vec[bot] << " donc vec_it sera bot + 1" << std::endl;
+		buf_it = vec_buf.begin();
 		for(size_t i = 0; i < pair_ratio; i++)
         {
             std::cout << "valeur de vecteur " << *buf_it << std::endl;
