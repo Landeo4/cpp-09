@@ -341,17 +341,20 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 				// objectif -> faire nouveau bot, trouver nouveau mid
 				bot = mid;
 				tmp = bot;
+                std::cout << "tmp depart " << tmp << std::endl;
 				while (tmp < top)
 				{
-					cpt++;
+					cpt += pair_ratio;
 					tmp += pair_ratio;
 				}
-				tmp = tmp / 2;
-				if (tmp % 2 == 0)
-					mid = bot + tmp;
+                std::cout << "voici mon cpt " << cpt << " " << std::endl;
+				cpt = cpt / 2;
+                std::cout << "voici mon cpt " << cpt << " " << std::endl;
+				if (cpt % 2 == 0)
+					mid = bot + cpt;
 				else
-					mid = bot + tmp - 1;
-                std::cout << "Pour resumer ici vec_buf[nb_pos] " << vec[vec_buf[nb_pos]] << " position " << vec_buf[nb_pos] << " est superieur a " << vec[bot] << std::endl;
+					mid = bot + cpt - 1;
+                // std::cout << "Pour resumer ici position " << nb_pos << " valeur " << vec_buf[nb_pos] << " est superieur a " << vec[mid] << std::endl;
 				// std::cout << "voici tmp " << tmp << " mid " << mid << std::endl;
 			} // probleme a ce niveau la -> probleme avec le mid
 			else if (vec_buf[nb_pos] < vec[mid])
@@ -360,15 +363,16 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 				tmp = bot;
 				while (tmp < top)
 				{
-					cpt++;
+					cpt += pair_ratio;
 					tmp += pair_ratio;
 				}
-				tmp = tmp / 2;
+				cpt = cpt / 2;
 				if (cpt % 2 == 0)
-					mid = bot + tmp;
+					mid = bot + cpt;
 				else
-					mid = bot + tmp;
-				std::cout << "donc voici nouveau en valeur dans sup " << vec[mid] << std::endl;
+					mid = bot + cpt - 1;
+                // trouver comment mettre le mid a 7 et non a 5
+				// std::cout << "Pour resumer ici position " << nb_pos << " position " << vec_buf[nb_pos] << " est inferieur a " << vec[mid] << std::endl;
 			}
 			std::cout << "fin de boucle ]" << std::endl;
 			usleep(1000000);
@@ -393,7 +397,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 			// std::swap(vec[bot + pair_ratio / 2], vec[len]);
             buf_it = vec_buf.erase(buf_it);
         }
-		print_container(vec_buf);
+        if (vec_buf.size() > 0)
+		    print_container(vec_buf);
         std::cout << " et voici ma principale" << std::endl;
         print_container(vec);
 		size_buffer -= pair_ratio;
