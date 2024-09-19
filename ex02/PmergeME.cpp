@@ -304,30 +304,40 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 	size_buffer = cpt;
 	size_t bot;
 	size_t mid;
-	size_t nb;
+	size_t nb_pos;
 	std::cout << std::endl << "DEBUT DE MON INSERTION" << std::endl;
 	print_container(vec);
+    print_container(vec_buf);
 	while (size_buffer > 0)
 	{
 		top = vec.size();
 		top--;
+        tmp = 0;
+        cpt = 0;
+        while (tmp < top)
+        {
+            cpt++;
+            tmp += pair_ratio;
+        }
 		if (cpt % 2 == 0)
 			mid = cpt - 1;
 		else
 			mid = cpt;
 		bot = 0;
+        nb_pos = pair_ratio;
 		// attention pour le mid, il faut que ca sois en pair_ratio
-		nb = vec[mid];
 		while ((bot + pair_ratio) < top)
 		{
 			std::cout << "[ DEBUT DE BOUCLE: ma condition est egale a " << (bot + pair_ratio) << std::endl;
 			std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
-			std::cout << "Maintenant avec le contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
-			tmp = 0;
+			std::cout << " et mon nb " << vec_buf[nb_pos] << std::endl;
+            // std::cout << "Maintenant avec l<e contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
+			std::cout << "top " << vec[top] << " size " << vec.size() <<  std::endl;
+            tmp = 0;
 			cpt = 0;
-			if (nb > bot)
+            std::cout << "voici les comparaison du if " << vec_buf[nb_pos] << " " << vec[mid] << std::endl;
+			if (vec_buf[nb_pos] > vec[mid])
 			{
-				std::cout << "JE SUIS DANS LE SUPERIEUR A BOT" << std::endl;
 				// objectif -> faire nouveau bot, trouver nouveau mid
 				bot = mid;
 				tmp = bot;
@@ -340,13 +350,12 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 				if (tmp % 2 == 0)
 					mid = bot + tmp;
 				else
-					mid = bot + tmp;
-				std::cout << "voici tmp " << tmp << " mid " << mid << std::endl;
-				nb = vec[mid];
+					mid = bot + tmp - 1;
+                std::cout << "Pour resumer ici vec_buf[nb_pos] " << vec[vec_buf[nb_pos]] << " position " << vec_buf[nb_pos] << " est superieur a " << vec[bot] << std::endl;
+				// std::cout << "voici tmp " << tmp << " mid " << mid << std::endl;
 			} // probleme a ce niveau la -> probleme avec le mid
-			else if (nb < top)
+			else if (vec_buf[nb_pos] < vec[mid])
 			{
-				std::cout << "JE SUIS DANS LE INFERIEUR A TOP" << std::endl;
 				top = mid;
 				tmp = bot;
 				while (tmp < top)
@@ -359,22 +368,21 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 					mid = bot + tmp;
 				else
 					mid = bot + tmp;
-				std::cout << "donc voici nouveau mid " << mid << std::endl;
-				nb = vec[mid];
+				std::cout << "donc voici nouveau en valeur dans sup " << vec[mid] << std::endl;
 			}
 			std::cout << "fin de boucle ]" << std::endl;
-			std::cout << "a la fin de la boucle voici les nouvelles donnees" << std::endl;
 			usleep(1000000);
 		}
+		std::cout << std::endl << "!!! debut insertion des pairs" << std::endl << std::endl;
 		std::cout << "FIN DE BOUCLE: ma condition est egale a " << (bot + pair_ratio) << std::endl;
 		std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
 		std::cout << "Maintenant avec le contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
-		std::cout << std::endl << "!!! debut insertion des pairs" << std::endl << std::endl;
 		buf_it = vec_buf.begin();
 		vec_it = vec.begin();
 		print_container(vec_buf);
 		while (*vec_it < vec[bot])
 			vec_it++;
+        vec_it++;
 		for(size_t i = 0; i < pair_ratio; i++)
         {
             std::cout << "valeur de vecteur " << *buf_it << std::endl;
@@ -385,9 +393,11 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 			// std::swap(vec[bot + pair_ratio / 2], vec[len]);
             buf_it = vec_buf.erase(buf_it);
         }
-		std::cout << "insertion finis ";
 		print_container(vec_buf);
-		size_buffer -= size_buffer;
+        std::cout << " et voici ma principale" << std::endl;
+        print_container(vec);
+		size_buffer -= pair_ratio;
+		std::cout << "insertion finis" << std::endl << std::endl;
 	}
 	std::cout << "voici mon vecteur a la fin de ma fonction: " << std::endl;
     print_container(vec);
