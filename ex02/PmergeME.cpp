@@ -319,12 +319,18 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             cpt++;
             tmp += pair_ratio;
         }
+        if (cpt == top)
+            cpt /= 2;
+        std::cout << "bon les putains de cpt et tmp ont ca comme valeur " << tmp << " " << cpt << std::endl;
 		if (cpt % 2 == 0)
 			mid = cpt - 1;
 		else
 			mid = cpt;
 		bot = 0;
-        nb_pos = pair_ratio;
+        if (pair_ratio == 1)
+            nb_pos = 0;
+        else
+            nb_pos = pair_ratio;
 		// attention pour le mid, il faut que ca sois en pair_ratio
 		while ((bot + pair_ratio) < top)
 		{
@@ -340,15 +346,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 			cpt = 0;
             std::cout << "voici les comparaison du if " << vec_buf[nb_pos] << " " << vec[mid] << std::endl;
 			if (vec_buf[nb_pos] > vec[mid])
-			{
 				bot = mid;
-				tmp = bot;
-			} // probleme a ce niveau la -> probleme avec le mid
 			else if (vec_buf[nb_pos] < vec[mid])
-			{
 				top = mid;
-				tmp = bot;
-			}
+            tmp = bot;
             while (tmp < top)
             {
                 cpt += pair_ratio;
@@ -362,12 +363,12 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 			std::cout << "fin de boucle ]" << std::endl;
 			usleep(100000);
 		}
-        if (bot == mid)
-            bot -= pair_ratio;
+        // if (bot == mid)
+            // bot -= pair_ratio;
         // pour cette condition faire attention a ce qu'elle ne pose pas probleme plus tard
         std::cout << std::endl << "!!! debut insertion des pairs" << std::endl << std::endl;
 		std::cout << "FIN DE BOUCLE: ma condition est egale a " << (bot + pair_ratio) << std::endl;
-		std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
+		std::cout << "A la sortie du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
 		std::cout << "Maintenant avec le contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
 		vec_it = vec.begin();
         if (vec_buf.size() > 0)
@@ -399,7 +400,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 		    print_container(vec_buf);
         std::cout << " et voici ma principale" << std::endl;
         print_container(vec);
-		size_buffer -= pair_ratio;
+        size_buffer = vec_buf.size();
+		// size_buffer -= pair_ratio;
+        std::cout << "voici size_buffer " << size_buffer << " et voici pair_ratio " << pair_ratio << std::endl;
 		std::cout << "insertion finis" << std::endl << std::endl;
 	}
 	std::cout << "voici mon vecteur a la fin de ma fonction: " << std::endl;
