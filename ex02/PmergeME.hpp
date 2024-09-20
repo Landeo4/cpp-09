@@ -29,6 +29,8 @@ class Algo
 
 template<typename T>
 void print_container(T vec);
+template<typename T>
+void print_container_pair_size(T vec, size_t pair_ratio);
 
 //insertion binarie 
 //insertion dycotomique

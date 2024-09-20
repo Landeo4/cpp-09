@@ -62,6 +62,7 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
     size_t actual_pair = pair_ratio - 1;
     std::cout << vec.size() << std::endl;
     std::cout  << "pair__ratio " << pair_ratio << std::endl;
+    // print_container_pair_size(vec, pair_ratio);
     while (actual_pair + pair_ratio < vec.size())
     {
         // std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
@@ -271,6 +272,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         {
 			if (vec_it + pair_ratio < vec.end())
 			{
+                std::cout << "nouvel pair" << std::endl;
 				for(size_t i = 0; i < pair_ratio; i++)
 				{
 					std::cout << "valeur de vecteur " << *vec_it << std::endl;
@@ -305,8 +307,26 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 	size_t bot;
 	size_t mid;
 	size_t nb_pos;
+    if (pair_ratio == 1)
+    {
+        std::cout << std::endl << "---------------- JE PASSE A LA DERNIERE PARTIS DE L'INSERTION, LES PAIRS INDIVIDUEL ----------------" << std::endl << std::endl; 
+    }
 	std::cout << std::endl << "DEBUT DE MON INSERTION" << std::endl;
-	print_container(vec);
+    for (int i = 0; vec[i] != vec.back(); i++)
+    {
+        std::cout << "[";
+        size_t j = 0;
+        while (j < pair_ratio)
+        {
+            if (vec[i] == vec.back())
+                break;
+            usleep(10000);
+            std::cout << " " << vec[i];
+            j++;
+            i++;
+        }
+        std::cout << "] ";
+    }
     print_container(vec_buf);
 	while (size_buffer > 0)
 	{
@@ -322,7 +342,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         if (cpt == top)
             cpt /= 2;
         std::cout << "bon les putains de cpt et tmp ont ca comme valeur " << tmp << " " << cpt << std::endl;
-		if (cpt % 2 == 0)
+        // cree une maniere de recup la milieu parfait 
+        if (cpt % 2 == 0)
 			mid = cpt - 1;
 		else
 			mid = cpt;
@@ -330,7 +351,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         if (pair_ratio == 1)
             nb_pos = 0;
         else
+        {
             nb_pos = pair_ratio;
+            nb_pos--;
+        }
 		// attention pour le mid, il faut que ca sois en pair_ratio
 		while ((bot + pair_ratio) < top)
 		{
@@ -339,7 +363,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             // print_container(vec);
 			std::cout << "[ DEBUT DE BOUCLE: ma condition est egale a " << (bot + pair_ratio) << std::endl;
 			std::cout << "A l'entre du while voici mon top " << top << " bot " << bot << " mid " << mid << std::endl;
-			std::cout << " et mon nb " << vec_buf[nb_pos] << std::endl;
+			std::cout << "nb_pos " << nb_pos << std::endl;
+            std::cout << " et mon nb " << vec_buf[nb_pos] << std::endl;
             // std::cout << "Maintenant avec l<e contexte ca donne " << vec[top] << " bot " << vec[bot] << " mid " << vec[mid] << std::endl;
 			std::cout << "top " << vec[top] << " size " << vec.size() <<  std::endl;
             tmp = 0;
@@ -356,11 +381,16 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                 tmp += pair_ratio;
             }
             cpt = cpt / 2;
+            std::cout << "mid = bot " << bot << " + cpt " << cpt << " et cpt % 2 = " << cpt % 2 << std::endl;
             if (cpt % 2 == 0)
                 mid = bot + cpt;
             else
-                mid = bot + cpt;
-			std::cout << "fin de boucle ]" << std::endl;
+                mid = bot + cpt + 1;
+            if (mid % 2 == 0 && pair_ratio != 1)
+                mid++;
+            if (mid == top)
+                mid = bot + pair_ratio;
+			std::cout << "fin de boucle voici donc mid " << mid << " ]" << std::endl;
 			usleep(100000);
 		}
         // if (bot == mid)
@@ -373,24 +403,32 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 		vec_it = vec.begin();
         if (vec_buf.size() > 0)
 		    print_container(vec_buf);
-		while (*vec_it < vec[mid])
+		if (vec_buf[nb_pos] < vec[mid] && mid == top)
+            mid -= pair_ratio;
+        for(int sac = mid; sac >= 0; sac--)
 			vec_it++;
-        std::cout << "voici vec_buf[pair_ratio] " << vec_buf[pair_ratio] << " voici bot " << vec[bot] << std::endl;
+        std::cout << "voici vec_buf[pair_ratio] " << vec_buf[pair_ratio - 1] << " voici bot " << vec[bot] << std::endl;
         if (pair_ratio == 1)
             tmp = 0;
         else
-            tmp = pair_ratio;
-        if (vec_buf[tmp] > vec[mid])
+            tmp = pair_ratio - 1;
+        std::cout << " pos bot " << bot << " " << "valeur bot " << vec[bot];
+        std::cout << " pos mid " << mid << " " << "valeur mid " << vec[mid];
+        std::cout << " pos top " << top << " " << "valeur top " << vec[top];
+        std::cout << " valeur nb_pos " << vec_buf[nb_pos] << std::endl;
+        if (*vec_it < vec_buf[nb_pos] && vec_buf[nb_pos] > vec[top])
         {
-            std::cout << "vec_it augmente de 1" << std::endl;
+            std::cout << "VEC_IT AUGMENTEEEE de 1" << std::endl;
             vec_it++;
         }
+        if (*vec_it == vec[vec.size()])
+            vec_it--;
         buf_it = vec_buf.begin();
 		for(size_t i = 0; i < pair_ratio; i++)
         {
             std::cout << "valeur de vecteur " << *buf_it << std::endl;
 			std::cout << "voici les differentes composante de l'insertion:" << std::endl;
-			std::cout << *vec_it << " 1 " << *buf_it << std::endl;
+			std::cout << *vec_it + i<< " 1 " << *buf_it << std::endl;
             // vec.push_back(*buf_it); // regler le problemne avec i et tout au dessus
 			vec.insert(vec_it + i, 1, *buf_it);
 			// std::swap(vec[bot + pair_ratio / 2], vec[len]);
@@ -398,10 +436,29 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         }
         if (vec_buf.size() > 0)
 		    print_container(vec_buf);
-        std::cout << " et voici ma principale" << std::endl;
-        print_container(vec);
+        std::cout << "et voici ma principale" << std::endl;
+        int i = 0;
+        while (vec[i] != vec.back())
+        {
+            std::cout << "[";
+            size_t j = 0;
+            while (j < pair_ratio && vec[i] != vec.back())
+            {
+                if (vec[i] == vec.back())
+                    break;
+                std::cout << " " << vec[i];
+                j++;
+                i++;
+            }
+            if (vec[i] == vec.back())
+                break;
+            i++;
+            std::cout << "] ";
+        }
+        std::cout << "] " << std::endl;
         size_buffer = vec_buf.size();
 		// size_buffer -= pair_ratio;
+        print_container(vec);
         std::cout << "voici size_buffer " << size_buffer << " et voici pair_ratio " << pair_ratio << std::endl;
 		std::cout << "insertion finis" << std::endl << std::endl;
 	}
@@ -425,7 +482,6 @@ template<typename T>
 void print_container(T vec)
 {
     size_t i = 0;
-
     std::cout << "voici print cointainer: ";
     while (vec[i] != vec.back())
     {
@@ -436,6 +492,74 @@ void print_container(T vec)
     }
     std::cout << vec[i] << std::endl;
 }
+
+template<typename T>
+void print_container_pair_size(T vec, size_t pair_ratio)
+{
+    int i = 0;
+    while (vec[i] != vec.back())
+    {
+        std::cout << "[";
+        size_t j = 0;
+        while (j < pair_ratio && vec[i] != vec.back())
+        {
+            if (vec[i] == vec.back())
+                break;
+            std::cout << " " << vec[i];
+            j++;
+            i++;
+        }
+        std::cout << " " << vec[i];
+        if (vec[i] == vec.back())
+            break;
+        i++;
+        std::cout << "] ";
+    }
+    std::cout << "] " << std::endl;
+}
+
+// template<typename T>
+// void print_container(T vec, size_t pair_ratio)
+// {
+//     size_t i = 0;
+//     (void)pair_ratio;
+//     size_t j = -1;
+//     if (pair_ratio == j)
+//     {
+//         std::cout << "voici print cointainer: ";
+//         while (vec[i] != vec.back())
+//         {
+//             if (vec[i] == vec.back())
+//                 break;
+//             std::cout << vec[i] << " ";
+//             i++;
+//         }
+//         std::cout << vec[i] << std::endl;
+//     }
+//     else
+//     {
+//         std::cout << "voici print cointainer: ";
+//         while (vec[i] != vec.back())
+//         {
+//             std::cout << "[";
+//             j = 0;
+//             std::cout << " i " << i << " " << vec.back();
+//             while (j < pair_ratio)
+//             {
+//                 if (vec[i] == vec.back())
+//                     break;
+//                 usleep(10000);
+//                 std::cout << " " << vec[i];
+//                 j++;
+//                 i++;
+//             }
+//             std::cout << "] ";
+//             i++;
+//         }
+//         std::cout << vec[i] << "]" << std::endl;
+//     }
+// }
+
 
 // template<typename T>
 // void Algo::start_algo()
