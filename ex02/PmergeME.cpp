@@ -252,6 +252,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 }
 */
 
+/*
 void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
 {
     std::vector<double> vec_buf;
@@ -466,6 +467,170 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     print_container(vec);
 }
 
+*/
+
+void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
+{
+    std::vector<double> vec_buf;
+    std::vector<double>::iterator vec_it = vec.begin();
+    std::vector<double>::iterator buf_it;
+    int pl_check = 2;
+    int index = 0;
+    (void)actual_pair;
+
+    std::cout << "I === debut de tri_dicoto ===" << std::endl; 
+    std::cout << "container au debut de tri_dicoto" << std::endl;
+    print_container(vec);
+    std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
+    while (vec_it < vec.end())
+    {
+        if (index == pl_check)
+        {
+			if (vec_it + pair_ratio < vec.end())
+			{
+                std::cout << "nouvel pair" << std::endl;
+				for(size_t i = 0; i < pair_ratio; i++)
+				{
+					std::cout << "valeur de vecteur " << *vec_it << std::endl;
+					vec_buf.push_back(*vec_it);
+					vec_it = vec.erase(vec_it);
+				}
+				// for(size_t i = 0; i < pair_ratio; i++)
+				// {
+				// 	// std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
+				// 	// vec_it++;
+				// }
+				pl_check += 1;
+			}
+        }
+        vec_it += pair_ratio;
+        index++;
+    } // ici je repere et je stock ou sont les nb a replacer
+	if (vec_buf.size() < 1)
+	{
+		std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
+		return ;
+	}
+    std::cout << std::endl << std::endl; 
+    print_container(vec);
+    print_container(vec_buf);
+    buf_it = vec_buf.begin();
+    size_t nb = pair_ratio - 1;
+    std::cout << "voici nb " << nb;
+    size_t mid = 0;
+    size_t top = vec.size() - 1;
+    size_t bot = 1; // faire attention car bot = 1 peut poser probleme car il compte pas le charactere 0
+    int pair_size = vec_buf.size() - 1;
+    size_t odd = vec.size();
+    if (odd % 2 == 0)
+        odd = 0;
+    else
+        odd = 1;
+    while (pair_size > 0)
+    {
+        while (42)
+        {
+            usleep(100000);
+            std::cout << std::endl << "DEBUT WHILE " << std::endl;
+            mid = find_middle(top, pair_ratio, bot, odd);
+            std::cout << "voici mon mid " << mid << " top " << top;
+            std::cout << " et mon bot " << bot << " pair_ratio "<< pair_ratio << std::endl;
+            std::cout << "voici leurs valeurs mid top bot "<< vec[mid] << " " << vec[top] << " " << vec[bot] << std::endl;
+            if (mid + pair_ratio == top)
+                break;
+            else if (mid > vec_buf[nb])
+                bot = mid;
+            else if (mid < vec_buf[nb])
+            {
+                std::cout << "je passe par cette condition" << std::endl;
+                top = mid - pair_ratio;
+            }
+        }
+        std::cout << std::endl << "DEBUT INSERTION" << std::endl;
+        print_container(vec);
+        if (*buf_it)
+            print_container(vec_buf);
+        // while()
+        //         {
+        //             iterator mid = ft_findmiddle(start, end, list);
+        //             if (condition d'arret)
+        //                 break;
+        //             else if(mid > listnontrier)
+        //                 start = mid;
+        //             else if(mid < listnontrier)
+        //                 end = mid - taille element;                
+        //         }
+        //         if (mid < listnontrier)
+        //             insert (apres mid);
+        //         else if (mid > listnontrier)
+        //             insert (avant mid);
+        vec_it = vec.begin();
+        buf_it = vec_buf.begin();
+        // for(size_t i = 0; i < nb; i++)
+            // buf_it++;
+        std::cout << "mid = " << mid << " ";
+        std::cout << "vec[nb] " << vec_buf[nb] << " vec[mid] " << vec[mid] << std::endl;
+        if (vec[nb] < vec[mid])
+        {
+            for(size_t i = 0; i < top; i++)
+                vec_it++;
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                std::cout << "valeur de vecteur " << *buf_it << std::endl;
+                std::cout << "voici les differentes composante de l'insertion: (vec_it et buf_it)" << std::endl;
+                std::cout << *vec_it + i << " 1 " << *buf_it << std::endl;
+                vec.insert(vec_it + i, 1, *buf_it);
+                buf_it = vec_buf.erase(buf_it);
+            }
+        }
+        else if (vec[nb] > vec[mid])
+        {
+            for(size_t i = 0; i < mid; i++)
+                vec_it++;
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                std::cout << "valeur de vecteur " << *buf_it << std::endl;
+                std::cout << "voici les differentes composante de l'insertion:" << std::endl;
+                std::cout << *vec_it + i<< " 1 " << *buf_it << std::endl;
+                vec.insert(vec_it + i, 1, *buf_it);
+                buf_it = vec_buf.erase(buf_it);
+            }
+        }
+        pair_size -= pair_ratio;
+    }
+    print_container(vec);
+}
+
+size_t Algo::find_middle(size_t top, int pair_ratio, size_t bot, size_t odd)
+{
+    (void)odd;
+    size_t mid;
+    top = top / 2;
+    std::cout << "debut de find middle, voici bot " << bot << " top " << top << std::endl;
+    while (bot + pair_ratio < top)
+    {
+        std::cout << "bot " << bot << " top " << top << std::endl;
+        bot += pair_ratio;
+        usleep(100000);
+    }
+    mid = bot; 
+    return mid;
+    // int tmp = 0;
+    // int cpt = 0;
+    // size_t mid;
+    // while (bot < top / 2)
+    // {
+    //     cpt++;
+    //     bot += pair_ratio;
+    // }
+    // tmp = bot / 2;
+    // if (odd == 0)
+    //     mid = pair_ratio * cpt + 1;
+    // else
+    //     mid = pair_ratio * cpt;
+    // return mid;
+}
+
 //a chaque recursion faire un tri dichotomique ->
 // prendre au milieu et regarder si inf ou sup, faire ca jusqu'a plus possible
 
@@ -483,6 +648,11 @@ void print_container(T vec)
 {
     size_t i = 0;
     std::cout << "voici print cointainer: ";
+    if (vec.size() < 1)
+    {
+        std::cout << "il n'y a rien dans ce vecteur" << std::endl;
+        return ;
+    }
     while (vec[i] != vec.back())
     {
         if (vec[i] == vec.back())
