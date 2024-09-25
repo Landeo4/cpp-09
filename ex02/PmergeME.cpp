@@ -516,7 +516,6 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
     print_container(vec);
     print_container(vec_buf);
-    buf_it = vec_buf.begin();
     size_t nb = pair_ratio - 1;
     std::cout << "voici nb " << nb;
     std::vector<double>::iterator mid;
@@ -527,6 +526,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     {
         top = vec.end();
         bot = vec.begin();
+        buf_it = vec_buf.begin() + pair_ratio;
         while (42)
         {
             usleep(10000);
@@ -537,7 +537,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             std::cout<< "=== DEBUT WHILE " << std::endl;
             mid = find_middle(top, pair_ratio, bot);
             std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
-            std::cout << "et enfin buf_it " << *buf_it << std::endl;
+            std::cout << "et enfin buf_it " << *buf_it << " pair_ratio " << pair_ratio << std::endl;
             if (mid + pair_ratio + 1 > top)
             {
                 std::cout << "=== FIN DE WHILE" << std::endl;
@@ -547,31 +547,35 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                 bot = mid;
             else if (*mid < *buf_it)
             {
-                std::cout << "je passe par cette condition" << std::endl;
                 top = mid - pair_ratio;
+                std::cout << "je passe par une reduction de top: " << *top << std::endl;
             }
         }
         std::cout << std::endl << " !!!DEBUT INSERTION" << std::endl;
-        // while()
-        //         {
-        //             iterator mid = ft_findmiddle(start, end, list);
-        //             if (condition d'arret)
-        //                 break;
-        //             else if(mid > listnontrier)
-        //                 start = mid;
-        //             else if(mid < listnontrier)
-        //                 end = mid - taille element;                
-        //         }
-        //         if (mid < listnontrier)
-        //             insert (apres mid);
-        //         else if (mid > listnontrier)
-        //             insert (avant mid);
+/*
+        while()
+                {
+                    iterator mid = ft_findmiddle(start, end, list);
+                    if (condition d'arret)
+                        break;
+                    else if(mid > listnontrier)
+                        start = mid;
+                    else if(mid < listnontrier)
+                        end = mid - taille element;                
+                }
+                if (mid < listnontrier)
+                    insert (apres mid);
+                else if (mid > listnontrier)
+                    insert (avant mid);
+*/
+
         vec_it = vec.begin();
+        size_t nb = *buf_it;
         buf_it = vec_buf.begin();
         // for(size_t i = 0; i < buf_it; i++)
             // buf_it++;
-        std::cout << "comparaison pour insertion: buf_it = " << *buf_it << " mid " << *mid << std::endl;
-        if (*buf_it > *mid)
+        std::cout << "comparaison pour insertion: buf_it = " << nb << " mid " << *mid << std::endl;
+        if (nb > *mid)
         {
             while (vec_it < top)
                     vec_it++;
@@ -585,7 +589,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                 buf_it = vec_buf.erase(buf_it);
             }
         }
-        else if (*buf_it < *mid)
+        else if (nb < *mid)
         {
             if (*buf_it < *mid && *buf_it > *bot)
             {
@@ -619,8 +623,9 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double>::iterator to
     // comparer milieu est plus petit ou plus grand que le nb
     std::vector<double>::iterator mid;
     size_t dist = std::distance(bot, top);
-    std::cout << "voici ma distance " << dist << std::endl;
     std::vector<double>::iterator tmp = bot + (dist / 2);
+    std::cout << " en entrant voici mon top " << *top << " et bot " << *bot << std::endl;
+    std::cout << "voici ma distance " << dist << std::endl;
     std::cout << "voici nb de tmp " << *tmp << std::endl;
     std::cout << "--- find mid" << std::endl;
     while (bot < tmp)
@@ -628,7 +633,7 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double>::iterator to
     mid = bot;
     std::cout << " mid en sortant de find mid " << *mid << std::endl;
     std::cout << "--- fin de find mid" << std::endl;
-    return mid;
+    return mid + pair_ratio - 1;
     // trouver comment faire un bon mid
     // -> je pourrais parcourir ma liste a par pair_size, diviser le top par 2
     // puis regarder quel valeur de pair_size est la plus proche de top / 2
