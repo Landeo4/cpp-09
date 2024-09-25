@@ -519,14 +519,14 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     buf_it = vec_buf.begin();
     size_t nb = pair_ratio - 1;
     std::cout << "voici nb " << nb;
-    size_t mid = 0;
-    size_t top = vec.size() - 1;
-    size_t bot = 0; // faire attention car bot = 1 peut poser probleme car il compte pas le charactere 0
+    std::vector<double>::iterator mid;
+    std::vector<double>::iterator top = vec.end();
+    std::vector<double>::iterator bot = vec.begin(); // faire attention car bot = 1 peut poser probleme car il compte pas le charactere 0
     int pair_size = vec_buf.size();
     while (pair_size > 0)
     {
-        top = vec.size() - 1;
-        bot = 0;
+        top = vec.end();
+        bot = vec.begin();
         while (42)
         {
             usleep(10000);
@@ -536,21 +536,19 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                 print_container(vec_buf);
             std::cout<< "=== DEBUT WHILE " << std::endl;
             mid = find_middle(top, pair_ratio, bot);
-            std::cout << "voici mon mid " << mid << " top " << top;
-            std::cout << " et mon bot " << bot << " pair_ratio "<< pair_ratio << std::endl;
-            std::cout << "-> comparaison avant voici leurs valeurs mid top bot "<< vec[mid] << " " << vec[top] << " " << vec[bot] << std::endl;
-            std::cout << "voici vec[mid] " << vec[mid] << " et vec_buf[nb] " << vec_buf[nb] << std::endl;
-            if (mid + pair_ratio + 1 == top || top == 1)
+            std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
+            std::cout << "et enfin buf_it " << *buf_it << std::endl;
+            if (mid + pair_ratio + 1 > top)
             {
                 std::cout << "=== FIN DE WHILE" << std::endl;
                 break;
             }
-            else if (vec[mid] < vec_buf[nb])
+            else if (*mid > *buf_it)
                 bot = mid;
-            else if (vec[mid] > vec_buf[nb])
+            else if (*mid < *buf_it)
             {
                 std::cout << "je passe par cette condition" << std::endl;
-                top = mid;
+                top = mid - pair_ratio;
             }
         }
         std::cout << std::endl << " !!!DEBUT INSERTION" << std::endl;
@@ -570,15 +568,14 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         //             insert (avant mid);
         vec_it = vec.begin();
         buf_it = vec_buf.begin();
-        // for(size_t i = 0; i < nb; i++)
+        // for(size_t i = 0; i < buf_it; i++)
             // buf_it++;
-        std::cout << "bot = " << vec[bot] << " ";
-        std::cout << "vec_buf[nb] " << vec_buf[nb] << " vec[mid] " << vec[mid] << std::endl;
-        if (vec_buf[nb] > vec[mid])
+        std::cout << "comparaison pour insertion: buf_it = " << *buf_it << " mid " << *mid << std::endl;
+        if (*buf_it > *mid)
         {
-            for(size_t i = 0; i < top; i++)
-                vec_it++;
-            std::cout << "top dans insertion " << top << std::endl;
+            while (vec_it < top)
+                    vec_it++;
+            std::cout << "top dans insertion " << *top << std::endl;
             for(size_t i = 0; i < pair_ratio; i++)
             {
                 std::cout << "valeur de vecteur " << *buf_it << std::endl;
@@ -588,20 +585,18 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                 buf_it = vec_buf.erase(buf_it);
             }
         }
-        else if (vec_buf[nb] < vec[mid])
+        else if (*buf_it < *mid)
         {
-            if (vec_buf[nb] < vec[mid] && vec_buf[nb] > bot)
+            if (*buf_it < *mid && *buf_it > *bot)
             {
-                for(size_t i = 0; i < mid; i++)
+                while (vec_it < mid)
                     vec_it++;
             }
             else
             {
-                for(size_t i = 0; i < bot; i++)
+                while (vec_it < bot)
                     vec_it++;
             }
-            std::cout << "bot dans insertion " << bot;
-            std::cout << " mid dans insertion " << mid << std::endl;
             for(size_t i = 0; i < pair_ratio; i++)
             {
                 std::cout << "valeur de vecteur " << *buf_it << std::endl;
@@ -618,33 +613,27 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     print_container(vec);
 }
 
-size_t Algo::find_middle(size_t top, int pair_ratio, size_t bot)
+std::vector<double>::iterator Algo::find_middle(std::vector<double>::iterator top, int pair_ratio, std::vector<double>::iterator bot)
 {
-    size_t mid;
-    if (top == 1)
-        return 1;
-    size_t tmp = top - bot;
-    tmp = bot + (tmp / 2);
-    size_t last_bot = bot;
-    std::cout << "--- find middle" << std::endl;
-    std::cout << " tmp " << tmp;
+    // garder sa taille de contenaire
+    // comparer milieu est plus petit ou plus grand que le nb
+    std::vector<double>::iterator mid;
+    size_t dist = std::distance(bot, top);
+    std::cout << "voici ma distance " << dist << std::endl;
+    std::vector<double>::iterator tmp = bot + (dist / 2);
+    std::cout << "voici nb de tmp " << *tmp << std::endl;
+    std::cout << "--- find mid" << std::endl;
     while (bot < tmp)
-    {
-        std::cout << " dans find middle voici bot " << bot << " " << " tmp " << tmp << std::endl;
-        if (bot + pair_ratio > tmp)
-            break;
         bot += pair_ratio;
-        // usleep(100000);
-    }
-    std::cout << "last bot " << last_bot << " bot " << bot;
     mid = bot;
-    std::cout << " mid en sortant de find middle " << mid << std::endl;
-    std::cout << "--- fin de find middle" << std::endl;
+    std::cout << " mid en sortant de find mid " << *mid << std::endl;
+    std::cout << "--- fin de find mid" << std::endl;
     return mid;
     // trouver comment faire un bon mid
     // -> je pourrais parcourir ma liste a par pair_size, diviser le top par 2
     // puis regarder quel valeur de pair_size est la plus proche de top / 2
 
+    // faire une boucle pour trouver les nombres en pair_size
     // int tmp = 0;
     // int cpt = 0;
     // size_t mid;
