@@ -531,23 +531,22 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         while (42)
         {
             usleep(10000);
-            std::cout << std::endl;
             print_container(vec);
-            if (*buf_it)
-                print_container(vec_buf);
+            std::cout << std::endl;
             std::cout<< "=== DEBUT WHILE " << std::endl;
             mid = find_middle(top, pair_ratio, bot);
             std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
             std::cout << " pair_ratio " << pair_ratio;
             std::cout << " donc ma comparaison est: mid " << *mid << " et nb " << nb << std::endl;
-            if (mid + pair_ratio + 1 > top )
+            if (bot + pair_ratio + 1 > top )
             {
                 std::cout << "=== FIN DE WHILE" << std::endl;
+                std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
                 break;
             }
-            else if (*mid < *buf_it)
+            else if (*mid < nb)
                 bot = mid;
-            else if (*mid > *buf_it)
+            else if (*mid > nb)
             {
                 top = mid - pair_ratio;
                 std::cout << "je passe par une reduction de top: " << *top << std::endl;
@@ -572,8 +571,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 */
 
         vec_it = vec.begin();
-        // size_t nb = *buf_it;
         buf_it = vec_buf.begin();
+        // size_t nb = *buf_it;
         // for(size_t i = 0; i < buf_it; i++)
             // buf_it++;
         std::cout << "comparaison pour insertion: buf_it = " << nb << " mid " << *mid << std::endl;
@@ -595,7 +594,11 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         }
         else if (nb < *mid)
         {
-            if (nb < *mid && nb > *bot)
+            std::vector<double>::iterator bot_verif = vec.begin() + pair_ratio - 1;
+            std::cout << "bot dans insertion " << *bot << std::endl;
+            if (*bot_verif > nb)
+                vec_it = vec.begin();
+            else if (nb > *bot)
             {
                 while (vec_it < mid)
                     vec_it++;
@@ -615,6 +618,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             }
         }
         std::cout << "!!! FIN INSERTION" << std::endl;
+        print_container(vec);
+        if (*buf_it)
+            print_container(vec_buf);
         pair_size -= pair_ratio;
     }
     std::cout << std::endl << "SORTIE DE TRI DICOTO " << std::endl;
