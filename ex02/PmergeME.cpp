@@ -514,10 +514,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     std::cout << std::endl << std::endl;
     if (pair_ratio == 1)
         std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
-    print_container(vec);
-    print_container(vec_buf);
+    // print_container(vec);
+    // print_container(vec_buf);
     size_t nb = vec_buf[pair_ratio - 1];
-    std::cout << "voici nb " << nb;
+    std::cout << "voici nb " << nb << std::endl;
     std::vector<double>::iterator mid;
     std::vector<double>::iterator top = vec.end();
     std::vector<double>::iterator bot = vec.begin(); // faire attention car bot = 1 peut poser probleme car il compte pas le charactere 0
@@ -531,9 +531,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         while (42)
         {
             usleep(10000);
-            print_container(vec);
             std::cout << std::endl;
             std::cout<< "=== DEBUT WHILE " << std::endl;
+            print_container(vec);
             mid = find_middle(top, pair_ratio, bot);
             std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
             std::cout << " pair_ratio " << pair_ratio;
@@ -597,16 +597,22 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             std::vector<double>::iterator bot_verif = vec.begin() + pair_ratio - 1;
             std::cout << "bot dans insertion " << *bot << std::endl;
             if (*bot_verif > nb)
-                vec_it = vec.begin();
-            else if (nb > *bot)
             {
+                std::cout << "je passe par *bot_verif > nb" << std::endl;
+                vec_it = vec.begin();
+            }
+            else if (nb > *bot && *(bot + pair_ratio) < nb)
+            {
+                std::cout << "je passe par nb > *bot" << std::endl;
                 while (vec_it < mid)
                     vec_it++;
             }
             else
             {
+                std::cout << "je passe par le reste" << std::endl;
                 while (vec_it < bot)
                     vec_it++;
+                vec_it++;
             }
             for(size_t i = 0; i < pair_ratio; i++)
             {
