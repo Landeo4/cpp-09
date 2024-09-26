@@ -502,25 +502,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         vec_it += pair_ratio;
         index++;
     } // ici je repere et je stock ou sont les nb a replacer
-    // if (index == pl_check)
-    // {
-    //     if (vec_it < vec.end())
-    //     {
-    //         std::cout << "nouvel pair" << std::endl;
-    //         for(size_t i = 0; i < pair_ratio; i++)
-    //         {
-    //             std::cout << "valeur de vecteur " << *vec_it << std::endl;
-    //             vec_buf.push_back(*vec_it);
-    //             vec_it = vec.erase(vec_it);
-    //         }
-    //         // for(size_t i = 0; i < pair_ratio; i++)
-    //         // {
-    //         // 	// std::cout << vec[pl_check - i] << " " << vec[pl_check - i] << "| ";
-    //         // 	// vec_it++;
-    //         // }
-    //         pl_check += 1;
-    //     }
-    // }
+
+    std::cout << "voici index " << index << " pl_check " << pl_check << std::endl;
+    // std::cout << "la len " << vec.size() << std::endl;
 	if (vec_buf.size() < 1)
 	{
 		std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
