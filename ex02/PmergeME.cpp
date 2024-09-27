@@ -482,27 +482,33 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     std::cout << "container au debut de tri_dicoto" << std::endl;
     print_container(vec);
     std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
-    while (vec_it < vec.end())
+    std::cout << "voici mes deux donnees " << (pair_ratio * 3 + 1) << " et size " << vec.size() << std::endl;
+    if ((pair_ratio * 3 + 1) < vec.size())
     {
-        if (index == pl_check)
+        while (vec_it < vec.end())
         {
-			if (vec_it + pair_ratio < vec.end())
-			{
-                std::cout << "nouvel pair" << std::endl;
-				for(size_t i = 0; i < pair_ratio; i++)
-				{
-					std::cout << "valeur de vecteur " << *vec_it << std::endl;
-					vec_buf.push_back(*vec_it);
-					vec_it = vec.erase(vec_it);
-				}
-				pl_check += 1;
-			}
-        }
-        // std::cout << " pl_check " << pl_check << " et index " << index << std::endl;
-        vec_it += pair_ratio;
-        index++;
-    } // ici je repere et je stock ou sont les nb a replacer
+            if (index == pl_check)
+            {
+                    std::cout << "nouvel pair" << std::endl;
+                    for(size_t i = 0; i < pair_ratio; i++)
+                    {
+                        std::cout << "valeur de vecteur " << *vec_it << std::endl;
+                        vec_buf.push_back(*vec_it);
+                        vec_it = vec.erase(vec_it);
+                    }
+                    if (pair_ratio == 1)
+                        pl_check += 1;
+                    else
+                        pl_check += 2;
+                    std::cout << "voici mon pl_check " << pl_check << std::endl;
+            }
+            // std::cout << " pl_check " << pl_check << " et index " << index << std::endl;
+            index++;
+            vec_it += pair_ratio;
+        } // ici je repere et je stock ou sont les nb a replacer
+    }
 
+    // il me faut le dernier (5eme)
     std::cout << "voici index " << index << " pl_check " << pl_check << std::endl;
     // std::cout << "la len " << vec.size() << std::endl;
 	if (vec_buf.size() < 1)
@@ -515,6 +521,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
     // print_container(vec);
     // print_container(vec_buf);
+    vec_it = vec.begin();
     size_t nb = vec_buf[pair_ratio - 1];
     std::cout << "voici nb " << nb << std::endl;
     std::vector<double>::iterator mid;
