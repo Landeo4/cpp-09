@@ -925,21 +925,16 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 
         vec_it = vec.begin();
         buf_it = vec_buf.begin();
-        // size_t nb = *buf_it;
-        // for(size_t i = 0; i < buf_it; i++)
-            // buf_it++;
+        while (vec_it < mid)
+            vec_it++;
         std::cout << "comparaison pour insertion: buf_it = " << nb << " mid " << *mid << std::endl;
-        // if (*mid > *top && nb > *top)
-        // {
-        //     std::cout << "je passe par le premier if bizarre " << std::endl;
-        //     while (vec_it < top)
-        //         vec_it++;
-        //     vec_it++;
-        // }
         std::cout << std::endl << "MOMENT IMPORTANT !!! " << std::endl;
+        print_container(vec);
+        if (*buf_it)
+            print_container(vec_buf);
+        /*
         if (nb > *mid)
         {
-        /*
             if (is_pair_ratio(top, pair_ratio, vec) == 0)
                 top++;
             std::cout << "debut de if mon nb est " << nb << " et top de base " << *top;
@@ -956,7 +951,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             std::cout << "mon vec_it " << *vec_it << " et nb " << nb << std::endl;
             if (*vec_it < nb && is_pair_ratio(vec_it, pair_ratio, vec) == 1) // == 0: pas pair_ratio
                 vec_it++;
-*/
+
             while (vec_it < top)
                 vec_it++;
         }
@@ -977,24 +972,33 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                     vec_it++;
             }
         }
-        if (*mid < nb)
+        */
+        if (nb > *mid)
         {
-            vec.insert(vec.end(), 1, *buf_it);
-            buf_it = vec_buf.erase(buf_it);
-            if (vec_buf.size() > 0)
-                buf_it += pair_ratio - 1;
+            std::cout << "je passe par nb > *mid" << std::endl;
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                std::cout << "valeur de vecteur " << *buf_it << std::endl;
+                std::cout << "voici les differentes composante de l'insertion: (vec_it et buf_it)" << std::endl;
+                std::cout << *vec_it + i << " 1 " << *buf_it << std::endl;
+                vec.insert(vec_it + 1 + i, 1, *buf_it);
+                buf_it = vec_buf.erase(buf_it);
+            }
         }
-        for(size_t i = 0; i < pair_ratio; i++)
+        else
         {
-            std::cout << "valeur de vecteur " << *buf_it << std::endl;
-            std::cout << "voici les differentes composante de l'insertion: (vec_it et buf_it)" << std::endl;
-            std::cout << *vec_it + i << " 1 " << *buf_it << std::endl;
-            vec.insert(vec_it + i, 1, *buf_it);
-            buf_it = vec_buf.erase(buf_it);
-            print_container(vec);
-            if (*buf_it)
-                print_container(vec_buf);
+            std::cout << "je passe par nb < *mid" << std::endl;
+            for(size_t i = 0; i < pair_ratio; i++)
+            {
+                std::cout << "valeur de vecteur " << *buf_it << std::endl;
+                std::cout << "voici les differentes composante de l'insertion: (vec_it et buf_it)" << std::endl;
+                std::cout << *vec_it + i << " 1 " << *buf_it << std::endl;
+                vec.insert(vec_it + i, 1, *buf_it);
+                buf_it = vec_buf.erase(buf_it);
+            }
         }
+        print_container(vec);
+        print_container(vec_buf);
         std::cout << "!!! FIN INSERTION" << std::endl;
         pair_size -= pair_ratio;
     }
@@ -1004,29 +1008,28 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 
 std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::vector<double>::iterator top, int pair_ratio, std::vector<double>::iterator bot)
 {
-    // garder sa taille de contenaire
-    // comparer milieu est plus petit ou plus grand que le nb
-    std::vector<double>::iterator mid;
     (void)vec;
-    std::cout << "voici bot " << *bot << std::endl;
+    std::vector<double>::iterator mid;
+    std::vector<double>::iterator tmp = vec.begin();
     size_t dist = std::distance(bot, top);
+    std::cout << "voici bot " << *bot << std::endl;
     std::cout << "dist = " << dist << " ";
-    std::vector<double>::iterator tmp;
-    tmp = bot + (dist / 2);
+    tmp = bot + 0;
+    tmp += dist;
     // std::cout << " en entrant voici mon top " << *top << " et bot " << *bot << std::endl;
     // std::cout << "voici ma distance " << dist << std::endl;
     // std::cout << "voici nb de tmp " << *tmp << std::endl;
     // std::cout << "--- find mid" << std::endl;
-    while (bot + pair_ratio < tmp)
+    while ((bot + pair_ratio) < tmp)
     {
         if (bot == tmp)
             break;
         bot += pair_ratio;
     }
     mid = bot;
-    std::cout << "--- fin de find mid" << std::endl;
+    std::cout << "--- fin de find mid " << *mid << std::endl;
     usleep(100000);
-    return mid + pair_ratio - 1;
+    return mid;
 }
 
 //a chaque recursion faire un tri dichotomique ->
