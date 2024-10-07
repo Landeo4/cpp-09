@@ -889,8 +889,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             // print_container(vec_buf);
             mid = find_middle(vec, top, pair_ratio, bot);
             std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
-            std::cout << "pair_ratio " << pair_ratio;
-            std::cout << " donc ma comparaison est: mid " << *mid << " et nb " << nb << std::endl;
+            // std::cout << "pair_ratio " << pair_ratio;
+            // std::cout << " donc ma comparaison est: mid " << *mid << " et nb " << nb << std::endl;
             if ((bot + pair_ratio + 1) > top || top == bot)
             {
                 std::cout << "=== FIN DE WHILE" << std::endl;
@@ -973,25 +973,24 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             }
         }
         */
-        size_t size = 0;
-        while (is_pair_ratio(*mid, pair_ratio, vec) == 0)
-        {
-            size++;
-            mid++;
-        }
+        // size_t size = 0;
         if (nb > *mid)
         {
-            while (size > 0)
-            {
-                size--;
-                mid--;
-            }
-            if (nb > *top && is_pair_ratio(*top, pair_ratio, vec))
-            {
-                std::cout << "donc nb " << nb << " >  top " << *top << " et top est pair_ratio" << std::endl;
-                while (vec_it < top)
-                    vec_it++;
-            }
+            // while (mid > 0)
+            // {
+            //     size--;
+            //     mid--;
+            // }
+            while (vec_it < mid)
+                vec_it++;
+            // if (pair_ratio == 1 && nb > *vec_it)
+                // vec_it++;
+            // if (nb > *top && is_pair_ratio(*top, pair_ratio, vec))
+            // {
+            //     std::cout << "donc nb " << nb << " >  top " << *top << " et top est pair_ratio" << std::endl;
+            //     while (vec_it < top)
+            //         vec_it++;
+            // }
             std::cout << "je passe par nb > *mid" << std::endl;
             for(size_t i = 0; i < pair_ratio; i++)
             {
@@ -1004,13 +1003,15 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         }
         else
         {
-            while (size > 0)
-            {
-                size--;
-                mid--;
-            }
-            if (nb > *bot && pair_ratio == 1)
+            while (vec_it < mid)
                 vec_it++;
+            // while (size > 0)
+            // {
+            //     size--;
+            //     mid--;
+            // }
+            // if (nb > *bot && pair_ratio == 1)
+            //     vec_it++;
             std::cout << "je passe par nb < *mid" << std::endl;
             for(size_t i = 0; i < pair_ratio; i++)
             {
@@ -1038,20 +1039,24 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     if (top == bot)
         return top;
     // else if (bot == vec.begin() && bot > nb)
-    // std::cout << "dist = " << dist << " ";
     size_t dist = std::distance(bot, top);
-    std::cout << "voici bot " << *bot  << " et voici top " << *top << std::endl;
+    // std::cout << "dist = " << dist << " ";
+    // std::cout << "voici bot " << *bot  << " et voici top " << *top << std::endl;
     tmp = bot + (dist / 2);
-    std::cout << "avant is_ratio  " << *tmp << std::endl;
+    // std::cout << "avant is_ratio " << *tmp << std::endl;
+    // if (tmp > vec.begin())
+        // std::cout << "je suis sup " << std::endl;
     while (is_pair_ratio(*tmp, pair_ratio, vec) == 0 && tmp > vec.begin())
     {
         std::cout << "j'envois dans is_ratio " << *tmp << std::endl;
-        tmp--;
+        tmp++;
     }
     // std::cout << " en entrant voici mon top " << *top << " et bot " << *bot << std::endl;
-    // std::cout << "voici ma distance " << dist << std::endl;
+    std::cout << "voici ma distance " << dist << std::endl;
     std::cout << "voici nb de tmp " << *tmp << std::endl;
     // std::cout << "--- find mid" << std::endl;
+    if (is_pair_ratio(*bot, pair_ratio, vec) == 0)
+        bot++;
     while (bot < tmp)
     {
         std::cout << " dans while bot " << *bot << " tmp " << *tmp;
@@ -1059,11 +1064,11 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     }
     mid = bot;
     std::cout << "--- fin de find mid " << *mid << std::endl;
-    usleep(100000);
+    // usleep(100000);
     return mid;
 }
 
-//a chaque recursion faire un tri dichotomique ->
+// a chaque recursion faire un tri dichotomique ->
 // prendre au milieu et regarder si inf ou sup, faire ca jusqu'a plus possible
 
 // probleme actuel, mon swap swap uniquement une valeur a la fois
@@ -1091,7 +1096,7 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
             break;
         if (nb_it == vec[i])
         {
-            std::cout << "la valeur est pair_ratio dans la boucle" << std::endl;
+            std::cout << " la valeur est pair_ratio dans la boucle" << std::endl;
             return 1;
         }
         i += pair_ratio;
@@ -1099,13 +1104,13 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
     // std::cout << "vec[i]" << vec[i] << std::endl;
     size_t tmp = vec.size();
     tmp--;
-    std::cout << "voici tmp " << tmp << std::endl;
+    std::cout << " voici tmp " << tmp << std::endl;
     if (i <= vec.size() && vec[tmp] == nb_it)
     {
-        std::cout << "la valeur == pair_ratio" << std::endl;
+        std::cout << " la valeur == pair_ratio" << std::endl;
         return 1;
     }
-    std::cout << "la valeur n'est pas pair_ratio" << std::endl;
+    std::cout << " la valeur n'est pas pair_ratio" << std::endl;
     return 0;
 }
 
