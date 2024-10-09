@@ -87,7 +87,6 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
     {
         std::cout << "=====TRI FINALE=====" << std::endl;
         print_container(vec);
-        return ;
     }
     tri_dicoto(pair_ratio, actual_pair, vec);
 }
@@ -929,10 +928,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 
         vec_it = vec.begin();
         // buf_it = vec_buf.begin();
-        while (vec_it < mid)
-            vec_it++;
         std::cout << "comparaison pour insertion: buf_it = " << nb << " mid " << *mid << std::endl;
         std::cout << std::endl << "MOMENT IMPORTANT !!! " << std::endl;
+        // while (vec_it < mid)
+            // vec_it++;
         print_container(vec);
         if (*buf_it)
             print_container(vec_buf);
@@ -1005,9 +1004,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         }
         else
         {
-			if (nb < *bot || (bot + pair_ratio == mid && nb > *bot))
+			if (nb < *bot || (bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
 			{
-                std::cout << "condition 1 "; 
+                std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
 				while (vec_it < bot)
 					vec_it++;
 			}
@@ -1024,8 +1023,11 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             // }
             // if (nb > *bot && pair_ratio == 1)
             //     vec_it++;
-			std::cout << "je passe par nb < *mid voici vec_it " << *vec_it << std::endl;
-            insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
+			std::cout << " je passe par nb < *mid voici vec_it " << *vec_it << std::endl;
+            if (*vec_it < nb)
+                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
+            else
+                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
         }
         print_container(vec);
         print_container(vec_buf);

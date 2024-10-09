@@ -23,4 +23,17 @@ int main(int argc, char **argv)
     }
     int pair = 1;
     obj.start_algo(pair, vec);
+    size_t i = 1;
+    while(i + 1 < vec.size())
+    {
+        if (i + 1== vec.size())
+            break;
+        if (vec[i] > vec[i + 1])
+        {
+            std::cout << "liste non trier" << std::endl;
+            return 0;
+        }
+        i++;
+    }
+    std::cout << " liste belle et bien trier" << std::endl;
 }
