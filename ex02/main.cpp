@@ -36,4 +36,5 @@ int main(int argc, char **argv)
         i++;
     }
     std::cout << " liste belle et bien trier" << std::endl;
+    print_container(vec);
 }

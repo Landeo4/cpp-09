@@ -904,7 +904,15 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             }
             else if (*mid > nb)
             {
-                top = mid - pair_ratio;
+                std::cout << "je passe par une reduction de top: " << *top << std::endl;
+                if (mid - pair_ratio < vec.begin())
+                {
+                    std::cout << "je suis passe par la " << std::endl;
+                    std::cout << *mid << " <- mid" << std::endl;
+                    top = mid;
+                }
+                else
+                    top = mid - pair_ratio;
                 std::cout << "je passe par une reduction de top: " << *top << std::endl;
             }
         }
@@ -1000,11 +1008,45 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             //         vec_it++;
             // }
             std::cout << "je passe par nb > *mid" << std::endl;
-            insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
+            if (*vec_it > nb)
+            {
+                std::cout << "CA PASSE PAR INF" << std::endl;
+                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
+            }
+            else
+            {
+                for(size_t i = 0; i < pair_ratio; i++)
+                {
+                    // std::cout << "valeur de vecteur " << *buf_it << std::endl;
+                    // std::cout << " voici les differentes composante de l'insertion: (vec_it et buf_it) " << std::endl;
+                    std::cout << "plus + i " << 1 + i << std::endl;
+                    std::cout << *(vec_it + 1 + i) << " 1 " << *buf_it << std::endl;
+                    if (vec_it + 1 + i > vec.end())
+                    {
+                        std::cout << "ciicicic " << *(vec_it - 5) << std::endl;
+                        vec.insert(vec_it, 1, *buf_it);
+                    }
+                    else
+                        vec.insert(vec_it + 1 + i, 1, *buf_it);
+                    std::cout << *(vec_it + 1 + i) << " 1 " << *buf_it << std::endl;
+                    print_container(vec);
+                    buf_it++;
+                    // buf_it = vec_buf.erase(buf_it);
+                }
+            }
         }
         else
         {
-			if (nb < *bot || (bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
+            std::cout << *(bot + pair_ratio - 1) << " nb " << nb << std::endl;
+            if (bot == vec.begin() && nb < *(bot + pair_ratio - 1))
+            {
+                std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
+				while (vec_it < bot)
+					vec_it++;
+                // if (bot == vec.begin() && nb < *(bot + pair_ratio - 1))
+                //     vec_it--;
+            }
+			else if ((bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
 			{
                 std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
 				while (vec_it < bot)
@@ -1024,10 +1066,21 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             // if (nb > *bot && pair_ratio == 1)
             //     vec_it++;
 			std::cout << " je passe par nb < *mid voici vec_it " << *vec_it << std::endl;
-            if (*vec_it < nb)
+            if (*vec_it > nb || (bot == vec.begin() && nb < *(bot + pair_ratio - 1)))
+            {
+                std::cout << "CA PASSE PAR INF" << std::endl;
                 insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
+            }
             else
+            {
+                std::cout << " vec_it " << *vec_it << " " << vec.size() << std::endl;
+                if (vec_it > vec.end())
+                {
+                    std::cout << "sadsasaasjajkdsajasjsa" << std::endl;
+                    vec_it--;
+                }
                 insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
+            }
         }
         print_container(vec);
         print_container(vec_buf);
@@ -1100,10 +1153,19 @@ void Algo::insert_list(size_t pair_ratio, std::vector<double>::iterator buf_it, 
     (void)vec_buf;
 	for(size_t i = 0; i < pair_ratio; i++)
 	{
-		std::cout << "valeur de vecteur " << *buf_it << std::endl;
-		std::cout << " voici les differentes composante de l'insertion: (vec_it et buf_it) " << std::endl;
-		std::cout << *vec_it + i << " 1 " << *buf_it << std::endl;
-		vec.insert(vec_it + plus + i, 1, *buf_it);
+		// std::cout << "valeur de vecteur " << *buf_it << std::endl;
+		// std::cout << " voici les differentes composante de l'insertion: (vec_it et buf_it) " << std::endl;
+		std::cout << "plus + i " << plus + i << std::endl;
+        std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
+        if (vec_it + plus + i > vec.end())
+        {
+            std::cout << "ciicicic " << *(vec_it - 5) << std::endl;
+            vec.insert(vec_it, 1, *buf_it);
+        }
+        else
+		    vec.insert(vec_it + plus + i, 1, *buf_it);
+        std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
+        print_container(vec);
         buf_it++;
 		// buf_it = vec_buf.erase(buf_it);
 	}
@@ -1125,7 +1187,7 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
             break;
         if (nb_it == vec[i])
         {
-            std::cout << " la valeur est pair_ratio dans la boucle" << std::endl;
+            // std::cout << " la valeur est pair_ratio dans la boucle" << std::endl;
             return 1;
         }
         i += pair_ratio;
@@ -1133,13 +1195,13 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
     // std::cout << "vec[i]" << vec[i] << std::endl;
     size_t tmp = vec.size();
     tmp--;
-    std::cout << " voici tmp " << tmp << std::endl;
+    // std::cout << " voici tmp " << tmp << std::endl;
     if (i <= vec.size() && vec[tmp] == nb_it)
     {
-        std::cout << " la valeur == pair_ratio" << std::endl;
+        // std::cout << " la valeur == pair_ratio" << std::endl;
         return 1;
     }
-    std::cout << " la valeur n'est pas pair_ratio" << std::endl;
+    // std::cout << " la valeur n'est pas pair_ratio" << std::endl;
     return 0;
 }
 
