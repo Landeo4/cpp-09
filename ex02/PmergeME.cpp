@@ -905,14 +905,14 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             else if (*mid > nb)
             {
                 std::cout << "je passe par une reduction de top: " << *top << std::endl;
-                if (mid - pair_ratio < vec.begin())
-                {
-                    std::cout << "je suis passe par la " << std::endl;
-                    std::cout << *mid << " <- mid" << std::endl;
-                    top = mid;
-                }
-                else
-                    top = mid - pair_ratio;
+                // if (mid - pair_ratio < vec.begin())
+                // {
+                //     std::cout << "je suis passe par la " << std::endl;
+                //     std::cout << *mid << " <- mid" << std::endl;
+                //     top = mid;
+                // }
+                // else
+                top = mid - pair_ratio;
                 std::cout << "je passe par une reduction de top: " << *top << std::endl;
             }
         }
@@ -1015,24 +1015,15 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             }
             else
             {
-                for(size_t i = 0; i < pair_ratio; i++)
-                {
-                    // std::cout << "valeur de vecteur " << *buf_it << std::endl;
-                    // std::cout << " voici les differentes composante de l'insertion: (vec_it et buf_it) " << std::endl;
-                    std::cout << "plus + i " << 1 + i << std::endl;
-                    std::cout << *(vec_it + 1 + i) << " 1 " << *buf_it << std::endl;
-                    if (vec_it + 1 + i > vec.end())
-                    {
-                        std::cout << "ciicicic " << *(vec_it - 5) << std::endl;
-                        vec.insert(vec_it, 1, *buf_it);
-                    }
-                    else
-                        vec.insert(vec_it + 1 + i, 1, *buf_it);
-                    std::cout << *(vec_it + 1 + i) << " 1 " << *buf_it << std::endl;
-                    print_container(vec);
-                    buf_it++;
-                    // buf_it = vec_buf.erase(buf_it);
-                }
+                // if (bot == mid && top < vec.end())
+                // {
+                //     vec_it = vec.begin();
+                //     while (vec_it < mid)
+                //         vec_it++;
+                //     std::cout << "condition special" << std::endl;
+                // }
+                std::cout << "CA PASSE PAR SUP" << std::endl;
+                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
             }
         }
         else
@@ -1074,11 +1065,6 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             else
             {
                 std::cout << " vec_it " << *vec_it << " " << vec.size() << std::endl;
-                if (vec_it > vec.end())
-                {
-                    std::cout << "sadsasaasjajkdsajasjsa" << std::endl;
-                    vec_it--;
-                }
                 insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
             }
         }
@@ -1157,13 +1143,13 @@ void Algo::insert_list(size_t pair_ratio, std::vector<double>::iterator buf_it, 
 		// std::cout << " voici les differentes composante de l'insertion: (vec_it et buf_it) " << std::endl;
 		std::cout << "plus + i " << plus + i << std::endl;
         std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
-        if (vec_it + plus + i > vec.end())
-        {
-            std::cout << "ciicicic " << *(vec_it - 5) << std::endl;
-            vec.insert(vec_it, 1, *buf_it);
-        }
-        else
-		    vec.insert(vec_it + plus + i, 1, *buf_it);
+        // if (vec_it + plus + i > vec.end())
+        // {
+        //     std::cout << "ciicicic " << *(vec_it - 5) << std::endl;
+        //     vec.insert(vec_it, 1, *buf_it);
+        // }
+        // else
+		vec.insert(vec_it + plus + i, 1, *buf_it);
         std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
         print_container(vec);
         buf_it++;

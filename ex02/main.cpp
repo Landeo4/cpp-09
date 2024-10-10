@@ -38,3 +38,6 @@ int main(int argc, char **argv)
     std::cout << " liste belle et bien trier" << std::endl;
     print_container(vec);
 }
+
+// liste probleme
+//probleme /PmergeMe `shuf -i 1-25 -n 25 | tr "\n" " " -> finir commande oublier un detail
