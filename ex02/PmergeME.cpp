@@ -877,7 +877,9 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     while (pair_size > 0)
     {
         top = vec.end();
-        top--;
+        while (is_pair_ratio(*top, pair_ratio, vec) == 0)
+            top--;
+        std::cout << "top AU TOUT debut " << *top << std::endl;
         bot = vec.begin();
         while (42)
         {
@@ -984,18 +986,21 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             }
         }
         */
-        // size_t size = 0;
         if (nb > *mid)
         {
-            // while (mid > 0)
-            // {
-            //     size--;
-            //     mid--;
-            // }
-            while (vec_it < mid)
-                vec_it++;
+            if (mid < top)
+            {
+                while (vec_it < mid)
+                    vec_it++;
+            }
+            else
+            {
+                while (vec_it < top)
+                    vec_it++;
+            }
 			if (nb > *top)
 			{
+                std::cout << "je passe dans le premier if de sup pour augmenter mon vec_it a top" << std::endl;
 				while (vec_it < top)
 					vec_it++;
 			}
@@ -1015,12 +1020,14 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             }
             else
             {
-                // if (bot == mid && top < vec.end())
+                // std::cout << "top " << *top;
+                // std::cout << " bot " << *bot << " mid " << *mid << std::endl;
+                // if (bot == mid)
                 // {
                 //     vec_it = vec.begin();
                 //     while (vec_it < mid)
                 //         vec_it++;
-                //     std::cout << "condition special" << std::endl;
+                //     std::cout << "condition special " << *vec_it << std::endl;
                 // }
                 std::cout << "CA PASSE PAR SUP" << std::endl;
                 insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
@@ -1029,7 +1036,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         else
         {
             std::cout << *(bot + pair_ratio - 1) << " nb " << nb << std::endl;
-            if (bot == vec.begin() && nb < *(bot + pair_ratio - 1))
+            if ((bot == vec.begin() && nb < *(bot + pair_ratio - 1)) || (bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
             {
                 std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
 				while (vec_it < bot)
@@ -1037,18 +1044,18 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                 // if (bot == vec.begin() && nb < *(bot + pair_ratio - 1))
                 //     vec_it--;
             }
-			else if ((bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
-			{
-                std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
-				while (vec_it < bot)
-					vec_it++;
-			}
 			else if (nb > *bot && nb < *mid)
 			{
                 std::cout << "condition 2 "; 
 				while (vec_it < mid)
 					vec_it++;
 			}
+			// else if ((bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
+			// {
+            //     std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
+			// 	while (vec_it < bot)
+			// 		vec_it++;
+			// }
             // while (size > 0)
             // {
             //     size--;
@@ -1173,21 +1180,21 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
             break;
         if (nb_it == vec[i])
         {
-            // std::cout << " la valeur est pair_ratio dans la boucle" << std::endl;
+            std::cout << " la valeur est pair_ratio dans la boucle" << std::endl;
             return 1;
         }
         i += pair_ratio;
     }
-    // std::cout << "vec[i]" << vec[i] << std::endl;
+    std::cout << "vec[i] " << vec[i] << std::endl;
     size_t tmp = vec.size();
     tmp--;
-    // std::cout << " voici tmp " << tmp << std::endl;
+    std::cout << " voici tmp " << tmp << std::endl;
     if (i <= vec.size() && vec[tmp] == nb_it)
     {
-        // std::cout << " la valeur == pair_ratio" << std::endl;
+        std::cout << " la valeur == pair_ratio" << std::endl;
         return 1;
     }
-    // std::cout << " la valeur n'est pas pair_ratio" << std::endl;
+    std::cout << " la valeur n'est pas pair_ratio" << std::endl;
     return 0;
 }
 
