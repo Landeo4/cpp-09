@@ -1096,6 +1096,7 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     // (void)vec;
     std::vector<double>::iterator mid;
     std::vector<double>::iterator tmp = vec.begin();
+    std::cout << std::endl << "JE RENTRE DANS FIND_MIDDLE ";
     if (top == bot)
         return top;
     // else if (bot == vec.begin() && bot > nb)
@@ -1106,11 +1107,13 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     // std::cout << "avant is_ratio " << *tmp << std::endl;
     // if (tmp > vec.begin())
         // std::cout << "je suis sup " << std::endl;
+    std::cout << *tmp << std::endl;
     while (is_pair_ratio(*tmp, pair_ratio, vec) == 0 && tmp > vec.begin())
     {
         std::cout << "j'envois dans is_ratio " << *tmp << std::endl;
         tmp++;
     }
+    std::cout << " sortis " << *tmp << std::endl;
     // std::cout << " en entrant voici mon top " << *top << " et bot " << *bot << std::endl;
     // std::cout << "voici ma distance " << dist << std::endl;
     // std::cout << "voici nb de tmp " << *tmp << std::endl;
@@ -1120,11 +1123,11 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     std::cout << "voici tmp au milieu " << *tmp << " et bot " << *bot << std::endl;
     while (bot < tmp)
     {
-        // std::cout << " dans while bot " << *bot << " tmp " << *tmp << " ";
+        std::cout << " dans while bot " << *bot << " tmp " << *tmp << " ";
         bot += pair_ratio;
     }
     mid = bot;
-    // std::cout << "--- fin de find mid " << *mid << std::endl;
+    std::cout << "--- fin de find mid " << *mid << std::endl;
     // usleep(100000);
     return mid;
 }
@@ -1164,6 +1167,8 @@ void Algo::insert_list(size_t pair_ratio, std::vector<double>::iterator buf_it, 
 	}
 }
 
+// modif la method pour trouver les pair_ratio
+
 bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
 {
     size_t i;
@@ -1185,12 +1190,15 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
         }
         i += pair_ratio;
     }
-    std::cout << "vec[i] " << vec[i] << std::endl;
-    size_t tmp = vec.size();
-    tmp--;
-    std::cout << " voici tmp " << tmp << std::endl;
-    if (i <= vec.size() && vec[tmp] == nb_it)
+    // std::cout << "vec[i] " << vec[i] << std::endl;
+    std::vector<double>::iterator tmp = vec.begin();
+    while (tmp + pair_ratio < vec.end())
+        tmp += pair_ratio;
+    std::cout << "nb_it " << nb_it << std::endl;
+    std::cout << " voici tmp " << *tmp << std::endl;
+    if (nb_it == *tmp)
     {
+        std::cout << i << " i size " << vec.size() << " tmp " << *tmp << " vec.end() " << vec.size() << std::endl;
         std::cout << " la valeur == pair_ratio" << std::endl;
         return 1;
     }
