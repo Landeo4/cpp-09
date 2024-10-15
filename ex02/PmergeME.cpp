@@ -763,7 +763,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
 
     std::cout << "I === debut de tri_dicoto ===" << std::endl; 
     std::cout << "container au debut de tri_dicoto" << std::endl;
-    // print_container(vec);
+    print_container(vec);
     std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
     std::cout << "voici size " << vec.size() << std::endl;
     size_t total;
@@ -870,7 +870,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     */
     // il me faut le dernier (5eme)
     std::cout << "voici index " << index << " pl_check " << pl_check << std::endl;
-    // print_container(vec);
+    print_container(vec);
     // print_container(vec_buf);
     // std::cout << "la len " << vec.size() << std::endl;
 	if (vec_buf.size() < 1)
