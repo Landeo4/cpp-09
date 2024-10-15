@@ -120,10 +120,10 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     {
         if (reach == pl_check)
         {
-            std::cout << "reach et pl_check " << reach << " " << pl_check << std::endl;
+            // std::cout << "reach et pl_check " << reach << " " << pl_check << std::endl;
             for(size_t i = 0; i < pair_ratio; i++)
             {
-                std::cout << "valeur de vecteur " << *vec_it << std::endl;
+                // std::cout << "valeur de vecteur " << *vec_it << std::endl;
                 vec_buf.push_back(*vec_it);
                 vec_it = vec.erase(vec_it);
             }
@@ -155,9 +155,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     {
         top = vec.end();
         top--;
-        while (is_pair_ratio(*top, pair_ratio, vec) == 0)
-            top--;
-        std::cout << "top donc = " << *top << " ";
+        // while (is_pair_ratio(*top, pair_ratio, vec) == 0)
+            // top--;
         bot = vec.begin();
         print_container(vec);
         print_container(vec_buf);
@@ -285,22 +284,21 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
         i = pair_ratio - 1;
     else
         i = pair_ratio;
-    while ((i + pair_ratio) <= vec.size())
+    while ((i + pair_ratio) < vec.size())
     {
-        if (i >= vec.size())
-            break;
+        std::cout << nb_it << " " ;
         if (nb_it == vec[i])
             return 1;
         i += pair_ratio;
     }
-    std::vector<double>::iterator tmp = vec.begin();
-    while (tmp + pair_ratio < vec.end())
-        tmp += pair_ratio;
-    if (nb_it == *tmp)
-    {
-        std::cout << "nb == pair ratio " << nb_it << " ";
-        return 1;
-    }
+    // std::vector<double>::iterator tmp = vec.begin();
+    // while (tmp + pair_ratio < vec.end())
+    //     tmp += pair_ratio;
+    // if (nb_it == *tmp)
+    // {
+    //     std::cout << "nb == pair ratio " << nb_it << " ";
+    //     return 1;
+    // }
     return 0;
 }
 
