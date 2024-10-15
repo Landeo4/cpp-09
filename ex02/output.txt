@@ -1,22 +1,1238 @@
-liste de base: 789 19 20 11 7 15 14 3 4 17 12 18 16 2 6 1 5 8 9 13 10 45 
+liste de base: 23 3 14 12 17 9 15 13 19 4 20 25 7 6 18 8 2 1 22 16 21 24 10 11 5 
 
-voici print cointainer: 789 19 20 11 7 15 14 3 4 17 12 18 16 2 6 1 5 8 9 13 10 45
-22
+voici print cointainer: 23 3 14 12 17 9 15 13 19 4 20 25 7 6 18 8 2 1 22 16 21 24 10 11 5
+25
 pair__ratio 1
-22
+25
 pair__ratio 2
-22
+25
 pair__ratio 4
-22
+25
 pair__ratio 8
-22
+25
 pair__ratio 16
 =====TRI FINALE=====
-voici print cointainer: 1 6 2 16 4 17 12 18 3 14 7 15 11 20 19 789 5 8 9 13 10 45
+voici print cointainer: 13 15 9 17 12 14 3 23 6 7 8 18 4 19 20 25 1 2 16 22 10 11 21 24 5
 I === debut de tri_dicoto ===
 container au debut de tri_dicoto
-voici print cointainer: 1 6 2 16 4 17 12 18 3 14 7 15 11 20 19 789 5 8 9 13 10 45
-II et voici le pair_ratio 16
-voici size 22
-voici total 1
-calcul 16
+voici print cointainer: 13 15 9 17 12 14 3 23 6 7 8 18 4 19 20 25 1 2 16 22 10 11 21 24 5
+II et voici le pair_ratio 8
+voici size 25
+voici total 3
+calcul 24
+reach et pl_check 2 2
+valeur de vecteur 1
+valeur de vecteur 2
+valeur de vecteur 16
+valeur de vecteur 22
+valeur de vecteur 10
+valeur de vecteur 11
+valeur de vecteur 21
+valeur de vecteur 24
+voici index 0 pl_check 4
+
+
+voici nb 24
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 6
+ sortis 6
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 6 et bot 23
+--- fin de find mid 25
+voici bot 13 mid 25 top 5 nb 24
+je passe par une reduction de top: 5
+je passe par une reduction de top: 23
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 17
+ sortis 17
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 17 et bot 23
+--- fin de find mid 23
+voici bot 13 mid 23 top 23 nb 24
+voici bot 13 mid 23 top 23
+
+ !!!DEBUT INSERTION
+voici print cointainer: 13 15 9 17 12 14 3 23 6 7 8 18 4 19 20 25 5
+voici print cointainer: 1 2 16 22 10 11 21 24
+je passe par nb > *mid
+plus + i 1
+6 1 1
+1 1 1
+plus + i 2
+6 1 2
+2 1 2
+plus + i 3
+6 1 16
+16 1 16
+plus + i 4
+6 1 22
+22 1 22
+plus + i 5
+6 1 10
+10 1 10
+plus + i 6
+6 1 11
+11 1 11
+plus + i 7
+6 1 21
+21 1 21
+plus + i 8
+6 1 24
+24 1 24
+!!! FIN INSERTION
+
+SORTIE DE TRI DICOTO 
+voici print cointainer: 13 15 9 17 12 14 3 23 1 2 16 22 10 11 21 24 6 7 8 18 4 19 20 25 5
+I === debut de tri_dicoto ===
+container au debut de tri_dicoto
+voici print cointainer: 13 15 9 17 12 14 3 23 1 2 16 22 10 11 21 24 6 7 8 18 4 19 20 25 5
+II et voici le pair_ratio 4
+voici size 25
+voici total 6
+calcul 24
+reach et pl_check 2 2
+valeur de vecteur 1
+valeur de vecteur 2
+valeur de vecteur 16
+valeur de vecteur 22
+reach et pl_check 4 4
+valeur de vecteur 6
+valeur de vecteur 7
+valeur de vecteur 8
+valeur de vecteur 18
+voici index 0 pl_check 6
+
+
+voici nb 22
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 10
+ sortis 10
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 10 et bot 17
+--- fin de find mid 24
+voici bot 13 mid 24 top 5 nb 22
+je passe par une reduction de top: 5
+je passe par une reduction de top: 23
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 17
+ la valeur est pair_ratio dans la boucle
+ sortis 17
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 17 et bot 17
+--- fin de find mid 17
+voici bot 13 mid 17 top 23 nb 22
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 14
+ sortis 14
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 14 et bot 17
+--- fin de find mid 23
+voici bot 17 mid 23 top 23 nb 22
+voici bot 17 mid 23 top 23
+
+ !!!DEBUT INSERTION
+voici print cointainer: 13 15 9 17 12 14 3 23 10 11 21 24 4 19 20 25 5
+voici print cointainer: 1 2 16 22 6 7 8 18
+3 nb 22
+condition 1 bot 17 vec_it 13 je passe par nb < *mid voici vec_it 17
+plus + i 1
+12 1 1
+1 1 1
+plus + i 2
+12 1 2
+2 1 2
+plus + i 3
+12 1 16
+16 1 16
+plus + i 4
+12 1 22
+22 1 22
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 3
+ sortis 3
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 3 et bot 17
+--- fin de find mid 23
+voici bot 13 mid 23 top 5 nb 18
+je passe par une reduction de top: 5
+je passe par une reduction de top: 22
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 17
+ la valeur est pair_ratio dans la boucle
+ sortis 17
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 17 et bot 17
+--- fin de find mid 17
+voici bot 13 mid 17 top 22 nb 18
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 2
+ sortis 2
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 2 et bot 17
+--- fin de find mid 22
+voici bot 17 mid 22 top 22 nb 18
+voici bot 17 mid 22 top 22
+
+ !!!DEBUT INSERTION
+voici print cointainer: 13 15 9 17 1 2 16 22 12 14 3 23 10 11 21 24 4 19 20 25 5
+voici print cointainer: 1 2 16 22 6 7 8 18
+16 nb 18
+condition 1 bot 17 vec_it 13 je passe par nb < *mid voici vec_it 17
+plus + i 1
+1 1 6
+6 1 6
+plus + i 2
+1 1 7
+7 1 7
+plus + i 3
+1 1 8
+8 1 8
+plus + i 4
+1 1 18
+18 1 18
+!!! FIN INSERTION
+
+SORTIE DE TRI DICOTO 
+voici print cointainer: 13 15 9 17 6 7 8 18 1 2 16 22 12 14 3 23 10 11 21 24 4 19 20 25 5
+I === debut de tri_dicoto ===
+container au debut de tri_dicoto
+voici print cointainer: 13 15 9 17 6 7 8 18 1 2 16 22 12 14 3 23 10 11 21 24 4 19 20 25 5
+II et voici le pair_ratio 2
+voici size 25
+voici total 12
+calcul 24
+reach et pl_check 2 2
+valeur de vecteur 6
+valeur de vecteur 7
+reach et pl_check 4 4
+valeur de vecteur 1
+valeur de vecteur 2
+reach et pl_check 6 6
+valeur de vecteur 12
+valeur de vecteur 14
+reach et pl_check 8 8
+valeur de vecteur 10
+valeur de vecteur 11
+reach et pl_check 10 10
+valeur de vecteur 4
+valeur de vecteur 19
+voici index 0 pl_check 12
+
+
+voici nb 7
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 22
+ la valeur est pair_ratio dans la boucle
+ sortis 22
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 22 et bot 15
+--- fin de find mid 22
+voici bot 13 mid 22 top 5 nb 7
+je passe par une reduction de top: 5
+je passe par une reduction de top: 18
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 9
+ sortis 9
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 9 et bot 15
+--- fin de find mid 17
+voici bot 13 mid 17 top 18 nb 7
+je passe par une reduction de top: 18
+je passe par une reduction de top: 15
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 13
+ sortis 13
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 13 et bot 15
+--- fin de find mid 15
+voici bot 13 mid 15 top 15 nb 7
+voici bot 13 mid 15 top 15
+
+ !!!DEBUT INSERTION
+voici print cointainer: 13 15 9 17 8 18 16 22 3 23 21 24 20 25 5
+voici print cointainer: 6 7 1 2 12 14 10 11 4 19
+15 nb 7
+condition 1 bot 13 vec_it 13 je passe par nb < *mid voici vec_it 13
+plus + i 0
+13 1 6
+6 1 6
+plus + i 1
+13 1 7
+7 1 7
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 16
+ sortis 16
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 16 et bot 7
+--- fin de find mid 22
+voici bot 6 mid 22 top 5 nb 2
+je passe par une reduction de top: 5
+je passe par une reduction de top: 18
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 15
+ la valeur est pair_ratio dans la boucle
+ sortis 15
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 15 et bot 7
+--- fin de find mid 15
+voici bot 6 mid 15 top 18 nb 2
+je passe par une reduction de top: 18
+je passe par une reduction de top: 7
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 6
+ sortis 6
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 6 et bot 7
+--- fin de find mid 7
+voici bot 6 mid 7 top 7 nb 2
+voici bot 6 mid 7 top 7
+
+ !!!DEBUT INSERTION
+voici print cointainer: 6 7 13 15 9 17 8 18 16 22 3 23 21 24 20 25 5
+voici print cointainer: 6 7 1 2 12 14 10 11 4 19
+7 nb 2
+condition 1 bot 6 vec_it 6 je passe par nb < *mid voici vec_it 6
+plus + i 0
+6 1 1
+1 1 1
+plus + i 1
+6 1 2
+2 1 2
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 18
+ la valeur est pair_ratio dans la boucle
+ sortis 18
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 18 et bot 2
+--- fin de find mid 18
+voici bot 1 mid 18 top 5 nb 14
+je passe par une reduction de top: 5
+je passe par une reduction de top: 17
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 17 nb 14
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 15
+ la valeur est pair_ratio dans la boucle
+ sortis 15
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 15 et bot 7
+--- fin de find mid 15
+voici bot 7 mid 15 top 17 nb 14
+je passe par une reduction de top: 17
+je passe par une reduction de top: 7
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE voici bot 7 mid 7 top 7 nb 14
+voici bot 7 mid 7 top 7
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 13 15 9 17 8 18 16 22 3 23 21 24 20 25 5
+voici print cointainer: 6 7 1 2 12 14 10 11 4 19
+je passe par nb > *mid
+plus + i 1
+13 1 12
+12 1 12
+plus + i 2
+13 1 14
+14 1 14
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 8
+ sortis 8
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 8 et bot 2
+--- fin de find mid 18
+voici bot 1 mid 18 top 5 nb 11
+je passe par une reduction de top: 5
+je passe par une reduction de top: 17
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 12
+ sortis 12
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 12 et bot 2
+--- fin de find mid 14
+voici bot 1 mid 14 top 17 nb 11
+je passe par une reduction de top: 17
+je passe par une reduction de top: 7
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 2
+ la valeur est pair_ratio dans la boucle
+ sortis 2
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 2 et bot 2
+--- fin de find mid 2
+voici bot 1 mid 2 top 7 nb 11
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 6
+ sortis 6
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 6 et bot 2
+--- fin de find mid 7
+voici bot 2 mid 7 top 7 nb 11
+voici bot 2 mid 7 top 7
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 12 14 13 15 9 17 8 18 16 22 3 23 21 24 20 25 5
+voici print cointainer: 6 7 1 2 12 14 10 11 4 19
+je passe par nb > *mid
+plus + i 1
+12 1 10
+10 1 10
+plus + i 2
+12 1 11
+11 1 11
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 17
+ la valeur est pair_ratio dans la boucle
+ sortis 17
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 17 et bot 2
+--- fin de find mid 17
+voici bot 1 mid 17 top 5 nb 19
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 3
+ sortis 3
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 3 et bot 17
+--- fin de find mid 23
+voici bot 17 mid 23 top 5 nb 19
+je passe par une reduction de top: 5
+je passe par une reduction de top: 22
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 18
+ la valeur est pair_ratio dans la boucle
+ sortis 18
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 18 et bot 17
+--- fin de find mid 18
+voici bot 17 mid 18 top 22 nb 19
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 16
+ sortis 16
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 16 et bot 18
+--- fin de find mid 22
+voici bot 18 mid 22 top 22 nb 19
+voici bot 18 mid 22 top 22
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 10 11 12 14 13 15 9 17 8 18 16 22 3 23 21 24 20 25 5
+voici print cointainer: 6 7 1 2 12 14 10 11 4 19
+16 nb 19
+condition 1 bot 18 vec_it 1 je passe par nb < *mid voici vec_it 18
+plus + i 1
+16 1 4
+4 1 4
+plus + i 2
+16 1 19
+19 1 19
+!!! FIN INSERTION
+
+SORTIE DE TRI DICOTO 
+voici print cointainer: 1 2 6 7 10 11 12 14 13 15 9 17 8 18 4 19 16 22 3 23 21 24 20 25 5
+I === debut de tri_dicoto ===
+container au debut de tri_dicoto
+voici print cointainer: 1 2 6 7 10 11 12 14 13 15 9 17 8 18 4 19 16 22 3 23 21 24 20 25 5
+II et voici le pair_ratio 1
+voici size 25
+voici total 25
+calcul 25
+reach et pl_check 2 2
+valeur de vecteur 6
+reach et pl_check 4 4
+valeur de vecteur 10
+reach et pl_check 6 6
+valeur de vecteur 12
+reach et pl_check 8 8
+valeur de vecteur 13
+reach et pl_check 10 10
+valeur de vecteur 9
+reach et pl_check 12 12
+valeur de vecteur 8
+reach et pl_check 14 14
+valeur de vecteur 4
+reach et pl_check 16 16
+valeur de vecteur 16
+reach et pl_check 18 18
+valeur de vecteur 3
+reach et pl_check 20 20
+valeur de vecteur 21
+reach et pl_check 22 22
+valeur de vecteur 20
+reach et pl_check 24 24
+valeur de vecteur 5
+voici index 0 pl_check 26
+
+
+===== MAINTENANT PAIR_RATIO == 1 =====
+
+voici nb 6
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 17
+ la valeur est pair_ratio dans la boucle
+ sortis 17
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 17 et bot 2
+--- fin de find mid 17
+voici bot 1 mid 17 top 25 nb 6
+je passe par une reduction de top: 25
+je passe par une reduction de top: 15
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 15 nb 6
+je passe par une reduction de top: 15
+je passe par une reduction de top: 2
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 1
+ sortis 1
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 1 et bot 2
+--- fin de find mid 2
+voici bot 1 mid 2 top 2 nb 6
+voici bot 1 mid 2 top 2
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 7 11 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+7 1 6
+6 1 6
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 15
+ la valeur est pair_ratio dans la boucle
+ sortis 15
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 15 et bot 2
+--- fin de find mid 15
+voici bot 1 mid 15 top 25 nb 10
+je passe par une reduction de top: 25
+je passe par une reduction de top: 14
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 6
+ la valeur est pair_ratio dans la boucle
+ sortis 6
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 6 et bot 2
+--- fin de find mid 6
+voici bot 1 mid 6 top 14 nb 10
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 6
+--- fin de find mid 7
+voici bot 6 mid 7 top 14 nb 10
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 11
+ la valeur est pair_ratio dans la boucle
+ sortis 11
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 11 et bot 7
+--- fin de find mid 11
+voici bot 7 mid 11 top 14 nb 10
+je passe par une reduction de top: 14
+je passe par une reduction de top: 7
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE voici bot 7 mid 7 top 7 nb 10
+voici bot 7 mid 7 top 7
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 11 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+11 1 10
+10 1 10
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 15
+ la valeur est pair_ratio dans la boucle
+ sortis 15
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 15 et bot 2
+--- fin de find mid 15
+voici bot 1 mid 15 top 25 nb 12
+je passe par une reduction de top: 25
+je passe par une reduction de top: 14
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 14 nb 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 10
+ la valeur est pair_ratio dans la boucle
+ sortis 10
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 10 et bot 7
+--- fin de find mid 10
+voici bot 7 mid 10 top 14 nb 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 11
+ la valeur est pair_ratio dans la boucle
+ sortis 11
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 11 et bot 10
+--- fin de find mid 11
+voici bot 10 mid 11 top 14 nb 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 11
+ la valeur est pair_ratio dans la boucle
+ sortis 11
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 11 et bot 11
+--- fin de find mid 11
+voici bot 11 mid 11 top 14 nb 12
+voici bot 11 mid 11 top 14
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 10 11 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+14 1 12
+12 1 12
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 14
+ la valeur est pair_ratio dans la boucle
+ sortis 14
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 14 et bot 2
+--- fin de find mid 14
+voici bot 1 mid 14 top 25 nb 13
+je passe par une reduction de top: 25
+je passe par une reduction de top: 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 12 nb 13
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 10
+ la valeur est pair_ratio dans la boucle
+ sortis 10
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 10 et bot 7
+--- fin de find mid 10
+voici bot 7 mid 10 top 12 nb 13
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 11
+ la valeur est pair_ratio dans la boucle
+ sortis 11
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 11 et bot 10
+--- fin de find mid 11
+voici bot 10 mid 11 top 12 nb 13
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 11
+ la valeur est pair_ratio dans la boucle
+ sortis 11
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 11 et bot 11
+--- fin de find mid 11
+voici bot 11 mid 11 top 12 nb 13
+voici bot 11 mid 11 top 12
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 10 11 12 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+14 1 13
+13 1 13
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 14
+ la valeur est pair_ratio dans la boucle
+ sortis 14
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 14 et bot 2
+--- fin de find mid 14
+voici bot 1 mid 14 top 25 nb 9
+je passe par une reduction de top: 25
+je passe par une reduction de top: 13
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 13 nb 9
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 11
+ la valeur est pair_ratio dans la boucle
+ sortis 11
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 11 et bot 7
+--- fin de find mid 11
+voici bot 7 mid 11 top 13 nb 9
+je passe par une reduction de top: 13
+je passe par une reduction de top: 10
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 7
+--- fin de find mid 7
+voici bot 7 mid 7 top 10 nb 9
+voici bot 7 mid 7 top 10
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 10 11 12 13 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+10 1 9
+9 1 9
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 13
+ la valeur est pair_ratio dans la boucle
+ sortis 13
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 13 et bot 2
+--- fin de find mid 13
+voici bot 1 mid 13 top 25 nb 8
+je passe par une reduction de top: 25
+je passe par une reduction de top: 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 12 nb 8
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 10
+ la valeur est pair_ratio dans la boucle
+ sortis 10
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 10 et bot 7
+--- fin de find mid 10
+voici bot 7 mid 10 top 12 nb 8
+je passe par une reduction de top: 12
+je passe par une reduction de top: 9
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 7
+--- fin de find mid 7
+voici bot 7 mid 7 top 9 nb 8
+voici bot 7 mid 7 top 9
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 9 10 11 12 13 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+9 1 8
+8 1 8
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 13
+ la valeur est pair_ratio dans la boucle
+ sortis 13
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 13 et bot 2
+--- fin de find mid 13
+voici bot 1 mid 13 top 25 nb 4
+je passe par une reduction de top: 25
+je passe par une reduction de top: 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 8
+ la valeur est pair_ratio dans la boucle
+ sortis 8
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 8 et bot 2
+--- fin de find mid 8
+voici bot 1 mid 8 top 12 nb 4
+je passe par une reduction de top: 12
+je passe par une reduction de top: 7
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 2
+ la valeur est pair_ratio dans la boucle
+ sortis 2
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 2 et bot 2
+--- fin de find mid 2
+voici bot 1 mid 2 top 7 nb 4
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 6
+ la valeur est pair_ratio dans la boucle
+ sortis 6
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 6 et bot 2
+--- fin de find mid 6
+voici bot 2 mid 6 top 7 nb 4
+je passe par une reduction de top: 7
+je passe par une reduction de top: 2
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE voici bot 2 mid 2 top 2 nb 4
+voici bot 2 mid 2 top 2
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 6 7 8 9 10 11 12 13 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+6 1 4
+4 1 4
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 12
+ la valeur est pair_ratio dans la boucle
+ sortis 12
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 12 et bot 2
+--- fin de find mid 12
+voici bot 1 mid 12 top 25 nb 16
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 18
+ la valeur est pair_ratio dans la boucle
+ sortis 18
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 18 et bot 12
+--- fin de find mid 18
+voici bot 12 mid 18 top 25 nb 16
+je passe par une reduction de top: 25
+je passe par une reduction de top: 17
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 14
+ la valeur est pair_ratio dans la boucle
+ sortis 14
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 14 et bot 12
+--- fin de find mid 14
+voici bot 12 mid 14 top 17 nb 16
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 15
+ la valeur est pair_ratio dans la boucle
+ sortis 15
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 15 et bot 14
+--- fin de find mid 15
+voici bot 14 mid 15 top 17 nb 16
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 15
+ la valeur est pair_ratio dans la boucle
+ sortis 15
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 15 et bot 15
+--- fin de find mid 15
+voici bot 15 mid 15 top 17 nb 16
+voici bot 15 mid 15 top 17
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 4 6 7 8 9 10 11 12 13 14 15 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+17 1 16
+16 1 16
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 13
+ la valeur est pair_ratio dans la boucle
+ sortis 13
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 13 et bot 2
+--- fin de find mid 13
+voici bot 1 mid 13 top 25 nb 3
+je passe par une reduction de top: 25
+je passe par une reduction de top: 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 12 nb 3
+je passe par une reduction de top: 12
+je passe par une reduction de top: 6
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 2
+ la valeur est pair_ratio dans la boucle
+ sortis 2
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 2 et bot 2
+--- fin de find mid 2
+voici bot 1 mid 2 top 6 nb 3
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 4
+ la valeur est pair_ratio dans la boucle
+ sortis 4
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 4 et bot 2
+--- fin de find mid 4
+voici bot 2 mid 4 top 6 nb 3
+je passe par une reduction de top: 6
+je passe par une reduction de top: 2
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE voici bot 2 mid 2 top 2 nb 3
+voici bot 2 mid 2 top 2
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+4 1 3
+3 1 3
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 12
+ la valeur est pair_ratio dans la boucle
+ sortis 12
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 12 et bot 2
+--- fin de find mid 12
+voici bot 1 mid 12 top 25 nb 21
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 17
+ la valeur est pair_ratio dans la boucle
+ sortis 17
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 17 et bot 12
+--- fin de find mid 17
+voici bot 12 mid 17 top 25 nb 21
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 22
+ la valeur est pair_ratio dans la boucle
+ sortis 22
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 22 et bot 17
+--- fin de find mid 22
+voici bot 17 mid 22 top 25 nb 21
+je passe par une reduction de top: 25
+je passe par une reduction de top: 19
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 18
+ la valeur est pair_ratio dans la boucle
+ sortis 18
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 18 et bot 17
+--- fin de find mid 18
+voici bot 17 mid 18 top 19 nb 21
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 18
+ la valeur est pair_ratio dans la boucle
+ sortis 18
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 18 et bot 18
+--- fin de find mid 18
+voici bot 18 mid 18 top 19 nb 21
+voici bot 18 mid 18 top 19
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+22 1 21
+21 1 21
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 13
+ la valeur est pair_ratio dans la boucle
+ sortis 13
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 13 et bot 2
+--- fin de find mid 13
+voici bot 1 mid 13 top 25 nb 20
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 18
+ la valeur est pair_ratio dans la boucle
+ sortis 18
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 18 et bot 13
+--- fin de find mid 18
+voici bot 13 mid 18 top 25 nb 20
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 22
+ la valeur est pair_ratio dans la boucle
+ sortis 22
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 22 et bot 18
+--- fin de find mid 22
+voici bot 18 mid 22 top 25 nb 20
+je passe par une reduction de top: 25
+je passe par une reduction de top: 21
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 19
+ la valeur est pair_ratio dans la boucle
+ sortis 19
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 19 et bot 18
+--- fin de find mid 19
+voici bot 18 mid 19 top 21 nb 20
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 19
+ la valeur est pair_ratio dans la boucle
+ sortis 19
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 19 et bot 19
+--- fin de find mid 19
+voici bot 19 mid 19 top 21 nb 20
+voici bot 19 mid 19 top 21
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+21 1 20
+20 1 20
+!!! FIN INSERTION
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 13
+ la valeur est pair_ratio dans la boucle
+ sortis 13
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 13 et bot 2
+--- fin de find mid 13
+voici bot 1 mid 13 top 25 nb 5
+je passe par une reduction de top: 25
+je passe par une reduction de top: 12
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 7
+ la valeur est pair_ratio dans la boucle
+ sortis 7
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 7 et bot 2
+--- fin de find mid 7
+voici bot 1 mid 7 top 12 nb 5
+je passe par une reduction de top: 12
+je passe par une reduction de top: 6
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 3
+ la valeur est pair_ratio dans la boucle
+ sortis 3
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 3 et bot 2
+--- fin de find mid 3
+voici bot 1 mid 3 top 6 nb 5
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 4
+ la valeur est pair_ratio dans la boucle
+ sortis 4
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 4 et bot 3
+--- fin de find mid 4
+voici bot 3 mid 4 top 6 nb 5
+
+=== DEBUT WHILE 
+
+JE RENTRE DANS FIND_MIDDLE 4
+ la valeur est pair_ratio dans la boucle
+ sortis 4
+ la valeur est pair_ratio dans la boucle
+voici tmp au milieu 4 et bot 4
+--- fin de find mid 4
+voici bot 4 mid 4 top 6 nb 5
+voici bot 4 mid 4 top 6
+
+ !!!DEBUT INSERTION
+voici print cointainer: 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+voici print cointainer: 6 10 12 13 9 8 4 16 3 21 20 5
+je passe par nb > *mid
+plus + i 1
+6 1 5
+5 1 5
+!!! FIN INSERTION
+
+SORTIE DE TRI DICOTO 
+voici print cointainer: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+ liste belle et bien trier
+voici print cointainer: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
