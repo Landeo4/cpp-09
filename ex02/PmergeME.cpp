@@ -57,17 +57,19 @@ bool Algo::check_element_vector(char **argv, int argc, std::vector<double> vec)
     return false;
 }
 
+//10 15 22 13 6 16 1 4 8 12 14 19 5 18 17 11 2 20 7 3 23 9 21
+
 void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
 {
     size_t actual_pair = pair_ratio - 1;
     std::cout << vec.size() << std::endl;
-    std::cout  << "pair__ratio " << pair_ratio << std::endl;
+    std::cout << "NOUVELLE BOUCLE ";
+    std::cout  << "pair__ratio " << pair_ratio << std::endl << std::endl;
     // print_container_pair_size(vec, pair_ratio);
     while (actual_pair + pair_ratio < vec.size())
     {
-        // std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
-        // std::cout << vec[actual_pair] << " " << vec[actual_pair + pair_ratio]<< std::endl;
-        // std::cout << "voici mon actual pair moins 1 et mon actual pair " << vec[actual_pair - 1] << " " << vec[actual_pair] << std::endl;
+        std::cout << std::endl << "actual pair " << actual_pair << " " << actual_pair + pair_ratio << std::endl;
+        std::cout << vec[actual_pair] << " " << vec[actual_pair + pair_ratio]<< std::endl;
         if (vec[actual_pair] > vec[actual_pair + pair_ratio])
         {
             for(size_t i = 0; i < pair_ratio; i++)
@@ -76,7 +78,7 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
                 std::swap(vec[actual_pair - i], vec[actual_pair + pair_ratio - i]);
             }
             // std::cout << "nouveau tab: ";
-            // print_container(vec);
+            print_container(vec);
         }
         actual_pair += pair_ratio * 2;
     }
