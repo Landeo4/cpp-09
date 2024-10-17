@@ -255,7 +255,10 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     while (is_pair_ratio(*tmp, pair_ratio, vec) == 0 && tmp > vec.begin())
         tmp++;
     while (is_pair_ratio(*bot, pair_ratio, vec) == 0)
+    {
+        std::cout << "bot " << *bot << " ";
         bot++;
+    }
     while (bot < tmp)
         bot += pair_ratio;
     mid = bot;
@@ -267,10 +270,9 @@ void Algo::insert_list(size_t pair_ratio, std::vector<double>::iterator buf_it, 
     (void)vec_buf;
 	for(size_t i = 0; i < pair_ratio; i++)
 	{
-		std::cout << "plus + i " << plus + i << std::endl;
         std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
 		vec.insert(vec_it + plus + i, 1, *buf_it);
-        std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
+        // std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
         buf_it++;
 	}
 }
@@ -286,7 +288,7 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
         i = pair_ratio;
     while ((i + pair_ratio) < vec.size())
     {
-        std::cout << nb_it << " " ;
+        // std::cout << "nb_it " << nb_it << " " ;
         if (nb_it == vec[i])
             return 1;
         i += pair_ratio;
