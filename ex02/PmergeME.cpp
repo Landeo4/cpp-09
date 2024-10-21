@@ -154,10 +154,27 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     {
         top = vec.end();
         top--;
-        // while (is_pair_ratio(*top, pair_ratio, vec) == 0)
-            // top--;
+        while (is_pair_ratio(*top, pair_ratio, vec) == 0)
+            top--;
         bot = vec.begin();
-        print_container(vec);
+        int i = 0;
+        while (vec[i] != vec.back())
+        {
+            if (vec[i] == vec.back())
+                break;
+            if (is_pair_ratio(vec[i], pair_ratio, vec) == 1)
+                std::cout << vec[i] << " ";
+            i++;
+        }
+        i = 0;
+        while (vec[i] != vec.back())
+        {
+            if (vec[i] == vec.back())
+                break;
+            if (is_pair_ratio(vec[i], pair_ratio, vec) == 1)
+                std::cout << vec[i] << " ";
+            i++;
+        }
         print_container(vec_buf);
         while (42)
         {
