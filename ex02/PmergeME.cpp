@@ -143,7 +143,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
     vec_it = vec.begin();
     size_t nb = vec_buf[pair_ratio - 1];
-    std::cout << "voici nb " << nb << std::endl;
+    // std::cout << "voici nb " << nb << std::endl;
     std::vector<double>::iterator mid;
     std::vector<double>::iterator top = vec.end();
     std::vector<double>::iterator bot = vec.begin();
@@ -153,40 +153,31 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     while (pair_size > 0)
     {
         top = vec.end();
-        top--;
+        // std::cout << "voici mon top avant de rentrer dans ma boucle " << *top << std::endl;
         while (is_pair_ratio(*top, pair_ratio, vec) == 0)
             top--;
+        // std::cout << "voici mon top avant de rentrer dans ma boucle " << *top << std::endl;
+        size_t i = 0;
+        while (i < vec.size())
+        {
+            // if (is_pair_ratio(vec[i], pair_ratio, vec) == 1)
+                // std::cout << "value " << vec[i] << " ";
+            i++;
+        }
         bot = vec.begin();
-        int i = 0;
-        while (vec[i] != vec.back())
-        {
-            if (vec[i] == vec.back())
-                break;
-            if (is_pair_ratio(vec[i], pair_ratio, vec) == 1)
-                std::cout << vec[i] << " ";
-            i++;
-        }
-        i = 0;
-        while (vec[i] != vec.back())
-        {
-            if (vec[i] == vec.back())
-                break;
-            if (is_pair_ratio(vec[i], pair_ratio, vec) == 1)
-                std::cout << vec[i] << " ";
-            i++;
-        }
-        print_container(vec_buf);
+        // print_container(vec);
+        // print_container(vec_buf);
         while (42)
         {
             std::cout << std::endl;
-            std::cout<< "=== DEBUT WHILE " << std::endl;
+            // std::cout<< "=== DEBUT WHILE " << std::endl;
             if (bot + pair_ratio > vec.end())
             {
                 mid = top;
                 break;
             }
             mid = find_middle(vec, top, pair_ratio, bot);
-            std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << " nb " << nb << std::endl;
+            // std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << " nb " << nb << std::endl;
             if (std::distance(bot, top) <= (int)pair_ratio || top == bot)
             {
                 // std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
@@ -195,7 +186,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             else if (*mid < nb)
             {
                 bot = mid;
-                std::cout << "je passe par une reduction de bot: " << *bot << std::endl;
+                // std::cout << "je passe par une reduction de bot: " << *bot << std::endl;
             }
             else if (*mid > nb)
             {
@@ -203,13 +194,13 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
                     top = mid;
                 else
                     top = mid - pair_ratio;
-                std::cout << "je passe par une reduction de top: " << *top << std::endl;
+                // std::cout << "je passe par une reduction de top: " << *top << std::endl;
             }
         }
         // std::cout << std::endl << " !!!DEBUT INSERTION" << std::endl;
         vec_it = vec.begin();
-        print_container(vec);
-        print_container(vec_buf);
+        // print_container(vec);
+        // print_container(vec_buf);
         if (nb > *mid)
         {
             if (mid < top)
@@ -238,17 +229,17 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             // std::cout << *(bot + pair_ratio - 1) << " nb " << nb << std::endl;
             if ((bot == vec.begin() && nb < *(bot + pair_ratio - 1)) || (bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
             {
-                std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
+                // std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
 				while (vec_it < bot)
 					vec_it++;
             }
 			else if (nb > *bot && nb < *mid)
 			{
-                std::cout << "condition 2 "; 
+                // std::cout << "condition 2 "; 
 				while (vec_it < mid)
 					vec_it++;
 			}
-			std::cout << " je passe par nb < *mid voici vec_it " << *vec_it << std::endl;
+			// std::cout << " je passe par nb < *mid voici vec_it " << *vec_it << std::endl;
             if (*vec_it > nb || (bot == vec.begin() && nb < *(bot + pair_ratio - 1)))
                 insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
             else
@@ -281,7 +272,7 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     while (is_pair_ratio(*tmp, pair_ratio, vec) == 0 && tmp > vec.begin())
         tmp++;
     // std::cout << "bot juste avant is_pair_ratio" << std::endl;
-    std::cout << "debut find_middle " << *bot << " ";
+    // std::cout << "debut find_middle " << *bot << " ";
     if (is_pair_ratio(*bot, pair_ratio, vec) == 0)
     {
         while (is_pair_ratio(*bot, pair_ratio, vec) == 0)
@@ -289,7 +280,7 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
             bot++;
         }
     }
-    std::cout << "bot " << *bot << " ";
+    // std::cout << "bot " << *bot << " ";
     while (bot < tmp)
         bot += pair_ratio;
     mid = bot;
@@ -322,8 +313,12 @@ bool Algo::is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec)
         // std::cout << "nb_it " << nb_it << " " ;
         if (nb_it == vec[i])
             return 1;
+        // if (pair_ratio == 8)
+            // std::cout << "voici mon vec[i] " << vec[i] << " ";
         i += pair_ratio;
     }
+    if (nb_it == vec[i])
+        return 1;
     // std::vector<double>::iterator tmp = vec.begin();
     // while (tmp + pair_ratio < vec.end())
     //     tmp += pair_ratio;
