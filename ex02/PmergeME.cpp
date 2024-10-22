@@ -78,7 +78,7 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
                 std::swap(vec[actual_pair - i], vec[actual_pair + pair_ratio - i]);
             }
             // std::cout << "nouveau tab: ";
-            print_container(vec);
+            // print_container(vec);
         }
         actual_pair += pair_ratio * 2;
     }
@@ -107,13 +107,13 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     // std::cout << "I === debut de tri_dicoto ===" << std::endl; 
     // std::cout << "container au debut de tri_dicoto" << std::endl;
     // print_container(vec);
-    std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
+    // std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
     // std::cout << "voici size " << vec.size() << std::endl;
     size_t total;
     total = vec.size() / pair_ratio;
     size_t reach = 0; // la valeur a atteindre
-	if (pair_ratio == 0)
-		std::cout << std::endl << " ===================== ATTENTION PAIR RATIO 1 ===================== " << std::endl;
+	// if (pair_ratio == 0)
+		// std::cout << std::endl << " ===================== ATTENTION PAIR RATIO 1 ===================== " << std::endl;
     // std::cout << " Quel paire je dois allez " << total << std::endl;
     while (reach < total)
     {
@@ -135,12 +135,12 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
     // std::cout << "voici index " << index << " pl_check " << pl_check << std::endl;
 	if (vec_buf.size() < 1)
 	{
-		std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
+		// std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
 		return ;
 	}
     std::cout << std::endl << std::endl;
-    if (pair_ratio == 1)
-        std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
+    // if (pair_ratio == 1)
+        // std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
     vec_it = vec.begin();
     size_t nb = vec_buf[pair_ratio - 1];
     // std::cout << "voici nb " << nb << std::endl;
@@ -245,7 +245,7 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             else
                 insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
         }
-        std::cout << "!!! FIN INSERTION" << std::endl;
+        // std::cout << "!!! FIN INSERTION" << std::endl;
         pair_size -= pair_ratio;
         if (pair_size > 0)
         {
@@ -253,8 +253,8 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
             nb = *(buf_it + pair_ratio - 1);
         }
     }
-    std::cout << std::endl << "SORTIE DE TRI DICOTO " << std::endl;
-    print_container(vec);
+    // std::cout << std::endl << "SORTIE DE TRI DICOTO " << std::endl;
+    // print_container(vec);
 }
 
 //3 5 24 10 14 17 18 19 7 2 20 13 9 1 22 21 4 25 23 8 15 6 16 11 12
