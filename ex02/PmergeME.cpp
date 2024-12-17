@@ -91,8 +91,32 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
         print_container(vec);
         return ;
     }
-    tri_dicoto(pair_ratio, actual_pair, vec);
+    Jacobstal(pair_ratio, actual_pair, vec);
 }
+
+void Algo::Jacobstal(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
+{
+    int jacob[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525};
+    int num = 0;
+
+    while (jacob[num] > 0)
+    {
+        if (jacob[num] < 0)
+        {
+            std::cout << "j'ai atteint la limite " << std::endl;
+            return ;
+        }
+        tri_dicoto(pair_ratio, actual_pair, vec);
+    }
+
+}
+
+// si 10 groupes dans non trier
+// Jacob stal permet d'utiliser la liste trier 
+// inserre
+
+// donc la je dois envoyer une partie de ma string
+// calculer combien de ma string je dois envoyer via jacob-stal dans mon tri_dicoto
 
 // code du 17 septembre
 
@@ -292,7 +316,7 @@ void Algo::insert_list(size_t pair_ratio, std::vector<double>::iterator buf_it, 
     (void)vec_buf;
 	for(size_t i = 0; i < pair_ratio; i++)
 	{
-        std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
+        // std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
 		vec.insert(vec_it + plus + i, 1, *buf_it);
         // std::cout << *(vec_it + plus + i) << " 1 " << *buf_it << std::endl;
         buf_it++;
