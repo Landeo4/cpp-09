@@ -91,66 +91,22 @@ void Algo::start_algo(size_t pair_ratio, std::vector<double> &vec)
         print_container(vec);
         return ;
     }
-    Jacobstal(pair_ratio, actual_pair, vec);
+    unsort_list_creation(pair_ratio, vec);
     // tri_dicoto(pair_ratio, actual_pair, vec);
 }
 
-void Algo::Jacobstal(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
-{
-    int jacob[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525};
-    unsigned int num = vec.size();
+// faire la liste non trier avant 
 
-    tri_dicoto(pair_ratio, actual_pair, vec);
-    while (jacob[num] > 0)
-    {
-        if (jacob[num] < 0)
-        {
-            std::cout << "j'ai atteint la limite " << std::endl;
-            return ;
-        }
-        unsigned int nb = jacob[num];
-        tri_dicoto(pair_ratio, actual_pair, vec, nb);
-        num--;
-    }
-
-}
-
-// si 10 groupes dans non trier
-// Jacob stal permet d'utiliser la liste trier 
-// inserre
-
-// donc la je dois envoyer une partie de ma string
-// calculer combien de ma string je dois envoyer via jacob-stal dans mon tri_dicoto
-
-// pour Jacobstal peut etre que je dois envoyer qu'une partie de ma liste
-// genre si dans ma liste j'en suis au nombre 11, j'envois uniquement la partie avec 11
-// ou j'envois mon 11 pour qu'il sois trier tout seul
-
-// OU sinon j'isole le nombre qui doit trouver son endroit puis je le supprime ou
-// le laisse dans la liste et je cherche son milieu, a l'issue de ca, je le deplace
-// JE PENSE QUE C'EST CA
-
-// 
-
-void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double> &vec)
+void Algo::unsort_list_creation(size_t pair_ratio, std::vector<double> &vec)
 {
     std::vector<double> vec_buf;
-    std::vector<double>::iterator vec_it = vec.begin();
-    std::vector<double>::iterator buf_it;
-    size_t pl_check = 2;
-    (void)actual_pair;
-
-    // std::cout << "I === debut de tri_dicoto ===" << std::endl; 
-    // std::cout << "container au debut de tri_dicoto" << std::endl;
-    // print_container(vec);
-    // std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
-    // std::cout << "voici size " << vec.size() << std::endl;
     size_t total;
     total = vec.size() / pair_ratio;
     size_t reach = 0; // la valeur a atteindre
-	// if (pair_ratio == 0)
-		// std::cout << std::endl << " ===================== ATTENTION PAIR RATIO 1 ===================== " << std::endl;
-    // std::cout << " Quel paire je dois allez " << total << std::endl;
+    std::vector<double>::iterator vec_it = vec.begin();
+    std::vector<double>::iterator buf_it;
+    size_t pl_check = 2;
+
     while (reach < total)
     {
         if (reach == pl_check)
@@ -168,9 +124,75 @@ void Algo::tri_dicoto(size_t pair_ratio, size_t actual_pair, std::vector<double>
         vec_it += pair_ratio;
         reach++;
     }
-    std::cout << "print de mes container debut ==== " << std::endl;
+    Jacobstal(pair_ratio, vec, vec_buf, vec_it, buf_it);
+}
+
+// cree une variable qui commence a trois avec un index sur Jacob
+// faire boucler avec un - 1 au debut pour trier sur la variable donc 2 1 etc
+// une fois que tu atteint 0 ou le nombre d'avant (par exemple 3) tu passe au prochain
+// donc par exemple tu passe de 3 a 5
+
+void Algo::Jacobstal(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, std::vector<double>::iterator vec_it, std::vector<double>::iterator buf_it)
+{
+    // int jacob[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525};
+    // unsigned int num = vec.size();
+    std::cout << "print de la premiere liste " << std::endl;
     print_container(vec);
     print_container(vec_buf);
+    std::cout << "donc voici les deux liste" << std::endl;
+    tri_dicoto(pair_ratio, vec, vec_buf, vec_it, buf_it);
+
+    // creation liste trier et non trier, en dessous creation de Jacobstal
+    // pour ca je dois trouver un moyen de savoir combien il me reste de nombre
+    // a trier dans ma liste donc faire un index qui descend via la Jacobstal
+
+
+    // tri_dicoto(pair_ratio, vec);
+    // while (jacob[num] > 0)
+    // {
+    //     if (jacob[num] < 0)
+    //     {
+    //         std::cout << "j'ai atteint la limite " << std::endl;
+    //         return ;
+    //     }
+    //     num--;
+    // }
+
+}
+
+// cree un moyen de trouver le nb a placer
+
+// si 10 groupes dans non trier
+// Jacob stal permet d'utiliser la liste trier
+
+// donc la je dois envoyer une partie de ma string
+// calculer combien de ma string je dois envoyer via jacob-stal dans mon tri_dicoto
+
+// pour Jacobstal peut etre que je dois envoyer qu'une partie de ma liste
+// genre si dans ma liste j'en suis au nombre 11, j'envois uniquement la partie avec 11
+// ou j'envois mon 11 pour qu'il sois trier tout seul
+
+// OU sinon j'isole le nombre qui doit trouver son endroit puis je le supprime ou
+// le laisse dans la liste et je cherche son milieu, a l'issue de ca, je le deplace
+// JE PENSE QUE C'EST CA
+// ELi a confirmer la theorie
+
+void Algo::tri_dicoto(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, std::vector<double>::iterator vec_it, std::vector<double>::iterator buf_it)
+{
+    // std::vector<double>::iterator vec_it = vec.begin();
+    // std::vector<double>::iterator buf_it;
+
+    // std::cout << "I === debut de tri_dicoto ===" << std::endl; 
+    // std::cout << "container au debut de tri_dicoto" << std::endl;
+    // print_container(vec);
+    // std::cout << "II et voici le pair_ratio " << pair_ratio << std::endl;
+    // std::cout << "voici size " << vec.size() << std::endl;
+	// if (pair_ratio == 0)
+		// std::cout << std::endl << " ===================== ATTENTION PAIR RATIO 1 ===================== " << std::endl;
+    // std::cout << " Quel paire je dois allez " << total << std::endl;
+    std::cout << "print de mes container debut ==== " << std::endl;
+    // print_container(vec);
+    // print_container(vec_buf);
     std::cout << std::endl << "fin du print de mes container ==== " << std::endl;
     // std::cout << "voici index " << index << " pl_check " << pl_check << std::endl;
 	if (vec_buf.size() < 1)
