@@ -124,7 +124,11 @@ void Algo::unsort_list_creation(size_t pair_ratio, std::vector<double> &vec)
         vec_it += pair_ratio;
         reach++;
     }
-    Jacobstal(pair_ratio, vec, vec_buf, vec_it, buf_it);
+    std::cout << "========== mes deux containers " << std::endl;
+    print_container(vec);
+    print_container(vec_buf);
+    std::cout << "============= fin des deux containers " << std::endl;
+    Jacobstal(pair_ratio, vec, vec_buf);
 }
 
 // cree une variable qui commence a trois avec un index sur Jacob
@@ -132,53 +136,48 @@ void Algo::unsort_list_creation(size_t pair_ratio, std::vector<double> &vec)
 // une fois que tu atteint 0 ou le nombre d'avant (par exemple 3) tu passe au prochain
 // donc par exemple tu passe de 3 a 5
 
-void Algo::Jacobstal(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, std::vector<double>::iterator vec_it, std::vector<double>::iterator buf_it)
+void Algo::Jacobstal(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf)
 {
-    // int jacob[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525};
+    int jacob[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525};
     // unsigned int num = vec.size();
-    std::cout << "print de la premiere liste " << std::endl;
+    int i = 0;
+    int cur = jacob[i];
+    int prec;
+    int size = vec.size();
+    std::cout << std::endl << "tour de Jacobstal : " << std::endl << std::endl;
     print_container(vec);
     print_container(vec_buf);
-    std::cout << "donc voici les deux liste" << std::endl;
-    tri_dicoto(pair_ratio, vec, vec_buf, vec_it, buf_it);
+    // tri_dicoto(pair_ratio, vec, vec_buf);
 
     // creation liste trier et non trier, en dessous creation de Jacobstal
     // pour ca je dois trouver un moyen de savoir combien il me reste de nombre
     // a trier dans ma liste donc faire un index qui descend via la Jacobstal
 
-
-    // tri_dicoto(pair_ratio, vec);
-    // while (jacob[num] > 0)
-    // {
-    //     if (jacob[num] < 0)
-    //     {
-    //         std::cout << "j'ai atteint la limite " << std::endl;
-    //         return ;
-    //     }
-    //     num--;
-    // }
+    while (size > jacob[i])
+    {
+        while (cur > 0)
+        {
+            if (vec_buf.size() == 0)
+                break;
+            int nb_tri = vec_buf[cur]; // il faut juste que je trouve ou effacer ma 2 liste
+            tri_dicoto(pair_ratio, vec, vec_buf, nb_tri);
+            cur--;
+        }
+        i++;
+        cur = jacob[i];
+        prec = jacob[i - 1];
+    }
 
 }
-
-// cree un moyen de trouver le nb a placer
-
-// si 10 groupes dans non trier
-// Jacob stal permet d'utiliser la liste trier
-
-// donc la je dois envoyer une partie de ma string
-// calculer combien de ma string je dois envoyer via jacob-stal dans mon tri_dicoto
-
-// pour Jacobstal peut etre que je dois envoyer qu'une partie de ma liste
-// genre si dans ma liste j'en suis au nombre 11, j'envois uniquement la partie avec 11
-// ou j'envois mon 11 pour qu'il sois trier tout seul
 
 // OU sinon j'isole le nombre qui doit trouver son endroit puis je le supprime ou
 // le laisse dans la liste et je cherche son milieu, a l'issue de ca, je le deplace
 // JE PENSE QUE C'EST CA
 // ELi a confirmer la theorie
 
-void Algo::tri_dicoto(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, std::vector<double>::iterator vec_it, std::vector<double>::iterator buf_it)
+void Algo::tri_dicoto(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, int nb_tri)
 {
+    (void)nb_tri;
     // std::vector<double>::iterator vec_it = vec.begin();
     // std::vector<double>::iterator buf_it;
 
@@ -195,133 +194,113 @@ void Algo::tri_dicoto(size_t pair_ratio, std::vector<double> &vec, std::vector<d
     // print_container(vec_buf);
     std::cout << std::endl << "fin du print de mes container ==== " << std::endl;
     // std::cout << "voici index " << index << " pl_check " << pl_check << std::endl;
-	if (vec_buf.size() < 1)
+	std::cout << "toutout " << vec_buf.size() << std::endl;
+    if (vec_buf.size() < 1)
 	{
 		std::cout << " MON VECTEUR D'INSERTION N'A RIEN, JE SORS" << std::endl;
 		return ;
 	}
-    // if (pair_ratio == 1)
-        // std::cout << "===== MAINTENANT PAIR_RATIO == 1 =====" << std::endl << std::endl;
-    vec_it = vec.begin();
+    std::cout << "ca continue" << std::endl;
+    std::vector<double>::iterator vec_it = vec.begin();
     size_t nb = vec_buf[pair_ratio - 1];
-    // std::cout << "voici nb " << nb << std::endl;
     std::vector<double>::iterator mid;
     std::vector<double>::iterator top = vec.end();
     std::vector<double>::iterator bot = vec.begin();
     int pair_size = vec_buf.size();
-    buf_it = vec_buf.begin();
+    std::vector<double>::iterator buf_it = vec_buf.begin();
     nb = vec_buf[pair_ratio - 1];
-    while (pair_size > 0)
+    top = vec.end();
+    while (is_pair_ratio(*top, pair_ratio, vec) == 0)
+        top--;
+    size_t i = 0;
+    while (i < vec.size())
+        i++;
+    bot = vec.begin();
+    while (*bot != nb_tri)
+        bot++;
+    std::cout << "voici nb " << nb_tri << " " << "bot = " << *bot << std::endl;
+    while (42) // utilliser nb_tri
     {
-        top = vec.end();
-        // std::cout << "voici mon top avant de rentrer dans ma boucle " << *top << std::endl;
-        while (is_pair_ratio(*top, pair_ratio, vec) == 0)
-            top--;
-        // std::cout << "voici mon top avant de rentrer dans ma boucle " << *top << std::endl;
-        size_t i = 0;
-        while (i < vec.size())
+        std::cout << std::endl << "=== DEBUT WHILE " << std::endl;
+        print_container(vec);
+        print_container(vec_buf);
+        if (bot + pair_ratio > vec.end())
         {
-            // if (is_pair_ratio(vec[i], pair_ratio, vec) == 1)
-                // std::cout << "value " << vec[i] << " ";
-            i++;
+            mid = top;
+            break;
         }
-        bot = vec.begin();
-        // print_container(vec);
-        // print_container(vec_buf);
-        while (42)
+        mid = find_middle(vec, top, pair_ratio, bot);
+        std::cout << "voici bot " << *bot << " mid " << *mid << " tp " << *top << " nb " << nb << std::endl;
+        if (std::distance(bot, top) <= (int)pair_ratio || top == bot)
+            break;
+        else if (*mid < nb)
+            bot = mid;
+        else if (*mid > nb)
         {
-            // std::cout<< "=== DEBUT WHILE " << std::endl;
-            if (bot + pair_ratio > vec.end())
-            {
-                mid = top;
-                break;
-            }
-            mid = find_middle(vec, top, pair_ratio, bot);
-            // std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << " nb " << nb << std::endl;
-            if (std::distance(bot, top) <= (int)pair_ratio || top == bot)
-            {
-                // std::cout << "voici bot " << *bot << " mid " << *mid << " top " << *top << std::endl;
-                break;
-            }
-            else if (*mid < nb)
-            {
-                bot = mid;
-                // std::cout << "je passe par une reduction de bot: " << *bot << std::endl;
-            }
-            else if (*mid > nb)
-            {
-                if (mid - pair_ratio < vec.begin())
-                    top = mid;
-                else
-                    top = mid - pair_ratio;
-                // std::cout << "je passe par une reduction de top: " << *top << std::endl;
-            }
+            if (mid - pair_ratio < vec.begin())
+                top = mid;
+            else
+                top = mid - pair_ratio;
         }
-        // std::cout << std::endl << " !!!DEBUT INSERTION" << std::endl;
-        vec_it = vec.begin();
-        // print_container(vec);
-        // print_container(vec_buf);
-        if (nb > *mid)
+        // std::cout << "quand meme pas ici ???" << std::endl;
+        usleep(50000);
+    }
+    vec_it = vec.begin();
+    if (nb > *mid)
+    {
+        std::cout << "je suis dans le if" << std::endl;
+        if (mid < top)
         {
-            if (mid < top)
-            {
-                while (vec_it < mid)
-                    vec_it++;
-            }
-            else
-            {
-                while (vec_it < top)
-                    vec_it++;
-            }
-			if (nb > *top)
-			{
-				while (vec_it < top)
-					vec_it++;
-			}
-            // std::cout << "je passe par nb > *mid" << std::endl;
-            if (*vec_it > nb)
-                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
-            else
-                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
+            while (vec_it < mid)
+                vec_it++;
         }
         else
         {
-            // std::cout << *(bot + pair_ratio - 1) << " nb " << nb << std::endl;
-            if ((bot == vec.begin() && nb < *(bot + pair_ratio - 1)) || (bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
-            {
-                // std::cout << "condition 1 bot " << *bot << " vec_it " << *vec_it;
-				while (vec_it < bot)
-					vec_it++;
-            }
-			else if (nb > *bot && nb < *mid)
-			{
-                // std::cout << "condition 2 "; 
-				while (vec_it < mid)
-					vec_it++;
-			}
-			// std::cout << " je passe par nb < *mid voici vec_it " << *vec_it << std::endl;
-            if (*vec_it > nb || (bot == vec.begin() && nb < *(bot + pair_ratio - 1)))
-                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
-            else
-                insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
+            while (vec_it < top)
+                vec_it++;
         }
-        // std::cout << "!!! FIN INSERTION" << std::endl;
-        pair_size -= pair_ratio;
-        if (pair_size > 0)
+        if (nb > *top)
         {
-            buf_it += pair_ratio;
-            nb = *(buf_it + pair_ratio - 1);
+            while (vec_it < top)
+                vec_it++;
         }
+        // std::cout << "je passe par nb > *mid" << std::endl;
+        if (*vec_it > nb)
+            insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
+        else
+            insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
     }
-    // std::cout << std::endl << "SORTIE DE TRI DICOTO " << std::endl;
-    // print_container(vec);
+    else
+    {
+        std::cout << "je suis dans le else" << std::endl;
+        if ((bot == vec.begin() && nb < *(bot + pair_ratio - 1)) || (bot + pair_ratio == mid && nb > *bot && pair_ratio > 1))
+        {
+            while (vec_it < bot)
+                vec_it++;
+        }
+        else if (nb > *bot && nb < *mid)
+        {
+            while (vec_it < mid)
+                vec_it++;
+        }
+        if (*vec_it > nb || (bot == vec.begin() && nb < *(bot + pair_ratio - 1)))
+            insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 0);
+        else
+            insert_list(pair_ratio, buf_it, vec_buf, vec, vec_it, 1);
+    }
+    std::cout << "ici" << std::endl;
+    pair_size -= pair_ratio;
+    if (pair_size > 0)
+    {
+        buf_it += pair_ratio;
+        nb = *(buf_it + pair_ratio - 1);
+    }
 }
 
 //3 5 24 10 14 17 18 19 7 2 20 13 9 1 22 21 4 25 23 8 15 6 16 11 12
 
 std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::vector<double>::iterator top, int pair_ratio, std::vector<double>::iterator bot)
 {
-    // (void)vec;
     std::vector<double>::iterator mid;
     std::vector<double>::iterator tmp = vec.begin();
     if (top == bot)
@@ -334,12 +313,8 @@ std::vector<double>::iterator Algo::find_middle(std::vector<double> vec, std::ve
     // std::cout << "bot juste avant is_pair_ratio" << std::endl;
     // std::cout << "debut find_middle " << *bot << " ";
     if (is_pair_ratio(*bot, pair_ratio, vec) == 0)
-    {
         while (is_pair_ratio(*bot, pair_ratio, vec) == 0)
-        {
             bot++;
-        }
-    }
     // std::cout << "bot " << *bot << " ";
     while (bot < tmp)
         bot += pair_ratio;

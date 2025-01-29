@@ -17,10 +17,10 @@ class Algo
 
     bool check_element_vector(char **argv, int argc, std::vector<double> vec);
     void start_algo(size_t pair, std::vector<double> &vec);
-    void tri_dicoto(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, std::vector<double>::iterator vec_it, std::vector<double>::iterator buf_it);
+    void tri_dicoto(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, int nb_tri);
     std::vector<double>::iterator find_middle(std::vector<double> vec, std::vector<double>::iterator top, int pair_ratio, std::vector<double>::iterator bot);
     bool is_pair_ratio(size_t nb_it, int pair_ratio, std::vector<double> vec);
-	void Jacobstal(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf, std::vector<double>::iterator vec_it, std::vector<double>::iterator buf_it);
+	void Jacobstal(size_t pair_ratio, std::vector<double> &vec, std::vector<double> vec_buf);
     void insert_list(size_t pair_ratio, std::vector<double>::iterator buf_it, std::vector<double> vec_buf, std::vector<double> &vec, std::vector<double>::iterator vec_it, int plus);
     void unsort_list_creation(size_t pair_ratio, std::vector<double> &vec);
     // void swap(double even);
